@@ -2,10 +2,19 @@ import React from 'react';
 import './index.css';
 import { Link } from "react-router-dom";
 import Blackening from '../../components/Blackening.js';
+import MusicPlayer from '../../components/MusicPlayer.js';
 import logo from '../../assets/logo.png'
 import turnButton from '../../assets/turn_button.png'
 
 class MapPage extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      musicTabIsShown: false,
+      musicIsPlaying: true,
+    };
+  }
+
 	render() {
 		return (
       <div className="mapScreen">
@@ -17,7 +26,7 @@ class MapPage extends React.Component {
               <Link to="/" className="header__returnToMainPageLink">Главное меню</Link>
             </div>
             <img src={logo} className="header__logo" />
-            <MusicPlayer />
+            <MusicPlayer musicIsPlaying={this.state.musicIsPlaying} />
           </div>
           <div className="turnCounter">
             <DateCount />
@@ -39,10 +48,6 @@ class MapPage extends React.Component {
       </div>
 		);
 	}
-}
-
-function MusicPlayer() {
-	return null;
 }
 
 function DateCount() {
