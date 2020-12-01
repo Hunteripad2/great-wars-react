@@ -12,9 +12,9 @@ class ScenariosPage extends React.Component {
 			<main>
         <h1 className="chooseScenario">Выберите сценарий</h1>
         <ul className="scenarios">
-          <ScenarioTile scenario="scenarioFirst" image={scenarioFirstImage} progress="scenarioFirstProgress" title="Первая Мировая Война" date="1910 - 1921" />
-          <ScenarioTile scenario="scenarioSecond" image={scenarioSecondImage} progress="scenarioSecondProgress" title="Межвоенный Период" date="1922 - 1933" />
-          <ScenarioTile scenario="scenarioThird" image={scenarioThirdImage} progress="scenarioThirdProgress" title="Вторая Мировая Война" date="1934 - 1945" />
+          <ScenarioTile scenarioName="scenarioFirst" image={scenarioFirstImage} progress="scenarioFirstProgress" title="Первая Мировая Война" date="1910 - 1921" />
+          <ScenarioTile scenarioName="scenarioSecond" image={scenarioSecondImage} progress="scenarioSecondProgress" title="Межвоенный Период" date="1922 - 1933" />
+          <ScenarioTile scenarioName="scenarioThird" image={scenarioThirdImage} progress="scenarioThirdProgress" title="Вторая Мировая Война" date="1934 - 1945" />
         </ul>
         <div className="returnToMainPage">
           <Link to="/" className="returnToMainPage__link">Главное меню</Link>

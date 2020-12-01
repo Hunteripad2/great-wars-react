@@ -10,7 +10,7 @@ const scenariosData = {
         {
           name: "Музыка 4",
           src: "example1",
-          status: "allowed",
+          allowed: true,
         },
       ],
       events: [
@@ -21,13 +21,13 @@ const scenariosData = {
   scenarioSecond: [
     {
       storyLine: ["Historical"],
-      date: "Январь 1924г.",
+      date: "Январь 1922г.",
       map: "map",
       startingMusic: [
         {
           name: "Музыка 2",
           src: "example1",
-          status: "allowed",
+          allowed: true,
         },
       ],
       events: [
@@ -44,12 +44,12 @@ const scenariosData = {
         {
           name: "Музыка 1",
           src: "example1",
-          status: "allowed",
+          allowed: true,
         },
         {
           name: "Музыка 2",
           src: "example2",
-          status: "forbidden",
+          allowed: false,
         },
       ],
       events: [

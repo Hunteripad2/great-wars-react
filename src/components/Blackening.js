@@ -1,9 +1,15 @@
 import React from 'react';
+import './Blackening.css';
 
 class Blackening extends React.Component {
   render() {
+    let blackeningStyle;
+    if (this.props.musicTabIsShown || this.props.settingsTabIsShown) {
+      blackeningStyle = {opacity: '0.8', transform: 'translate(0%)'};
+    } else blackeningStyle = {opacity: '0', transform: 'translate(100%)'};
+
     return (
-      <div className="blackening" /*@click="closeTabs" :style="blackeningStatus"*/ />
+      <div className="blackening" onClick={this.props.closeTabs} style={blackeningStyle} />
     );
   }
 }

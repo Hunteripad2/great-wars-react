@@ -6,7 +6,7 @@ class ScenarioTile extends React.Component {
   render() {
     return (
       <li className="scenarios__item">
-        <Link to="/map" className="scenarios__link">
+        <Link to={"/map?" + this.props.scenarioName} className="scenarios__link">
           <img src={this.props.image} className="scenarios__image" />
           <div className="scenarios__blackout">
             <h3 className="scenarios__progress">{this.props.progress}</h3>

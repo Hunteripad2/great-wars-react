@@ -6,16 +6,54 @@ import nextButton from '../assets/music_player/header_buttons/next.png'
 import listButton from '../assets/music_player/header_buttons/list.png'
 
 class MusicPlayer extends React.Component {
+  constructor(props) {
+    super(props);
+    this.playCurrentMusic = this.playCurrentMusic.bind(this);
+    this.playNextMusic = this.playNextMusic.bind(this);
+    this.state = {
+      musicIsPlaying: true,
+    };
+  }
+
+  playCurrentMusic() {
+    this.setState({musicIsPlaying: !this.state.musicIsPlaying});
+    //      if (this.currentMusicPlayStatus) {
+    //        document.querySelector("audio").pause();
+    //      } else document.querySelector("audio").play();
+  }
+
+  playNextMusic() {
+    this.setState({musicIsPlaying: true});
+    //      const currentMusicList = this.currentMusicList;
+    //      const playingMusic = this.playingMusic;
+    //
+    //      for (let music of currentMusicList) {
+    //        if (music.status === "allowed" && music !== playingMusic) {
+    //          let randomIndex = Math.floor(Math.random() * currentMusicList.length);
+    //          while (currentMusicList[randomIndex].status !== "allowed" && currentMusicList[randomIndex] !== playingMusic) {
+    //            randomIndex = Math.floor(Math.random() * currentMusicList.length);
+    //          }
+    //          this.setActiveMusic({ newPlayingMusic: currentMusicList[randomIndex] });
+    //          break;
+    //        }
+    //      }
+  }
+
   render() {
+    let buttonImage;
+    if (this.state.musicIsPlaying) {
+      buttonImage = <img className="musicButtons__playImage" src={pauseButton} title="Поставить на паузу" />;
+    } else buttonImage = <img className="musicButtons__playImage" src={playButton} title="Снять с паузы" />;
+
     return (
       <div className="musicButtons">
-        <button className="musicButtons__play" /*@click="playCurrentMusic"*/>
-          <img className="musicButtons__playImage" src={playButton} title="playButtonTooltip" />
+        <button className="musicButtons__play" onClick={this.playCurrentMusic}>
+          {buttonImage}
         </button>
-        <button className="musicButtons__next" /*@click="playNextMusic"*/>
+        <button className="musicButtons__next" onClick={this.playNextMusic}>
           <img className="musicButtons__nextImage" src={nextButton} title="Следующая композиция" />
         </button>
-        <button className="musicButtons__list" /*@click="showMusicMenu"*/>
+        <button className="musicButtons__list" onClick={this.props.showMusicMenu}>
           <img className="musicButtons__listImage" src={listButton} title="Список композиций" />
         </button>
         <audio /*@ended="playNextMusic"*/>
@@ -47,39 +85,10 @@ export default MusicPlayer;
 //    currentMusicPlayStatus() {
 //      return this.$store.getters.currentMusicPlayStatus
 //    },
-//    playButtonSrc() {
-//      if (this.currentMusicPlayStatus) {
-//        return "pause-music-button";
-//      } else return "play-music-button";
-//    },
-//    playButtonTooltip() {
-//      if (this.currentMusicPlayStatus) {
-//        return "Поставить на паузу";
-//      } else return "Снять с паузы";
-//    },
 //  },
 //  methods: {
-//    playCurrentMusic() {
-//      if (this.currentMusicPlayStatus) {
-//        document.querySelector("audio").pause();
-//      } else document.querySelector("audio").play();
-//      this.changeMusicPlayStatus();
-//    },
-//    playNextMusic() {
-//      const currentMusicList = this.currentMusicList;
-//      const playingMusic = this.playingMusic;
-//
-//      for (let music of currentMusicList) {
-//        if (music.status === "allowed" && music !== playingMusic) {
-//          let randomIndex = Math.floor(Math.random() * currentMusicList.length);
-//          while (currentMusicList[randomIndex].status !== "allowed" && currentMusicList[randomIndex] !== playingMusic) {
-//            randomIndex = Math.floor(Math.random() * currentMusicList.length);
-//          }
-//          this.setActiveMusic({ newPlayingMusic: currentMusicList[randomIndex] });
-//          break;
-//        }
-//      }
-//    },
+//    
+//    
 //    ...mapActions({
 //      showMusicMenu: SHOW_MUSIC_MENU,
 //      changeMusicPlayStatus: CHANGE_MUSIC_PLAY_STATUS,
