@@ -18,17 +18,17 @@ class MainPage extends React.Component {
 
 	componentDidMount() {
 		if (!localStorage.getItem(`scenarioFirstCurrentPeriodIndex`)) {
-		  localStorage.setItem(`scenarioFirstCurrentPeriodIndex`, "0");
+		  localStorage.setItem(`scenarioFirstCurrentPeriodIndex`, 0);
 		  localStorage.setItem(`scenarioFirstCurrentStoryline`, "Historical");
 		  localStorage.setItem(`scenarioFirstCurrentMusicList`, JSON.stringify(scenariosData.scenarioFirst[0].startingMusic));
 		}
 		if (!localStorage.getItem(`scenarioSecondCurrentPeriodIndex`)) {
-		  localStorage.setItem(`scenarioSecondCurrentPeriodIndex`, "0");
+		  localStorage.setItem(`scenarioSecondCurrentPeriodIndex`, 0);
 		  localStorage.setItem(`scenarioSecondCurrentStoryline`, "Historical");
 		  localStorage.setItem(`scenarioSecondCurrentMusicList`, JSON.stringify(scenariosData.scenarioSecond[0].startingMusic));
 		}
 		if (!localStorage.getItem(`scenarioThirdCurrentPeriodIndex`)) {
-		  localStorage.setItem(`scenarioThirdCurrentPeriodIndex`, "0");
+		  localStorage.setItem(`scenarioThirdCurrentPeriodIndex`, 0);
 		  localStorage.setItem(`scenarioThirdCurrentStoryline`, "Historical");
 		  localStorage.setItem(`scenarioThirdCurrentMusicList`, JSON.stringify(scenariosData.scenarioThird[0].startingMusic));
 		}

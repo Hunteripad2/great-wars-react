@@ -107,7 +107,7 @@ const scenariosData = {
     },
     {
       storyLine: ["Historical"],
-      date: "Февраль 1934г.",
+      date: "Март 1934г.",
       map: "map-1934-01-historical",
       events: [
         {

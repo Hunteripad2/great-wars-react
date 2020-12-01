@@ -12,7 +12,7 @@ class SettingsMenu extends React.Component {
 
   resetProgressFirst() {
 		if (window.confirm("Все связанные с первым сценарием данные будут удалены")) {
-      localStorage.setItem(`scenarioFirstCurrentPeriodIndex`, "0");
+      localStorage.setItem(`scenarioFirstCurrentPeriodIndex`, 0);
       localStorage.setItem(`scenarioFirstCurrentStoryline`, "Historical");
       localStorage.setItem(`scenarioFirstCurrentMusicList`, JSON.stringify(scenariosData.scenarioFirst[0].startingMusic));
       alert("Прогресс первого сценария сброшен");
@@ -20,7 +20,7 @@ class SettingsMenu extends React.Component {
   }
   resetProgressSecond() {
     if (window.confirm("Все связанные со вторым сценарием данные будут удалены")) {
-      localStorage.setItem(`scenarioSecondCurrentPeriodIndex`, "0");
+      localStorage.setItem(`scenarioSecondCurrentPeriodIndex`, 0);
       localStorage.setItem(`scenarioSecondCurrentStoryline`, "Historical");
       localStorage.setItem(`scenarioSecondCurrentMusicList`, JSON.stringify(scenariosData.scenarioSecond[0].startingMusic));
       alert("Прогресс второго сценария сброшен");
@@ -28,7 +28,7 @@ class SettingsMenu extends React.Component {
   }
   resetProgressThird() {
     if (window.confirm("Все связанные с третьим сценарием данные будут удалены")) {
-      localStorage.setItem(`scenarioThirdCurrentPeriodIndex`, "0");
+      localStorage.setItem(`scenarioThirdCurrentPeriodIndex`, 0);
       localStorage.setItem(`scenarioThirdCurrentStoryline`, "Historical");
       localStorage.setItem(`scenarioThirdCurrentMusicList`, JSON.stringify(scenariosData.scenarioThird[0].startingMusic));
       alert("Прогресс третьего сценария сброшен");

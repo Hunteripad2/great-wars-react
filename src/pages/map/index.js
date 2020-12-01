@@ -11,12 +11,15 @@ import turnButton from '../../assets/turn_button.png'
 class MapPage extends React.Component {
   constructor(props) {
     super(props);
+    this.endTurn = this.endTurn.bind(this);
     this.showMusicMenu = this.showMusicMenu.bind(this);
     this.closeTabs = this.closeTabs.bind(this);
     this.state = {
       musicTabIsShown: false,
       currentScenarioName: document.URL.slice(document.URL.indexOf("?") + 1),
+      currentScenario: [],
       currentPeriodIndex: "",
+      currentPeriod: {},
       currentMusicList: [],
       currentStoryline: "",
       initialMusic: {},
@@ -25,13 +28,80 @@ class MapPage extends React.Component {
 
   componentDidMount() {
 		this.setState((state, props) => ({
+      currentScenario: scenariosData[state.currentScenarioName],
       currentPeriodIndex: localStorage.getItem(`${state.currentScenarioName}CurrentPeriodIndex`),
       currentMusicList: JSON.parse(localStorage.getItem(`${state.currentScenarioName}CurrentMusicList`)),
       currentStoryline: localStorage.getItem(`${state.currentScenarioName}CurrentStoryline`),
     }));
     this.setState((state, props) => ({
+      currentPeriod: state.currentScenario[state.currentPeriodIndex],
       initialMusic: state.currentMusicList[0],
     }));
+    this.setDraggableMap(document.querySelector(".map"));
+  }
+
+  setDraggableMap(map) {
+    let pos1 = 0,
+        pos2 = 0,
+        pos3 = 0,
+        pos4 = 0;
+
+    document.querySelector("main").onmousedown = grabMap;
+
+    function grabMap(evnt) {
+      map.style.cursor = "grabbing";
+
+      evnt = evnt || window.event;
+      evnt.preventDefault();
+
+      pos3 = evnt.clientX;
+      pos4 = evnt.clientY;
+
+      document.onmouseup = stopDraggingMap;
+      document.onmousemove = dragMap;
+    }
+
+    function dragMap(evnt) {
+      evnt = evnt || window.event;
+      evnt.preventDefault();
+
+      pos1 = pos3 - evnt.clientX;
+      pos2 = pos4 - evnt.clientY;
+      pos3 = evnt.clientX;
+      pos4 = evnt.clientY;
+
+      if (map.offsetTop - pos2 > -500 && map.offsetTop - pos2 < 500) {
+        map.style.top = (map.offsetTop - pos2) + "px";
+      }
+      if (map.offsetLeft - pos1 > -500 && map.offsetLeft - pos1 < 500) {
+        map.style.left = (map.offsetLeft - pos1) + "px";
+      }
+    }
+      
+    function stopDraggingMap() {
+        map.style.cursor = "grab";
+
+        document.onmouseup = null;
+        document.onmousemove = null;
+    }
+  }
+
+  endTurn() {
+    const currentScenarioName = this.state.currentScenarioName;
+    const currentScenario = this.state.currentScenario;
+    const currentPeriodIndex = this.state.currentPeriodIndex
+    const currentStoryline = this.state.currentStoryline
+
+    for (let i = +currentPeriodIndex + 1; i < currentScenario.length; i += 1) {
+      if (currentScenario[i].storyLine.some(storyline => storyline === currentStoryline)) {
+        localStorage.setItem(`${currentScenarioName}CurrentPeriodIndex`, i);
+        this.setState({
+          currentPeriodIndex: i,
+          currentPeriod: currentScenario[i],
+        });
+        break;
+      }
+    } // else endscreen
   }
 
   showMusicMenu() {
@@ -55,8 +125,8 @@ class MapPage extends React.Component {
             <MusicPlayer showMusicMenu={this.showMusicMenu} />
           </div>
           <div className="turnCounter">
-            <DateCount />
-            <button className="turnCounter__button" /*@click="endTurn"*/>
+            <span className="turnCounter__date">{this.state.currentPeriod.date}</span>
+            <button className="turnCounter__button" onClick={this.endTurn}>
               <img className="turnCounter__image" src={turnButton} />
             </button>
           </div>
@@ -64,7 +134,7 @@ class MapPage extends React.Component {
         <main>
           <div className="mapBackground"></div>
           <div className="map">
-            <MapImage />
+            <img className="map__map" src={'./maps/' + this.state.currentPeriod.map + ".png"} />
             <EventIcons />
           </div>
         </main>
@@ -74,14 +144,6 @@ class MapPage extends React.Component {
       </div>
 		);
 	}
-}
-
-function DateCount() {
-	return null;
-}
-
-function MapImage() {
-	return null;
 }
 
 function EventIcons() {
