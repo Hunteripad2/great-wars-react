@@ -4,7 +4,7 @@ import './Blackening.css';
 class Blackening extends React.Component {
   render() {
     let blackeningStyle;
-    if (this.props.musicTabIsShown || this.props.settingsTabIsShown) {
+    if (this.props.musicTabIsShown || this.props.settingsTabIsShown || this.props.eventIsShown) {
       blackeningStyle = {opacity: '0.8', transform: 'translate(0%)'};
     } else blackeningStyle = {opacity: '0', transform: 'translate(100%)'};
 

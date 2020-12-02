@@ -4,6 +4,8 @@ import { Link } from "react-router-dom";
 import Blackening from '../../components/Blackening.js';
 import MusicPlayer from '../../components/MusicPlayer.js';
 import MusicList from '../../components/MusicList.js';
+import EventIcons from '../../components/EventIcons.js';
+import EventWindow from '../../components/EventWindow.js';
 import scenariosData from '../../utils/scenariosData.js';
 import logo from '../../assets/logo.png'
 import turnButton from '../../assets/turn_button.png'
@@ -14,15 +16,20 @@ class MapPage extends React.Component {
     this.endTurn = this.endTurn.bind(this);
     this.showMusicMenu = this.showMusicMenu.bind(this);
     this.closeTabs = this.closeTabs.bind(this);
+    this.showEvent = this.showEvent.bind(this);
     this.state = {
       musicTabIsShown: false,
+      eventIsShown: false,
       currentScenarioName: document.URL.slice(document.URL.indexOf("?") + 1),
       currentScenario: [],
       currentPeriodIndex: "",
       currentPeriod: {},
       currentMusicList: [],
-      currentStoryline: "",
       initialMusic: {},
+      currentStoryline: "",
+      currentEvents: [],
+      currentEventsBlinking: false,
+      currentEventData: {},
     };
   }
 
@@ -37,7 +44,17 @@ class MapPage extends React.Component {
       currentPeriod: state.currentScenario[state.currentPeriodIndex],
       initialMusic: state.currentMusicList[0],
     }));
+    this.setState((state, props) => ({
+      currentEvents: state.currentPeriod.events,
+    }));
     this.setDraggableMap(document.querySelector(".map"));
+    this.timerID = setInterval(() => {
+      this.setState({currentEventsBlinking: !this.state.currentEventsBlinking});
+    }, 1000);
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.timerID);
   }
 
   setDraggableMap(map) {
@@ -98,6 +115,7 @@ class MapPage extends React.Component {
         this.setState({
           currentPeriodIndex: i,
           currentPeriod: currentScenario[i],
+          currentEvents: currentScenario[i].events,
         });
         break;
       }
@@ -109,6 +127,17 @@ class MapPage extends React.Component {
   }
   closeTabs() {
     this.setState({musicTabIsShown: false});
+    this.setState({eventIsShown: false});
+  }
+
+  showEvent(e) {
+    const eventId = e.target.parentNode.id || e.target.id;
+    this.setState({
+      eventIsShown: true,
+      currentEventData: this.state.currentEvents[eventId],
+    });
+    //      event.currentTarget.setAttribute("checked", "");
+    //      event.currentTarget.style.opacity = "0.2";
   }
 
 	render() {
@@ -135,24 +164,15 @@ class MapPage extends React.Component {
           <div className="mapBackground"></div>
           <div className="map">
             <img className="map__map" src={'./maps/' + this.state.currentPeriod.map + ".png"} />
-            <EventIcons />
+            <EventIcons currentEvents={this.state.currentEvents} currentEventsBlinking={this.state.currentEventsBlinking} showEvent={this.showEvent} />
           </div>
         </main>
-        <Blackening musicTabIsShown={this.state.musicTabIsShown} closeTabs={this.closeTabs} />
+        <Blackening musicTabIsShown={this.state.musicTabIsShown} eventIsShown={this.state.eventIsShown} closeTabs={this.closeTabs} />
         <MusicList musicTabIsShown={this.state.musicTabIsShown} currentMusicList={this.state.currentMusicList} />
-        <EventWindow />
+        <EventWindow eventIsShown={this.state.eventIsShown} currentEventData={this.state.currentEventData} />
       </div>
 		);
 	}
 }
-
-function EventIcons() {
-	return null;
-}
-
-function EventWindow() {
-	return null;
-}
-
 
 export default MapPage;

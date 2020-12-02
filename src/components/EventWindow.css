@@ -1,0 +1,52 @@
+.event {
+    background-color: #2e2e2e;
+    position: fixed;
+    left: 35%;
+    top: 15%;
+    width: 30%;
+    height: 70%;
+    transform: scale(0, 0);
+    transition: transform 0.3s;
+    z-index: 5;
+}
+.event__window {
+    height: 100%;
+}
+.event__name {
+    font-size: 25px;
+    line-height: 40px;
+    margin: 0;
+    text-align: center;
+    background-color: #484848;
+}
+.event__image {
+    position: relative;
+    width: 50%;
+    border: 5px solid #484848;
+}
+.event__desc {
+    text-align: center;
+}
+.event__buttonFirst {
+    bottom: 0;
+    border-top: 1px solid #2e2e2e;
+}
+.event__buttonSecond {
+    bottom: 5%;
+    border-top-left-radius: 25px;
+    border-top-right-radius: 25px;
+    border-bottom: 1px solid #2e2e2e;
+}
+.event__buttonFirst,
+.event__buttonSecond {
+    position: absolute;
+    font-size: 20px;
+    background-color: #484848;
+    left: 20%;
+    width: 60%;
+    height: 5%;
+}
+.event__buttonFirst:hover,
+.event__buttonSecond:hover {
+    opacity: 0.5;
+}
