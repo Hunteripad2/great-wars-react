@@ -7,9 +7,9 @@ class MusicList extends React.Component {
   
   render() {
     const currentMusicList = this.props.currentMusicList.map((track, index) => 
-      <li key={track.name} className="musicMenu__item" /*onClick="chooseThisMusic(index)"*/>
+      <li key={track.name} className="musicMenu__item" onClick={this.props.chooseTrackById}  id={index}>
         <span className="musicMenu__itemName" style={track.allowed ? {opacity: '1'} : {opacity: '0.2'}}>{track.name}</span>
-        <img src={track.allowed ? trackAllowed : trackForbidden} className="musicMenu__itemForbid" /*onClick="forbidMusic(index)"*/ title={track.allowed ? "Запретить воспроизведение" : "Разрешить воспроизведение"} />
+        <img src={track.allowed ? trackAllowed : trackForbidden} className="musicMenu__itemForbid" onClick={this.props.forbidMusicById} title={track.allowed ? "Запретить воспроизведение" : "Разрешить воспроизведение"} />
       </li>
     );
 

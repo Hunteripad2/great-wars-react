@@ -8,56 +8,38 @@ import listButton from '../assets/music_player/header_buttons/list.png'
 class MusicPlayer extends React.Component {
   constructor(props) {
     super(props);
-    this.playCurrentMusic = this.playCurrentMusic.bind(this);
-    this.playNextMusic = this.playNextMusic.bind(this);
-    this.state = {
-      musicIsPlaying: true,
-    };
+    this.pauseMusic = this.pauseMusic.bind(this);
+    this.playMusic = this.playMusic.bind(this);
   }
 
-  playCurrentMusic() {
-    this.setState({musicIsPlaying: !this.state.musicIsPlaying});
-    //      if (this.currentMusicPlayStatus) {
-    //        document.querySelector("audio").pause();
-    //      } else document.querySelector("audio").play();
+  pauseMusic() {
+    this.props.changeMusicStatus();
+    document.querySelector("audio").pause();
   }
-
-  playNextMusic() {
-    this.setState({musicIsPlaying: true});
-    //      const currentMusicList = this.currentMusicList;
-    //      const playingMusic = this.playingMusic;
-    //
-    //      for (let music of currentMusicList) {
-    //        if (music.status === "allowed" && music !== playingMusic) {
-    //          let randomIndex = Math.floor(Math.random() * currentMusicList.length);
-    //          while (currentMusicList[randomIndex].status !== "allowed" && currentMusicList[randomIndex] !== playingMusic) {
-    //            randomIndex = Math.floor(Math.random() * currentMusicList.length);
-    //          }
-    //          this.setActiveMusic({ newPlayingMusic: currentMusicList[randomIndex] });
-    //          break;
-    //        }
-    //      }
+  playMusic() {
+    this.props.changeMusicStatus();
+    document.querySelector("audio").play();
   }
 
   render() {
-    let buttonImage;
-    if (this.state.musicIsPlaying) {
-      buttonImage = <img className="musicButtons__playImage" src={pauseButton} title="Поставить на паузу" />;
-    } else buttonImage = <img className="musicButtons__playImage" src={playButton} title="Снять с паузы" />;
+    let playButtonImage;
+    if (this.props.musicIsPlaying) {
+      playButtonImage = <img className="musicButtons__playImage" src={pauseButton} title="Поставить на паузу" />;
+    } else playButtonImage = <img className="musicButtons__playImage" src={playButton} title="Снять с паузы" />;
 
     return (
       <div className="musicButtons">
-        <button className="musicButtons__play" onClick={this.playCurrentMusic}>
-          {buttonImage}
+        <button className="musicButtons__play" onClick={this.props.musicIsPlaying ? this.pauseMusic : this.playMusic}>
+          {playButtonImage}
         </button>
-        <button className="musicButtons__next" onClick={this.playNextMusic}>
+        <button className="musicButtons__next" onClick={this.props.playNextMusic}>
           <img className="musicButtons__nextImage" src={nextButton} title="Следующая композиция" />
         </button>
         <button className="musicButtons__list" onClick={this.props.showMusicMenu}>
           <img className="musicButtons__listImage" src={listButton} title="Список композиций" />
         </button>
-        <audio /*@ended="playNextMusic"*/>
-          <source /*src={playingMusic.src}*/ type="audio/ogg" />
+        <audio onEnded={this.props.playNextMusic}>
+          <source src={'./tracks/' + this.props.currentTrack.src + ".ogg"} type="audio/ogg" />
         </audio>
       </div>
     );

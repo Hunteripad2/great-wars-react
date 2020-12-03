@@ -17,15 +17,20 @@ class MapPage extends React.Component {
     this.showMusicMenu = this.showMusicMenu.bind(this);
     this.closeTabs = this.closeTabs.bind(this);
     this.showEvent = this.showEvent.bind(this);
+    this.chooseTrackById = this.chooseTrackById.bind(this);
+    this.changeMusicStatus = this.changeMusicStatus.bind(this);
+    this.playNextMusic = this.playNextMusic.bind(this);
+    this.forbidMusicById = this.forbidMusicById.bind(this);
     this.state = {
       musicTabIsShown: false,
       eventIsShown: false,
+      musicIsPlaying: false,
       currentScenarioName: document.URL.slice(document.URL.indexOf("?") + 1),
       currentScenario: [],
       currentPeriodIndex: "",
       currentPeriod: {},
       currentMusicList: [],
-      initialMusic: {},
+      currentTrack: {},
       currentStoryline: "",
       currentEvents: [],
       currentEventsBlinking: false,
@@ -42,7 +47,7 @@ class MapPage extends React.Component {
     }));
     this.setState((state, props) => ({
       currentPeriod: state.currentScenario[state.currentPeriodIndex],
-      initialMusic: state.currentMusicList[0],
+      currentTrack: state.currentMusicList[0],
     }));
     this.setState((state, props) => ({
       currentEvents: state.currentPeriod.events,
@@ -122,6 +127,50 @@ class MapPage extends React.Component {
     } // else endscreen
   }
 
+  changeMusicStatus() {
+    this.setState({musicIsPlaying: !this.state.musicIsPlaying});
+  }
+
+  playNextMusic() {
+    const currentMusicList = this.state.currentMusicList;
+    const currentTrack = this.state.currentTrack;
+    let randomIndex;
+          
+    for (let track of currentMusicList) {
+      if (track.allowed && track !== currentTrack) {
+        do randomIndex = Math.floor(Math.random() * currentMusicList.length)
+        while (!currentMusicList[randomIndex].allowed && currentMusicList[randomIndex] !== currentTrack);
+        this.setState({currentTrack: currentMusicList[randomIndex]});
+        break;
+      }
+    }
+
+    this.setState({musicIsPlaying: true});
+    document.querySelector("audio").currentTime = 0;
+    document.querySelector("audio").play();
+  }
+
+  chooseTrackById(e) {
+    const trackId = e.target.parentNode.id || e.target.id;
+    if (!this.state.currentMusicList[trackId].allowed || e.target.tagName === "IMG") {
+      return null;
+    }
+    this.setState({
+      currentTrack: this.state.currentMusicList[trackId],
+      musicIsPlaying: true,
+    });
+    document.querySelector("audio").currentTime = 0;
+    document.querySelector("audio").play();
+  }
+
+  forbidMusicById(e) {
+    const trackId = e.target.parentNode.id;
+    const currentMusicList = this.state.currentMusicList;
+    currentMusicList[trackId].allowed = !currentMusicList[trackId].allowed;
+    this.setState({currentMusicList: currentMusicList});
+    localStorage.setItem(`${this.state.currentScenarioName}CurrentMusicList`, JSON.stringify(currentMusicList));
+  }
+
   showMusicMenu() {
     this.setState({musicTabIsShown: true});
   }
@@ -151,7 +200,7 @@ class MapPage extends React.Component {
               <Link to="/" className="header__returnToMainPageLink">Главное меню</Link>
             </div>
             <img src={logo} className="header__logo" />
-            <MusicPlayer showMusicMenu={this.showMusicMenu} />
+            <MusicPlayer showMusicMenu={this.showMusicMenu} changeMusicStatus={this.changeMusicStatus} playNextMusic={this.playNextMusic} musicIsPlaying={this.state.musicIsPlaying} currentTrack={this.state.currentTrack} />
           </div>
           <div className="turnCounter">
             <span className="turnCounter__date">{this.state.currentPeriod.date}</span>
@@ -168,7 +217,7 @@ class MapPage extends React.Component {
           </div>
         </main>
         <Blackening musicTabIsShown={this.state.musicTabIsShown} eventIsShown={this.state.eventIsShown} closeTabs={this.closeTabs} />
-        <MusicList musicTabIsShown={this.state.musicTabIsShown} currentMusicList={this.state.currentMusicList} />
+        <MusicList musicTabIsShown={this.state.musicTabIsShown} currentMusicList={this.state.currentMusicList} chooseTrackById={this.chooseTrackById} forbidMusicById={this.forbidMusicById} />
         <EventWindow eventIsShown={this.state.eventIsShown} currentEventData={this.state.currentEventData} />
       </div>
 		);
