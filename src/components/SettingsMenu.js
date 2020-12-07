@@ -1,57 +1,46 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { observer } from "mobx-react-lite"
+import State from '../storage';
 import './SettingsMenu.css';
-import scenariosData from '../utils/scenariosData.js';
+import createNewSaves from '../utils/createNewSaves.js';
 
-class SettingsMenu extends React.Component {
-  constructor(props) {
-    super(props);
-    this.resetProgressFirst = this.resetProgressFirst.bind(this);
-    this.resetProgressSecond = this.resetProgressSecond.bind(this);
-    this.resetProgressThird = this.resetProgressThird.bind(this);
-  }
+const SettingsMenu = observer(() => {
+	const [state] = useState(() => new State());
 
-  resetProgressFirst() {
+	function resetProgressFirst() {
 		if (window.confirm("Все связанные с первым сценарием данные будут удалены")) {
-      localStorage.setItem(`scenarioFirstCurrentPeriodIndex`, 0);
-      localStorage.setItem(`scenarioFirstCurrentStoryline`, "Historical");
-      localStorage.setItem(`scenarioFirstCurrentMusicList`, JSON.stringify(scenariosData.scenarioFirst[0].startingMusic));
-      alert("Прогресс первого сценария сброшен");
-    }
-  }
-  resetProgressSecond() {
-    if (window.confirm("Все связанные со вторым сценарием данные будут удалены")) {
-      localStorage.setItem(`scenarioSecondCurrentPeriodIndex`, 0);
-      localStorage.setItem(`scenarioSecondCurrentStoryline`, "Historical");
-      localStorage.setItem(`scenarioSecondCurrentMusicList`, JSON.stringify(scenariosData.scenarioSecond[0].startingMusic));
-      alert("Прогресс второго сценария сброшен");
-    }
-  }
-  resetProgressThird() {
-    if (window.confirm("Все связанные с третьим сценарием данные будут удалены")) {
-      localStorage.setItem(`scenarioThirdCurrentPeriodIndex`, 0);
-      localStorage.setItem(`scenarioThirdCurrentStoryline`, "Historical");
-      localStorage.setItem(`scenarioThirdCurrentMusicList`, JSON.stringify(scenariosData.scenarioThird[0].startingMusic));
-      alert("Прогресс третьего сценария сброшен");
-    }
-  }
+			createNewSaves("scenarioFirst");
+			alert("Прогресс первого сценария был сброшен");
+		}
+	}
+	function resetProgressSecond() {
+		if (window.confirm("Все связанные со вторым сценарием данные будут удалены")) {
+			createNewSaves("scenarioSecond");
+			alert("Прогресс второго сценария был сброшен");
+		}
+	}
+	function resetProgressThird() {
+		if (window.confirm("Все связанные с третьим сценарием данные будут удалены")) {
+			createNewSaves("scenarioThird");
+			alert("Прогресс третьего сценария был сброшен");
+		}
+	}
 
-  render() {
-		return (
-      <div className="settingsMenu" style={this.props.settingsTabIsShown ? {transform: 'scale(1, 1)'} : {transform: 'scale(0, 0)'}}>
-        <ul className="settingsMenu__progressList">
-          <li className="settingsMenu__progressItem">
-            <button className="settingsMenu__progressButton" onClick={this.resetProgressFirst}>Сбросить прогресс первого сценария</button>
-          </li>
-          <li className="settingsMenu__progressItem">
-            <button className="settingsMenu__progressButton" onClick={this.resetProgressSecond}>Сбросить прогресс второго сценария</button>
-          </li>
-          <li className="settingsMenu__progressItem">
-            <button className="settingsMenu__progressButton" onClick={this.resetProgressThird}>Сбросить прогресс третьего сценария</button>
-          </li>
-        </ul>
-      </div>
-    );
-  }
-}
+	return (
+		<div className="settingsMenu" style={state.settingsMenuStyle}>
+			<ul className="settingsMenu__progressList">
+				<li className="settingsMenu__progressItem">
+					<button className="settingsMenu__progressButton" onClick={resetProgressFirst}>Сбросить прогресс первого сценария</button>
+				</li>
+				<li className="settingsMenu__progressItem">
+					<button className="settingsMenu__progressButton" onClick={resetProgressSecond}>Сбросить прогресс второго сценария</button>
+				</li>
+				<li className="settingsMenu__progressItem">
+					<button className="settingsMenu__progressButton" onClick={resetProgressThird}>Сбросить прогресс третьего сценария</button>
+				</li>
+			</ul>
+		</div>
+	);
+});
 
 export default SettingsMenu;

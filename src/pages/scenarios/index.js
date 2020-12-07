@@ -9,7 +9,7 @@ import scenariosData from '../../utils/scenariosData.js';
 
 class ScenariosPage extends React.Component {
 	render() {
-    const scenarioFirstProgress = Math.round(100 / scenariosData.scenarioFirst.length * localStorage.getItem(`scenarioFirstCurrentPeriodIndex`) * 10) / 10 + "%";
+    const scenarioFirstProgress = Math.round(100 / scenariosData.scenarioFirst.length * localStorage.getItem(`scenarioFirstCurrentPeriodIndex`) * 10) / 10 + "%"; // TODO: Refactoring
     const scenarioSecondProgress = Math.round(100 / scenariosData.scenarioSecond.length * localStorage.getItem(`scenarioSecondCurrentPeriodIndex`) * 10) / 10 + "%";
     const scenarioThirdProgress = Math.round(100 / scenariosData.scenarioThird.length * localStorage.getItem(`scenarioThirdCurrentPeriodIndex`) * 10) / 10 + "%";
 

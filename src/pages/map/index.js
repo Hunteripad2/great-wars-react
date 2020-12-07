@@ -10,7 +10,9 @@ import scenariosData from '../../utils/scenariosData.js';
 import logo from '../../assets/logo.png'
 import turnButton from '../../assets/turn_button.png'
 
-class MapPage extends React.Component {
+// TODO: i18n
+
+class MapPage extends React.Component { // TODO: Refactoring
   constructor(props) {
     super(props);
     this.endTurn = this.endTurn.bind(this);
