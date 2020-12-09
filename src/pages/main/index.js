@@ -3,9 +3,9 @@ import { observer } from "mobx-react-lite"
 import './index.css';
 import { Link } from "react-router-dom";
 import State from '../../storage';
-import Blackening from '../../components/Blackening.js';
-import SettingsMenu from '../../components/SettingsMenu.js';
-import createNewSaves from '../../utils/createNewSaves.js';
+import Blackening from '../../components/Blackening';
+import SettingsMenu from '../../components/SettingsMenu';
+import createNewSaves from '../../utils/createNewSaves';
 import logo from '../../assets/logo.png'
 
 const MainPage = observer(() => {

@@ -1,12 +1,12 @@
 import React from 'react';
 import './index.css';
 import { Link } from "react-router-dom";
-import Blackening from '../../components/Blackening.js';
+import Blackening from '../../components/Blackening';
 import MusicPlayer from '../../components/MusicPlayer.js';
 import MusicList from '../../components/MusicList.js';
 import EventIcons from '../../components/EventIcons.js';
 import EventWindow from '../../components/EventWindow.js';
-import scenariosData from '../../utils/scenariosData.js';
+import scenariosData from '../../utils/scenariosData';
 import logo from '../../assets/logo.png'
 import turnButton from '../../assets/turn_button.png'
 

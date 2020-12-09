@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { observer } from "mobx-react-lite"
-import State from '../storage';
-import './SettingsMenu.css';
-import createNewSaves from '../utils/createNewSaves.js';
+import State from '../../storage';
+import './styles.css';
+import createNewSaves from '../../utils/createNewSaves';
 
 const SettingsMenu = observer(() => {
 	const [state] = useState(() => new State());

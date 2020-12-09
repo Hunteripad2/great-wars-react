@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { observer } from "mobx-react-lite"
-import State from '../storage';
-import './Blackening.css';
+import State from '../../storage';
+import './styles.css';
 
 const Blackening = observer(() => {
 	const [state] = useState(() => new State());

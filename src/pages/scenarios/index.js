@@ -5,7 +5,7 @@ import scenarioFirstImage from '../../assets/scenarios/scenario_first.jpg'
 import scenarioSecondImage from '../../assets/scenarios/scenario_second.jpg'
 import scenarioThirdImage from '../../assets/scenarios/scenario_third.jpg'
 import ScenarioTile from '../../components/ScenarioTile.js';
-import scenariosData from '../../utils/scenariosData.js';
+import scenariosData from '../../utils/scenariosData';
 
 class ScenariosPage extends React.Component {
 	render() {
