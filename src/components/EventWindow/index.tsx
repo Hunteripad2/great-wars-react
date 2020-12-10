@@ -1,22 +1,22 @@
-import React from 'react';
-import './EventWindow.css';
+import React, { useState } from 'react';
+import { observer } from "mobx-react-lite"
+import './styles.css';
+import State from '../../storage';
 
-class EventWindow extends React.Component {  
+const EventWindow = observer(() => {
+	const [state] = useState(() => new State());
+	const currentEventData = state.currentEventData;
 
-  render() {
-    const currentEventData = this.props.currentEventData;
-
-    return (
-      <div className="event" style={this.props.eventIsShown ? {transform: 'scale(1, 1)'} : {transform: 'scale(0, 0)'}}>
-        <h1 className="event__name">{currentEventData.name}</h1>
-        <img className="event__image" src={'./event_images/' + currentEventData.image + '.jpg'} />
-        <p className="event__desc">{currentEventData.desc}</p>
-        <button className="event__buttonFirst" /*onClick="chooseEventOption"*/ style={currentEventData.option2 ? {} : {borderTopLeftRadius: "15px", borderTopRightRadius: "15px"}}>{currentEventData.option1}</button>
-        {currentEventData.option2 ? <button className="event__buttonSecond" /*onClick="chooseEventOption"*/>{currentEventData.option2}</button> : null}
-      </div>
-    );
-  }
-}
+	return (
+		<div className="event" style={state.eventWindowStyle}>
+			<h1 className="event__name">{currentEventData.name}</h1>
+			<img className="event__image" src={'./event_images/' + currentEventData.image + '.jpg'} />
+			<p className="event__desc">{currentEventData.desc}</p>
+			<button className="event__buttonFirst" /*onClick="chooseEventOption"*/ style={state.eventFirstOptionStyle}>{currentEventData.option1}</button>
+			{currentEventData.option2 ? <button className="event__buttonSecond" /*onClick="chooseEventOption"*/>{currentEventData.option2}</button> : null}
+		</div>
+	);
+});
 
 export default EventWindow;
 

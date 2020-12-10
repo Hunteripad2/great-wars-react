@@ -4,7 +4,7 @@ interface ScenariosData {
 	[scenarioName: string]: Array<Period>;
 }
 
-interface Period {
+export interface Period {
 	storyLine: Array<string>;
 	date: string;
 	map: string;
@@ -12,22 +12,22 @@ interface Period {
 	events: Array<Event>;
 }
 
-interface Track {
-	name: string;
-	src: string;
-	allowed: boolean;
+export interface Track {
+	name?: string;
+	src?: string;
+	allowed?: boolean;
 }
 
-interface Event {
-	name: string;
-	desc: string;
-	image: string;
-	option1: string;
+export interface Event {
+	name?: string;
+	desc?: string;
+	image?: string;
+	option1?: string;
 	option2?: string;
-	type: string;
-	icon: string;
-	positionX: string;
-	positionY: string;
+	type?: string;
+	icon?: string;
+	positionX?: string;
+	positionY?: string;
 	musicUnlockName?: string;
 	musicUnlockSrc?: string;
 }

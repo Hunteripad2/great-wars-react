@@ -1,8 +1,8 @@
 import React from 'react';
 import './App.css';
-import MainPage from './pages/main/index.js';
+import MainPage from './pages/main';
 import ScenariosPage from './pages/scenarios';
-import MapPage from './pages/map/index.js';
+import MapPage from './pages/map';
 import { Switch, Route } from "react-router-dom";
 
 // TODO: Typescript

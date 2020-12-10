@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { observer } from "mobx-react-lite"
-import './index.css';
 import { Link } from "react-router-dom";
+import './styles.css';
 import State from '../../storage';
 import Blackening from '../../components/Blackening';
 import SettingsMenu from '../../components/SettingsMenu';
@@ -10,9 +10,9 @@ import logo from '../../assets/logo.png'
 
 const MainPage = observer(() => {
 	const [state] = useState(() => new State());
-	const userHasSavesFirst = localStorage.getItem(`scenarioFirstCurrentPeriodIndex`) ? true : false;
-	const userHasSavesSecond = localStorage.getItem(`scenarioSecondCurrentPeriodIndex`) ? true : false;
-	const userHasSavesThird = localStorage.getItem(`scenarioThirdCurrentPeriodIndex`) ? true : false;
+	const userHasSavesFirst : boolean = localStorage.getItem(`scenarioFirstCurrentPeriodIndex`) ? true : false;
+	const userHasSavesSecond : boolean = localStorage.getItem(`scenarioSecondCurrentPeriodIndex`) ? true : false;
+	const userHasSavesThird : boolean = localStorage.getItem(`scenarioThirdCurrentPeriodIndex`) ? true : false;
 
 	useEffect(() => {
 		if (!userHasSavesFirst) {
