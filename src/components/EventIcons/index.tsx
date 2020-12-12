@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { observer } from "mobx-react-lite"
-import './styles.css';
+import styles from './styles.module.scss';
 import State from '../../storage';
 
 const EventIcons = observer(() => {
@@ -15,13 +15,13 @@ const EventIcons = observer(() => {
 	}
 
 	const eventIcons = state.currentEvents.map((event, index) => 
-		<button key={event.name} className="map__eventButton" style={{left: `${event.positionX}`, top: `${event.positionY}`}} onClick={showEvent(index)}>
-			<img src={'./event_icons/' + event.icon + ".png"} className="map__eventIconImage" style={state.eventIconsStyle} />
+		<button key={event.name} className={styles.button} style={{left: `${event.positionX}`, top: `${event.positionY}`}} onClick={showEvent(index)}>
+			<img src={'./event_icons/' + event.icon + ".png"} className={styles.image} style={state.eventIconsStyle} />
 		</button>
 	);
 
 	return (
-		<div className="map__eventIcons">
+		<div className={styles.eventIcons}>
 			{eventIcons}
 		</div>
 	);

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { observer } from "mobx-react-lite"
 import { Link } from "react-router-dom";
-import './styles.css';
+import styles from './styles.module.scss';
 import State from '../../storage';
 import Blackening from '../../components/Blackening';
 import SettingsMenu from '../../components/SettingsMenu';
@@ -27,18 +27,18 @@ const MainPage = observer(() => {
 	});
 
 	return (
-		<div className="mainMenu">
+		<div className={styles.mainPage}>
 			<main>
-				<img src={logo} className="logo" />
-				<ul className="menu">
-					<li className="menu__item">
-						<Link to="/scenarios" className="menu__option">Начать</Link>
+				<img src={logo} className={styles.logo} alt="Лого" />
+				<ul className={styles.menu}>
+					<li className={styles.option}>
+						<Link to="/scenarios" className={styles.text}>Начать</Link>
 					</li>
-					<li className="menu__item">
-						<button className="menu__option" /*@click="showResourceMenu"*/>Ресурсы</button>
+					<li className={styles.option}>
+						<button className={styles.text} onClick={state.showResourceMenu}>Ресурсы</button>
 					</li>
-					<li className="menu__item">
-						<button className="menu__option" onClick={() => state.showSettingsMenu()}>Настройки</button>
+					<li className={styles.option}>
+						<button className={styles.text} onClick={state.showSettingsMenu}>Настройки</button>
 					</li>
 				</ul>
 			</main>

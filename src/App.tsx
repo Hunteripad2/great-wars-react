@@ -1,16 +1,13 @@
 import React from 'react';
-import './App.css';
 import MainPage from './pages/main';
 import ScenariosPage from './pages/scenarios';
 import MapPage from './pages/map';
 import { Switch, Route } from "react-router-dom";
 
-// TODO: Typescript
-// TODO: scss and css-modules
 // TODO: Unit tests - jest?
 // TODO: Firebase?
 
-function App() { // TODO: Function components and hooks
+function App() {
   return (
     <div id="app">
       <Switch>

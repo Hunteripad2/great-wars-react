@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { observer } from "mobx-react-lite"
-import './styles.css';
+import styles from './styles.module.scss';
 import State from '../../storage';
 import playButton from '../../assets/music_player/header_buttons/play.png'
 import pauseButton from '../../assets/music_player/header_buttons/pause.png'
@@ -32,19 +32,19 @@ const MusicPlayer = observer(() => {
 
 	let playButtonImage;
 	if (state.musicIsPlaying) {
-		playButtonImage = <img className="musicButtons__playImage" src={pauseButton} title="Поставить на паузу" />;
-	} else playButtonImage = <img className="musicButtons__playImage" src={playButton} title="Снять с паузы" />;
+		playButtonImage = <img className={styles.image} src={pauseButton} title="Поставить на паузу" />;
+	} else playButtonImage = <img className={styles.image} src={playButton} title="Снять с паузы" />;
 
 	return (
-		<div className="musicButtons">
-			<button className="musicButtons__play" onClick={state.musicIsPlaying ? pauseMusic : playMusic}>
+		<div className={styles.musicPlayer}>
+			<button className={styles.button} onClick={state.musicIsPlaying ? pauseMusic : playMusic}>
 				{playButtonImage}
 			</button>
-			<button className="musicButtons__next" onClick={playNextTrack}>
-				<img className="musicButtons__nextImage" src={nextButton} title="Следующая композиция" />
+			<button className={styles.button} onClick={playNextTrack}>
+				<img className={styles.image} src={nextButton} title="Следующая композиция" />
 			</button>
-			<button className="musicButtons__list" onClick={state.showMusicList}>
-				<img className="musicButtons__listImage" src={listButton} title="Список композиций" />
+			<button className={styles.button} onClick={state.showMusicList}>
+				<img className={styles.image} src={listButton} title="Список композиций" />
 			</button>
 			<audio onEnded={playNextTrack}>
 				<source src={'./tracks/' + (state.currentTrack.src) + ".ogg"} type="audio/ogg" />

@@ -10,7 +10,7 @@ body {
   overflow: hidden;
 }
 
-code {
+code { /* TODO: узнать что это */
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }

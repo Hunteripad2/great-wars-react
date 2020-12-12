@@ -1,16 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import { observer } from "mobx-react-lite"
 import { Link } from "react-router-dom";
-import './styles.css';
+import styles from './styles.module.scss';
 import State from '../../storage';
 import Blackening from '../../components/Blackening';
 import MusicPlayer from '../../components/MusicPlayer';
+import TurnCounter from '../../components/TurnCounter';
 import MusicList from '../../components/MusicList';
 import EventIcons from '../../components/EventIcons';
 import EventWindow from '../../components/EventWindow';
-import setDraggableMap from '../../utils/setDraggableMap';
+import grabMap from '../../utils/grabMap';
 import logo from '../../assets/logo.png'
-import turnButton from '../../assets/turn_button.png'
 
 // TODO: i18n
 
@@ -18,7 +18,6 @@ const MapPage = observer(() => {
 	const [state] = useState(() => new State());
 	
 	useEffect(() => {
-		setDraggableMap(document.querySelector(".map"));
 		const timerID = setInterval(() => {
 			state.blinkEventIcons();
 		}, 1000);
@@ -28,28 +27,23 @@ const MapPage = observer(() => {
 	});
 
 	return (
-		<div className="mapScreen">
-			<header className="header">
-				<div className="header__top">
-					<div className="header__backgroundLeftImage"></div>
-					<div className="header__backgroundRightImage"></div>
-					<div className="header__returnToMainPage">
-						<Link to="/" className="header__returnToMainPageLink">Главное меню</Link>
+		<div className={styles.mapPage}>
+			<header>
+				<div className={styles.topBar}>
+					<div className={styles.bgLeft}></div>
+					<div className={styles.bgRight}></div>
+					<div className={styles.mainPageLink}>
+						<Link to="/" className={styles.text}>Главное меню</Link>
 					</div>
-					<img src={logo} className="header__logo" />
+					<img src={logo} className={styles.logo} alt="Лого" />
 					<MusicPlayer />
 				</div>
-				<div className="turnCounter">
-					<span className="turnCounter__date">{state.currentPeriod.date}</span>
-					<button className="turnCounter__button" onClick={state.endTurn}>
-						<img className="turnCounter__image" src={turnButton} />
-					</button>
-				</div>
+				<TurnCounter />
 			</header>
 			<main>
-				<div className="mapBackground"></div>
-				<div className="map">
-					<img className="map__map" src={'./maps/' + state.currentPeriod.map + ".png"} />
+				<div className={styles.mapBackground}></div>
+				<div className={styles.map} onMouseDown={grabMap}>
+					<img className={styles.image} src={'./maps/' + state.currentPeriod.map + ".png"} alt="Карта" />
 					<EventIcons />
 				</div>
 			</main>

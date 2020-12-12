@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { observer } from "mobx-react-lite"
 import State from '../../storage';
-import './styles.css';
+import styles from './styles.module.scss';
 import createNewSaves from '../../utils/createNewSaves';
 
 const SettingsMenu = observer(() => {
@@ -27,16 +27,16 @@ const SettingsMenu = observer(() => {
 	}
 
 	return (
-		<div className="settingsMenu" style={state.settingsMenuStyle}>
-			<ul className="settingsMenu__progressList">
-				<li className="settingsMenu__progressItem">
-					<button className="settingsMenu__progressButton" onClick={resetProgressFirst}>Сбросить прогресс первого сценария</button>
+		<div className={styles.settingsMenu} style={state.settingsMenuStyle}>
+			<ul className={styles.progressList}>
+				<li className={styles.option}>
+					<button className={styles.button} onClick={resetProgressFirst}>Сбросить прогресс первого сценария</button>
 				</li>
-				<li className="settingsMenu__progressItem">
-					<button className="settingsMenu__progressButton" onClick={resetProgressSecond}>Сбросить прогресс второго сценария</button>
+				<li className={styles.option}>
+					<button className={styles.button} onClick={resetProgressSecond}>Сбросить прогресс второго сценария</button>
 				</li>
-				<li className="settingsMenu__progressItem">
-					<button className="settingsMenu__progressButton" onClick={resetProgressThird}>Сбросить прогресс третьего сценария</button>
+				<li className={styles.option}>
+					<button className={styles.button} onClick={resetProgressThird}>Сбросить прогресс третьего сценария</button>
 				</li>
 			</ul>
 		</div>

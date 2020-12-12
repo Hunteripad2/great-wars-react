@@ -1,0 +1,35 @@
+.turnCounter {
+	background-color: #484848;
+	position: absolute;
+	left: 42%;
+	width: 16%;
+	line-height: 35px;
+	font-size: 20px;
+	text-align: center;
+	border-radius: 0px 0px 90px 90px;
+	cursor: default;
+	z-index: 2;
+	@media (max-width: 1600px) {
+		line-height: 28px; font-size: 16px;
+	}
+	@media (max-width: 1280px) {
+		line-height: 21px; font-size: 12px;
+	}
+	@media (max-width: 960px) {
+		line-height: 14px; font-size: 8px;
+	}
+	@media (max-width: 640px) {
+		line-height: 7px; font-size: 4px;
+	}
+
+	.button {
+		margin-left: 5%;
+		padding: 0;
+		width: 12%;
+		vertical-align: middle;
+
+		.image {
+			width: 100%;
+		}
+	}
+}

@@ -1,14 +1,15 @@
-import { makeAutoObservable} from "mobx";
+import { makeAutoObservable, computed} from "mobx";
 import scenariosData, { Track, Event } from '../utils/scenariosData';
 
 class State {
 	constructor() {
-        makeAutoObservable(this)
+        makeAutoObservable(this, {musicListStyle: computed({ keepAlive: true })})
 	}
 
 	scenariosData = scenariosData;
 
 	settingsMenuIsShown = false;
+	resourceMenuIsShown = false;
 	musicListIsShown = false;
 	eventWindowIsShown = false;
 
@@ -25,6 +26,7 @@ class State {
 		return this.settingsMenuIsShown ? {transform: 'scale(1, 1)'} : {transform: 'scale(0, 0)'};
 	}
 	get musicListStyle() {
+		console.log("Music list reloaded");
 		return this.musicListIsShown ? {transform: 'translate(0%)'} : {transform: 'translate(100%)'};
 	}
 	get eventWindowStyle() {
@@ -53,29 +55,34 @@ class State {
 		return this.currentPeriod.events;
 	}
 
-	showSettingsMenu() {
+	showSettingsMenu = () => {
 		this.settingsMenuIsShown = true;
 	}
-	showMusicList() {
-		this.musicListIsShown = true;
+	showResourceMenu = () => {
+		this.resourceMenuIsShown = true;
 	}
-	showEventWindow() {
+	showMusicList = () => {
+		console.log("Before click: " + this.musicListIsShown);
+		this.musicListIsShown = true;
+		console.log("After click: " + this.musicListIsShown);
+	}
+	showEventWindow = () => {
 		this.eventWindowIsShown = true;
 	}
-	closeTabs() {
+	closeTabs = () => {
 		this.settingsMenuIsShown = false;
 		this.musicListIsShown = false;
 		this.eventWindowIsShown = false;
 	}
 
-	blinkEventIcons() {
+	blinkEventIcons = () => {
 		this.eventsAreBlinking = !this.eventsAreBlinking;
 	}
 
-	changeMusicStatus() {
+	changeMusicStatus = () => {
 		this.musicIsPlaying = !this.musicIsPlaying;
 	}
-	setNextTrack() {
+	setNextTrack = () => {
 		let randomIndex;
 
 		for (let track of this.currentMusicList) {
@@ -89,26 +96,26 @@ class State {
 
 		this.musicIsPlaying = true;
 	}
-	setChoosenTrack(trackId: number) {
+	setChoosenTrack = (trackId: number) => {
 		this.currentTrack = this.currentMusicList[trackId];
 		this.musicIsPlaying = true;
 	}
-	updateMusicList(newMusicList : Array<Track>) {
+	updateMusicList = (newMusicList : Array<Track>) => {
 		this.currentMusicList = newMusicList;
 	}
 
-	setEventData(eventId : number) {
+	setEventData = (eventId : number) => {
 		this.currentEventData = this.currentEvents[eventId];
 	}
 
-	loadSaves() {
+	loadSaves = () => {
 		this.currentPeriodIndex = Number(localStorage.getItem(`${this.currentScenarioName}CurrentPeriodIndex`));
 		this.currentMusicList = JSON.parse(String(localStorage.getItem(`${this.currentScenarioName}CurrentMusicList`)));
 		this.currentTrack = this.currentMusicList[0];
 		this.currentStoryline = String(localStorage.getItem(`${this.currentScenarioName}CurrentStoryline`));
 	}
 
-	endTurn() { // TODO: endscreen
+	endTurn = () => { // TODO: endscreen
 		for (let i = this.currentPeriodIndex + 1; i < this.currentScenario.length; i += 1) {
 			if (this.currentScenario[i].storyLine.some(storyline => storyline === this.currentStoryline)) {
 				localStorage.setItem(`${this.currentScenarioName}CurrentPeriodIndex`, i.toString());

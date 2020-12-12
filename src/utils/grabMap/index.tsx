@@ -1,25 +1,26 @@
 "use strict";
 
-function setDraggableMap(map: HTMLElement | null) {
+interface EventOnMouseDown extends React.MouseEvent<HTMLDivElement> {
+	currentTarget: HTMLDivElement;
+}
+
+function grabMap(e : EventOnMouseDown) {
+	const map = e.currentTarget;
 	let pos1 : number = 0,
 		pos2 : number = 0,
 		pos3 : number = 0,
 		pos4 : number = 0;
 
-	if (map) map.onmousedown = grabMap;
+	if (map) map.style.cursor = "grabbing";
 
-	function grabMap(e : MouseEvent) {
-		if (map) map.style.cursor = "grabbing";
+	e = e || window.event;
+	e.preventDefault();
 
-		e = e || window.event;
-		e.preventDefault();
+	pos3 = e.clientX;
+	pos4 = e.clientY;
 
-		pos3 = e.clientX;
-		pos4 = e.clientY;
-
-		document.onmouseup = stopDraggingMap;
-		document.onmousemove = dragMap;
-	}
+	document.onmouseup = stopDraggingMap;
+	document.onmousemove = dragMap;
 
 	function dragMap(e : MouseEvent) {
 		e = e || window.event;
@@ -47,4 +48,4 @@ function setDraggableMap(map: HTMLElement | null) {
 	}
 }
 
-export default setDraggableMap;
+export default grabMap;
