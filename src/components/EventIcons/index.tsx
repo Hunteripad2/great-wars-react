@@ -16,7 +16,7 @@ const EventIcons = observer(() => {
 
 	const eventIcons = state.currentEvents.map((event, index) => 
 		<button key={event.name} className={styles.button} style={{left: `${event.positionX}`, top: `${event.positionY}`}} onClick={showEvent(index)}>
-			<img src={'./event_icons/' + event.icon + ".png"} className={styles.image} style={state.eventIconsStyle} />
+			<img src={'./event_icons/' + event.icon + ".png"} className={styles.image} style={state.eventIconsStyle} alt="Событие" />
 		</button>
 	);
 

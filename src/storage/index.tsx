@@ -39,6 +39,12 @@ class State {
 		return this.settingsMenuIsShown || this.musicListIsShown || this.eventWindowIsShown ? 
 		{opacity: '0.8', transform: 'translate(0%)'} : {opacity: '0', transform: 'translate(100%)'};
 	}
+	get playButtonImage() {
+		return this.musicIsPlaying ? './music_buttons/pause.png' : './music_buttons/play.png';
+	}
+	get playButtonTitle() {
+		return this.musicIsPlaying ? 'Поставить на паузу' : 'Снять с паузы';
+	}
 	get eventIconsStyle() {
 		return this.eventsAreBlinking ? {opacity: "0.4"} : {opacity: "1"};
 	}
