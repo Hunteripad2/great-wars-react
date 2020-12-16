@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useContext } from 'react';
 import { observer } from "mobx-react-lite"
 import { Link } from "react-router-dom";
 import styles from './styles.module.scss';
@@ -12,7 +12,7 @@ interface ScenarioTileProps {
 }
 
 const ScenarioTile = observer(({ scenarioName, image, title, date } : ScenarioTileProps) => {
-	const [state] = useState(() => new State());
+	const state = useContext(State);
 
 	const progress : string = Math.round(100 / state.scenariosData[scenarioName].length * Number(localStorage.getItem(`${scenarioName}CurrentPeriodIndex`)) * 10) / 10 + "%";
 

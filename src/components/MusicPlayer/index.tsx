@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useContext } from 'react';
 import { observer } from "mobx-react-lite"
 import styles from './styles.module.scss';
 import State from '../../storage';
@@ -8,7 +8,7 @@ import nextButton from '../../assets/music_player/header_buttons/next.png'
 import listButton from '../../assets/music_player/header_buttons/list.png'
 
 const MusicPlayer = observer(() => {
-	const [state] = useState(() => new State());
+	const state = useContext(State);
 
 	function pauseMusic() {
 		state.changeMusicStatus();

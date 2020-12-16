@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useContext, useEffect } from 'react';
 import { observer } from "mobx-react-lite"
 import { Link } from "react-router-dom";
 import styles from './styles.module.scss';
@@ -15,12 +15,13 @@ import logo from '../../assets/logo.png'
 // TODO: i18n
 
 const MapPage = observer(() => {
-	const [state] = useState(() => new State());
+	const state = useContext(State);
 	
 	useEffect(() => {
 		const timerID = setInterval(() => {
 			state.blinkEventIcons();
 		}, 1000);
+		state.loadSaves();
 		return () => {
 			clearInterval(timerID)
 		}

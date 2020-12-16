@@ -1,5 +1,3 @@
-"use strict";
-
 import scenariosData from '../scenariosData';
 
 function createNewSaves(scenarioName: string) : void {

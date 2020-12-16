@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useContext } from 'react';
 import { observer } from "mobx-react-lite"
 import { Link } from "react-router-dom";
 import styles from './styles.module.scss';
@@ -9,7 +9,7 @@ import scenarioThirdImage from '../../assets/scenarios/scenario_third.jpg'
 import ScenarioTile from '../../components/ScenarioTile';
 
 const ScenariosPage = observer(() => {
-	const [state] = useState(() => new State());
+	const state = useContext(State);
 
 	return (
 		<div className={styles.scenariosPage}>

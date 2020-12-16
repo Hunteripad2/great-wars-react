@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
+import { useContext } from 'react';
 import { observer } from "mobx-react-lite"
 import styles from './styles.module.scss';
 import State from '../../storage';
 
 const EventIcons = observer(() => {
-	const [state] = useState(() => new State());
+	const state = useContext(State);
 
 	const showEvent = (eventId : number) => (e : React.MouseEvent<HTMLButtonElement>) => {
 		state.setEventData(eventId);

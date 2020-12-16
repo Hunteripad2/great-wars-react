@@ -1,3 +1,4 @@
+import { createContext } from 'react';
 import { makeAutoObservable, computed} from "mobx";
 import scenariosData, { Track, Event } from '../utils/scenariosData';
 
@@ -26,7 +27,6 @@ class State {
 		return this.settingsMenuIsShown ? {transform: 'scale(1, 1)'} : {transform: 'scale(0, 0)'};
 	}
 	get musicListStyle() {
-		console.log("Music list reloaded");
 		return this.musicListIsShown ? {transform: 'translate(0%)'} : {transform: 'translate(100%)'};
 	}
 	get eventWindowStyle() {
@@ -36,7 +36,8 @@ class State {
 		return this.currentEventData.option2 ? {} : {borderTopLeftRadius: "15px", borderTopRightRadius: "15px"};
 	}
 	get blackeningStyle() {
-		return this.settingsMenuIsShown ? {opacity: '0.8', transform: 'translate(0%)'} : {opacity: '0', transform: 'translate(100%)'};
+		return this.settingsMenuIsShown || this.musicListIsShown || this.eventWindowIsShown ? 
+		{opacity: '0.8', transform: 'translate(0%)'} : {opacity: '0', transform: 'translate(100%)'};
 	}
 	get eventIconsStyle() {
 		return this.eventsAreBlinking ? {opacity: "0.4"} : {opacity: "1"};
@@ -62,9 +63,7 @@ class State {
 		this.resourceMenuIsShown = true;
 	}
 	showMusicList = () => {
-		console.log("Before click: " + this.musicListIsShown);
 		this.musicListIsShown = true;
-		console.log("After click: " + this.musicListIsShown);
 	}
 	showEventWindow = () => {
 		this.eventWindowIsShown = true;
@@ -126,4 +125,6 @@ class State {
 	}
 }
 
-export default State;
+const StateContext = createContext<State>(new State());
+
+export default StateContext;

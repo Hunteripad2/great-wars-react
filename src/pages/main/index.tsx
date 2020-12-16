@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useContext, useEffect } from 'react';
 import { observer } from "mobx-react-lite"
 import { Link } from "react-router-dom";
 import styles from './styles.module.scss';
@@ -9,10 +9,10 @@ import createNewSaves from '../../utils/createNewSaves';
 import logo from '../../assets/logo.png'
 
 const MainPage = observer(() => {
-	const [state] = useState(() => new State());
-	const userHasSavesFirst : boolean = localStorage.getItem(`scenarioFirstCurrentPeriodIndex`) ? true : false;
-	const userHasSavesSecond : boolean = localStorage.getItem(`scenarioSecondCurrentPeriodIndex`) ? true : false;
-	const userHasSavesThird : boolean = localStorage.getItem(`scenarioThirdCurrentPeriodIndex`) ? true : false;
+	const state = useContext(State);
+	const userHasSavesFirst = localStorage.getItem(`scenarioFirstCurrentPeriodIndex`) ? true : false;
+	const userHasSavesSecond = localStorage.getItem(`scenarioSecondCurrentPeriodIndex`) ? true : false;
+	const userHasSavesThird = localStorage.getItem(`scenarioThirdCurrentPeriodIndex`) ? true : false;
 
 	useEffect(() => {
 		if (!userHasSavesFirst) {

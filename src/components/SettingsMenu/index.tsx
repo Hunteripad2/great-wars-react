@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
+import { useContext } from 'react';
 import { observer } from "mobx-react-lite"
 import State from '../../storage';
 import styles from './styles.module.scss';
 import createNewSaves from '../../utils/createNewSaves';
 
 const SettingsMenu = observer(() => {
-	const [state] = useState(() => new State());
+	const state = useContext(State);
 
 	function resetProgressFirst() {
 		if (window.confirm("Все связанные с первым сценарием данные будут удалены")) {

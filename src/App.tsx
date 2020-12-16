@@ -1,4 +1,3 @@
-import React from 'react';
 import MainPage from './pages/main';
 import ScenariosPage from './pages/scenarios';
 import MapPage from './pages/map';

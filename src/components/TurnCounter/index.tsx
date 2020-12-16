@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
+import { useContext } from 'react';
 import { observer } from "mobx-react-lite"
 import styles from './styles.module.scss';
 import State from '../../storage';
 import turnButton from '../../assets/turn_button.png'
 
 const TurnCounter = observer(() => {
-	const [state] = useState(() => new State());
+	const state = useContext(State);
 
 	return (
 		<div className={styles.turnCounter}>

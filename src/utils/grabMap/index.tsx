@@ -1,5 +1,3 @@
-"use strict";
-
 interface EventOnMouseDown extends React.MouseEvent<HTMLDivElement> {
 	currentTarget: HTMLDivElement;
 }

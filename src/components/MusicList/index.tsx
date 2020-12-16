@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useContext } from 'react';
 import { observer } from "mobx-react-lite"
 import styles from './styles.module.scss';
 import State from '../../storage';
@@ -6,7 +6,7 @@ import trackAllowed from '../../assets/music_player/track_status/allowed.png';
 import trackForbidden from '../../assets/music_player/track_status/forbidden.png';
 
 const MusicList = observer(() => {
-	const [state] = useState(() => new State());
+	const state = useContext(State);
 
 	interface EventOnClick extends React.MouseEvent<HTMLLIElement> {
 		target: HTMLLIElement;
