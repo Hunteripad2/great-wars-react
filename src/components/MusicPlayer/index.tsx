@@ -12,17 +12,34 @@ const MusicPlayer = observer(() => {
 
 	function playCurrentTrack() {
 		const audioElement = document.querySelector("audio");
+
 		if (audioElement) {
-			if (state.musicIsPlaying) {
+			if (!audioElement.paused) {
 				audioElement.pause();
-			} else audioElement.play();
+				state.changeMusicStatus(false);
+			} else {
+				audioElement.play();
+				state.changeMusicStatus(true);
+			}
 		}
-		state.changeMusicStatus();
 	}
 
 	function playNextTrack() {
-		state.setNextTrack();
+		let randomIndex : number;
+		const currentMusicList = state.currentMusicList;
+		const currentTrack = state.currentTrack;
+
+		for (let track of currentMusicList ) {
+			if (track.allowed && track !== currentTrack) {
+				do randomIndex = Math.floor(Math.random() * currentMusicList.length)
+				while (!currentMusicList[randomIndex].allowed || currentMusicList[randomIndex] === currentTrack);
+				state.setNewTrack(randomIndex);
+				break;
+			}
+		}
+
 		playTrackFromBegining();
+		state.changeMusicStatus(true);
 	}
 
 	return (
@@ -40,7 +57,5 @@ const MusicPlayer = observer(() => {
 		</div>
 	);
 });
-
-//<source src={'./tracks/' + (state.currentTrack.src) + ".ogg"} type="audio/ogg" /> </audio>
 
 export default MusicPlayer;

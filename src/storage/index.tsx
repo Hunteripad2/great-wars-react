@@ -84,26 +84,11 @@ class State {
 		this.eventsAreBlinking = !this.eventsAreBlinking;
 	}
 
-	changeMusicStatus = () => {
-		this.musicIsPlaying = !this.musicIsPlaying;
+	changeMusicStatus = (newStatus: boolean) => {
+		this.musicIsPlaying = newStatus;
 	}
-	setNextTrack = () => {
-		let randomIndex;
-
-		for (let track of this.currentMusicList) {
-			if (track.allowed && track !== this.currentTrack) {
-				do randomIndex = Math.floor(Math.random() * this.currentMusicList.length)
-				while (!this.currentMusicList[randomIndex].allowed && this.currentMusicList[randomIndex] !== this.currentTrack);
-				this.currentTrack = this.currentMusicList[randomIndex];
-				break;
-			}
-		}
-
-		this.musicIsPlaying = true;
-	}
-	setChoosenTrack = (trackId: number) => {
+	setNewTrack = (trackId: number) => {
 		this.currentTrack = this.currentMusicList[trackId];
-		this.musicIsPlaying = true;
 	}
 	updateMusicList = (newMusicList : Array<Track>) => {
 		this.currentMusicList = newMusicList;

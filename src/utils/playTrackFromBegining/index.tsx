@@ -1,8 +1,10 @@
 function playTrackFromBegining() {
-	const trackElement = document.querySelector("audio");
-	if (trackElement) {
-		trackElement.currentTime = 0;
-		trackElement.play();
+	const audioElement = document.querySelector("audio");
+	if (audioElement) {
+		setTimeout(() => {
+			audioElement.currentTime = 0;
+			if (audioElement.paused) audioElement.play();
+		})
 	}
 }
 

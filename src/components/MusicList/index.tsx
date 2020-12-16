@@ -17,8 +17,9 @@ const MusicList = observer(() => {
 		if (!state.currentMusicList[trackId].allowed || e.target.tagName === "IMG") {
 			return null;
 		}
-		state.setChoosenTrack(trackId);
+		state.setNewTrack(trackId);
 		playTrackFromBegining();
+		state.changeMusicStatus(true);
 	}
 
 	const forbidMusic = (trackId : number) => (e : React.MouseEvent<HTMLImageElement>) => {
