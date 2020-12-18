@@ -32,7 +32,7 @@ const MusicList = observer(() => {
 	const musicList = state.currentMusicList.map((track, index) => 
 		<li key={track.name} className={styles.option} onClick={chooseTrack(index)}>
 			<span className={styles.name} style={track.allowed ? {opacity: '1'} : {opacity: '0.2'}}>{track.name}</span>
-			<img src={track.allowed ? trackAllowed : trackForbidden} className={styles.forbidImage} onClick={forbidMusic(index)} title={track.allowed ? "Запретить воспроизведение" : "Разрешить воспроизведение"} />
+			<img src={track.allowed ? trackAllowed : trackForbidden} className={styles.forbidImage} onClick={forbidMusic(index)} title={track.allowed ? "Запретить воспроизведение" : "Разрешить воспроизведение"} alt={track.allowed ? "Запретить воспроизведение" : "Разрешить воспроизведение"} />
 		</li>
 	);
 

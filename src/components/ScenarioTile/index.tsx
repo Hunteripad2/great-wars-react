@@ -19,7 +19,7 @@ const ScenarioTile = observer(({ scenarioName, image, title, date } : ScenarioTi
 	return (
 		<li className={styles.scenario}>
 			<Link to={"/map?" + scenarioName} className={styles.link} />
-			<img src={image} className={styles.image} />
+			<img src={image} className={styles.image} alt="" />
 			<div className={styles.blackoutBlock}>
 				<h3 className={styles.progress}>{progress}</h3>
 				<h2 className={styles.name}>{title}</h2>
