@@ -1,0 +1,35 @@
+.resourceMenu {
+	background-color: #2e2e2e;
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	height: 45%;
+	width: 100%;
+	transition: transform 0.3s;
+	transform: translateY(100%);
+	z-index: 5;
+	
+	.categories {
+		list-style-type: none;
+		display: flex;
+		justify-content: space-around;
+		margin-bottom: 0;
+		padding-left: 0;
+
+		.option {
+
+			.button {
+				font-size: 40px;
+			}
+		}
+	}
+
+	.chooseCategoryHeader {
+		text-align: center;
+		width: 100%;
+		font-size: 60px;
+		position: absolute;
+		bottom: 24%;
+		cursor: default;
+	}
+}

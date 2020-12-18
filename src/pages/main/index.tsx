@@ -5,6 +5,7 @@ import styles from './styles.module.scss';
 import State from '../../storage';
 import Blackening from '../../components/Blackening';
 import SettingsMenu from '../../components/SettingsMenu';
+import ResourceMenu from '../../components/ResourceMenu';
 import createNewSaves from '../../utils/createNewSaves';
 import logo from '../../assets/logo.png'
 
@@ -48,10 +49,5 @@ const MainPage = observer(() => {
 		</div>
 	);
 });
-
-function ResourceMenu() {
-	return null;
-}
-
 
 export default MainPage;

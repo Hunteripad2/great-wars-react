@@ -26,8 +26,9 @@ export interface Event {
 	icon?: string;
 	positionX?: string;
 	positionY?: string;
-	musicUnlockName?: string;
-	musicUnlockSrc?: string;
+	newMusicName?: string;
+	newMusicSrc?: string;
+	checked?: boolean;
 }
 
 const scenariosData: ScenariosData = {
@@ -113,8 +114,8 @@ const scenariosData: ScenariosData = {
 					icon: "red-circle",
 					positionX: "380px",
 					positionY: "450px",
-					musicUnlockName: "Музыка 2",
-					musicUnlockSrc: "example2.ogg",
+					newMusicName: "Музыка 3",
+					newMusicSrc: "example2",
 				},
 			]
 		},

@@ -23,10 +23,9 @@ const MusicList = observer(() => {
 	}
 
 	const forbidMusic = (trackId : number) => (e : React.MouseEvent<HTMLImageElement>) => {
-		const currentMusicList = state.currentMusicList;
-		currentMusicList[trackId].allowed = !currentMusicList[trackId].allowed;
-		state.updateMusicList(currentMusicList);
-		localStorage.setItem(`${state.currentScenarioName}CurrentMusicList`, JSON.stringify(currentMusicList));
+		const newMusicList = state.currentMusicList;
+		newMusicList[trackId].allowed = !newMusicList[trackId].allowed;
+		state.updateMusicList(newMusicList, state.currentScenarioName);
 	}
 
 	const musicList = state.currentMusicList.map((track, index) => 

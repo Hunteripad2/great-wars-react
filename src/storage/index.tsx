@@ -2,6 +2,8 @@ import { createContext } from 'react';
 import { makeAutoObservable, computed} from "mobx";
 import scenariosData, { Track, Event } from '../utils/scenariosData';
 
+const activeCategoryStyle = {backgroundColor: '#484848', borderTopLeftRadius: '25px', borderTopRightRadius: '25px'};
+
 class State {
 	constructor() {
         makeAutoObservable(this, {musicListStyle: computed({ keepAlive: true })})
@@ -13,6 +15,10 @@ class State {
 	resourceMenuIsShown = false;
 	musicListIsShown = false;
 	eventWindowIsShown = false;
+
+	booksCategoryIsShown = false;
+	articlesCategoryIsShown = false;
+	filmsCategoryIsShown = false;
 
 	musicIsPlaying = false;
 	eventsAreBlinking = false;
@@ -26,6 +32,26 @@ class State {
 	get settingsMenuStyle() {
 		return this.settingsMenuIsShown ? {transform: 'scale(1, 1)'} : {transform: 'scale(0, 0)'};
 	}
+	get resourceMenuStyle() {
+		return this.resourceMenuIsShown ? {transform: 'translateY(0%)'} : {transform: 'translateY(100%)'};
+	}
+	get headerStyle() {
+		return this.booksCategoryIsShown || this.articlesCategoryIsShown || this.filmsCategoryIsShown ? 
+		{opacity: "0"} : {opacity: "0.1"};
+	}
+	get resourcesStyle() {
+		return this.booksCategoryIsShown || this.articlesCategoryIsShown || this.filmsCategoryIsShown ? 
+		{opacity: "1"} : {opacity: "0"};
+	}
+	get booksCategoryStyle() {
+		return this.booksCategoryIsShown ? activeCategoryStyle : {};
+	}
+	get articlesCategoryStyle() {
+		return this.articlesCategoryIsShown ? activeCategoryStyle : {};
+	}
+	get filmsCategoryStyle() {
+		return this.filmsCategoryIsShown ? activeCategoryStyle : {};
+	}
 	get musicListStyle() {
 		return this.musicListIsShown ? {transform: 'translate(0%)'} : {transform: 'translate(100%)'};
 	}
@@ -36,7 +62,7 @@ class State {
 		return this.currentEventData.option2 ? {} : {borderTopLeftRadius: "15px", borderTopRightRadius: "15px"};
 	}
 	get blackeningStyle() {
-		return this.settingsMenuIsShown || this.musicListIsShown || this.eventWindowIsShown ? 
+		return this.settingsMenuIsShown || this.resourceMenuIsShown || this.musicListIsShown || this.eventWindowIsShown ? 
 		{opacity: '0.8', transform: 'translate(0%)'} : {opacity: '0', transform: 'translate(100%)'};
 	}
 	get playButtonImage() {
@@ -45,7 +71,7 @@ class State {
 	get playButtonTitle() {
 		return this.musicIsPlaying ? 'Поставить на паузу' : 'Снять с паузы';
 	}
-	get eventIconsStyle() {
+	get eventIconStyle() {
 		return this.eventsAreBlinking ? {opacity: "0.4"} : {opacity: "1"};
 	}
 
@@ -76,8 +102,25 @@ class State {
 	}
 	closeTabs = () => {
 		this.settingsMenuIsShown = false;
+		this.resourceMenuIsShown = false;
 		this.musicListIsShown = false;
 		this.eventWindowIsShown = false;
+	}
+
+	chooseBooksCategory = () => {
+		this.booksCategoryIsShown = true;
+		this.articlesCategoryIsShown = false;
+		this.filmsCategoryIsShown = false;
+	}
+	chooseArticlesCategory = () => {
+		this.booksCategoryIsShown = false;
+		this.articlesCategoryIsShown = true;
+		this.filmsCategoryIsShown = false;
+	}
+	chooseFilmsCategory = () => {
+		this.booksCategoryIsShown = false;
+		this.articlesCategoryIsShown = false;
+		this.filmsCategoryIsShown = true;
 	}
 
 	blinkEventIcons = () => {
@@ -90,11 +133,15 @@ class State {
 	setNewTrack = (trackId: number) => {
 		this.currentTrack = this.currentMusicList[trackId];
 	}
-	updateMusicList = (newMusicList : Array<Track>) => {
+	updateMusicList = (newMusicList: Array<Track>, scenarioName: string) => {
 		this.currentMusicList = newMusicList;
+		localStorage.setItem(`${scenarioName}CurrentMusicList`, JSON.stringify(newMusicList));
 	}
 
-	setEventData = (eventId : number) => {
+	checkEvent = (eventId: number) => {
+		this.currentEvents[eventId].checked = true;
+	}
+	setEventData = (eventId: number) => {
 		this.currentEventData = this.currentEvents[eventId];
 	}
 

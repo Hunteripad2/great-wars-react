@@ -25,6 +25,14 @@ const SettingsMenu = observer(() => {
 			alert("Прогресс третьего сценария был сброшен");
 		}
 	}
+	function resetProgressAll() {
+		if (window.confirm("Все данные будут удалены")) {
+			createNewSaves("scenarioFirst");
+			createNewSaves("scenarioSecond");
+			createNewSaves("scenarioThird");
+			alert("Прогресс всех сценариев был сброшен");
+		}
+	}
 
 	return (
 		<div className={styles.settingsMenu} style={state.settingsMenuStyle}>
@@ -37,6 +45,9 @@ const SettingsMenu = observer(() => {
 				</li>
 				<li className={styles.option}>
 					<button className={styles.button} onClick={resetProgressThird}>Сбросить прогресс третьего сценария</button>
+				</li>
+				<li className={styles.option}>
+					<button className={styles.button} onClick={resetProgressAll}>Сбросить прогресс всех сценариев</button>
 				</li>
 			</ul>
 		</div>
