@@ -1,7 +1,7 @@
+import { Switch, Route } from "react-router-dom";
 import MainPage from './pages/main';
 import ScenariosPage from './pages/scenarios';
 import MapPage from './pages/map';
-import { Switch, Route } from "react-router-dom";
 
 // TODO: Unit tests - jest?
 // TODO: Firebase?

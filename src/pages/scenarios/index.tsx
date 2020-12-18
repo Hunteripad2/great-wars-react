@@ -1,16 +1,11 @@
-import { useContext } from 'react';
-import { observer } from "mobx-react-lite"
 import { Link } from "react-router-dom";
 import styles from './styles.module.scss';
-import State from '../../storage';
 import scenarioFirstImage from '../../assets/scenarios/scenario_first.jpg'
 import scenarioSecondImage from '../../assets/scenarios/scenario_second.jpg'
 import scenarioThirdImage from '../../assets/scenarios/scenario_third.jpg'
 import ScenarioTile from '../../components/ScenarioTile';
 
-const ScenariosPage = observer(() => {
-	const state = useContext(State);
-
+function ScenariosPage() {
 	return (
 		<div className={styles.scenariosPage}>
 			<main>
@@ -26,7 +21,7 @@ const ScenariosPage = observer(() => {
 			</main>
 		</div>
 	);
-});
+}
 
 
 export default ScenariosPage;
