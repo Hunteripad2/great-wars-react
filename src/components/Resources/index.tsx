@@ -3,8 +3,6 @@ import { observer } from "mobx-react-lite"
 import State from '../../storage';
 import styles from './styles.module.scss';
 
-const currentResourceList = [{name: "Ресурс 1", desc: "", image: ""}, {name: "Ресурс 2", desc: "", image: ""}, {name: "Ресурс 3", desc: "", image: ""}]
-
 const Resources = observer(() => {
 	const state = useContext(State);
 
@@ -12,26 +10,35 @@ const Resources = observer(() => {
 		return null;
 	}
 
-	const resourceList = currentResourceList.map((resource, index) =>
-		<li key={resource.name} className={styles.option} onClick={() => showResource(index)}>
-			<span className={styles.name}>{resource.name}</span>
-		</li>
-	);
+	const resourceListFirstRow = state.currentResourceList.map((resource, index) => {
+		if (index % 2 === 0) {
+			return (
+				<td key={resource.name} className={styles.option}>
+					<button className={styles.button} onClick={() => showResource(index)}>{resource.name}</button>
+				</td>
+			);
+		} else return null;
+	});
 
-	//const resourceListSecondRow = currentResourceList.map((resource, index) => {
-	//	if (Number((index / 2).toFixed()) !== 0) {
-	//		return (
-	//			<td key={resource.name} className={styles.option} onClick={() => showResource(index)}>
-	//				<span className={styles.name}>{resource.name}</span>
-	//			</td>
-	//		);
-	//	} else return null;
-	//});
+	const resourceListSecondRow = state.currentResourceList.map((resource, index) => {
+		if (index % 2 !== 0) {
+			return (
+				<td key={resource.name} className={styles.option}>
+					<button className={styles.button} onClick={() => showResource(index)}>{resource.name}</button>
+				</td>
+			);
+		} else return null;
+	});
 
 	return (
-		<ul className={styles.resources} style={state.resourcesStyle}>
-			{resourceList}
-		</ul>
+		<table className={styles.resources} style={state.resourcesStyle}>
+			<tr className={styles.row}>
+				{resourceListFirstRow}
+			</tr>
+			<tr className={styles.row}>
+				{resourceListSecondRow}
+			</tr>
+		</table>
 	);
 });
 

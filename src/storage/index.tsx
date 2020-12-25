@@ -1,6 +1,7 @@
 import { createContext } from 'react';
 import { makeAutoObservable, computed} from "mobx";
 import scenariosData, { Track, Event } from '../utils/scenariosData';
+import resourcesData from '../utils/resourcesData';
 
 const activeCategoryStyle = {backgroundColor: '#484848', borderTopLeftRadius: '25px', borderTopRightRadius: '25px'};
 
@@ -10,6 +11,7 @@ class State {
 	}
 
 	scenariosData = scenariosData;
+	resourcesData = resourcesData;
 
 	settingsMenuIsShown = false;
 	resourceMenuIsShown = false;
@@ -37,7 +39,7 @@ class State {
 	}
 	get headerStyle() {
 		return this.booksCategoryIsShown || this.articlesCategoryIsShown || this.filmsCategoryIsShown ? 
-		{opacity: "0"} : {opacity: "0.1"};
+		{transform: 'scale(0, 0)'} : {transform: 'scale(1, 1)'};
 	}
 	get resourcesStyle() {
 		return this.booksCategoryIsShown || this.articlesCategoryIsShown || this.filmsCategoryIsShown ? 
@@ -86,6 +88,14 @@ class State {
 	}
 	get currentEvents() {
 		return this.currentPeriod.events;
+	}
+
+	get currentResourceCategory() {
+		return this.booksCategoryIsShown ? "books" : 
+		this.articlesCategoryIsShown ? "articles" : "films";
+	}
+	get currentResourceList() {
+		return this.resourcesData[this.currentResourceCategory];
 	}
 
 	showSettingsMenu = () => {
