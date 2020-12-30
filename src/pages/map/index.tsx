@@ -7,6 +7,7 @@ import Blackening from '../../components/Blackening';
 import MusicPlayer from '../../components/MusicPlayer';
 import TurnCounter from '../../components/TurnCounter';
 import MusicList from '../../components/MusicList';
+import CountryFlags from '../../components/CountryFlags';
 import EventIcons from '../../components/EventIcons';
 import EventWindow from '../../components/EventWindow';
 import grabMap from '../../utils/grabMap';
@@ -45,6 +46,7 @@ const MapPage = observer(() => {
 				<div className={styles.mapBackground}></div>
 				<div className={styles.map} onMouseDown={grabMap}>
 					<img className={styles.image} src={'./maps/' + state.currentPeriod.map + ".png"} alt="Карта" />
+					<CountryFlags />
 					<EventIcons />
 				</div>
 			</main>

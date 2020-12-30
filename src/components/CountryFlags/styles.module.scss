@@ -1,0 +1,14 @@
+.countryFlags {
+	height: 100%;
+	width: 100%;
+
+	.button {
+		position: absolute;
+		width: 40px;
+		z-index: 1;
+
+		.image {
+			width: 100%;
+		}
+	}
+}

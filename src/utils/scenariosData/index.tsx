@@ -6,6 +6,7 @@ export interface Period {
 	storyLine: Array<string>;
 	date: string;
 	map: string;
+	countries: string;
 	startingMusic?: Array<Track>;
 	events: Array<Event>;
 }
@@ -37,6 +38,7 @@ const scenariosData: ScenariosData = {
 			storyLine: ["Historical"],
 			date: "Январь 1910г.",
 			map: "map",
+			countries: "countryList1934",
 			startingMusic: [
 				{
 					name: "Музыка 4",
@@ -54,6 +56,7 @@ const scenariosData: ScenariosData = {
 			storyLine: ["Historical"],
 			date: "Январь 1922г.",
 			map: "map",
+			countries: "countryList1934",
 			startingMusic: [
 				{
 					name: "Музыка 2",
@@ -71,6 +74,7 @@ const scenariosData: ScenariosData = {
 			storyLine: ["Historical"],
 			date: "Январь 1934г.",
 			map: "map-1934-01-historical",
+			countries: "countryList1934",
 			startingMusic: [
 				{
 					name: "Музыка 1",
@@ -123,6 +127,7 @@ const scenariosData: ScenariosData = {
 			storyLine: ["Historical", "Test"],
 			date: "Февраль 1934г.",
 			map: "map-1934-01-historical",
+			countries: "countryList1934",
 			events: [
 				{
 					name: "Название альтернативного события",
@@ -140,6 +145,7 @@ const scenariosData: ScenariosData = {
 			storyLine: ["Historical"],
 			date: "Март 1934г.",
 			map: "map-1934-01-historical",
+			countries: "countryList1934",
 			events: [
 				{
 					name: "Название события номер 4",

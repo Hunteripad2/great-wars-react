@@ -2,6 +2,8 @@ import { createContext } from 'react';
 import { makeAutoObservable, computed} from "mobx";
 import scenariosData, { Track, Event } from '../utils/scenariosData';
 import resourcesData from '../utils/resourcesData';
+import countriesData, { Country } from '../utils/countriesData';
+import countriesLists from '../utils/countriesLists';
 
 const activeCategoryStyle = {backgroundColor: '#484848', borderTopLeftRadius: '25px', borderTopRightRadius: '25px'};
 
@@ -12,10 +14,13 @@ class State {
 
 	scenariosData = scenariosData;
 	resourcesData = resourcesData;
+	countriesData = countriesData;
+	countriesLists = countriesLists;
 
 	settingsMenuIsShown = false;
 	resourceMenuIsShown = false;
 	musicListIsShown = false;
+	countryWindowIsShown = false;
 	eventWindowIsShown = false;
 
 	booksCategoryIsShown = false;
@@ -29,6 +34,7 @@ class State {
 	currentMusicList : Array<Track> = [];
 	currentTrack : Track = {};
 	currentStoryline = "";
+	currentCountryData : Country = {};
 	currentEventData : Event = {};
 
 	get settingsMenuStyle() {
@@ -85,6 +91,12 @@ class State {
 	}
 	get currentPeriod() {
 		return this.currentScenario[this.currentPeriodIndex];
+	}
+	get currentCountryListName() {
+		return this.currentPeriod.countries;
+	}
+	get currentCountryList() {
+		return this.countriesLists[this.currentCountryListName].map(countryTag => this.countriesData[countryTag]);
 	}
 	get currentEvents() {
 		return this.currentPeriod.events;
