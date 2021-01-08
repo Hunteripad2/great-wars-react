@@ -1,20 +1,20 @@
-import { useContext } from 'react';
-import { observer } from "mobx-react-lite"
-import styles from './styles.module.scss';
-import State from '../../storage';
-import turnButton from '../../assets/turn_button.png'
+import { useContext } from "react";
+import { observer } from "mobx-react-lite";
+import styles from "./styles.module.scss";
+import State from "../../storage";
 
-const TurnCounter = observer(() => {
-	const state = useContext(State);
+export const TurnCounter = observer(() => {
+    const state = useContext(State);
 
-	return (
-		<div className={styles.turnCounter}>
-			<span className={styles.turnCounterDate}>{state.currentPeriod.date}</span>
-			<button className={styles.button} onClick={state.endTurn}>
-				<img className={styles.image} src={turnButton} alt="Пропуск периода" />
-			</button>
-		</div>
-	);
+    const turnButton = "./images/turn_button.png";
+    const turnButtonAlt = "Пропуск периода";
+
+    return (
+        <div className={styles.turnCounter}>
+            <span className={styles.turnCounterDate}>{state.currentPeriod.date}</span>
+            <button className={styles.button} onClick={state.endTurn}>
+                <img className={styles.image} src={turnButton} alt={turnButtonAlt} />
+            </button>
+        </div>
+    );
 });
-
-export default TurnCounter;

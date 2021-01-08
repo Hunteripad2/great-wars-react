@@ -1,47 +1,53 @@
-import { useContext } from 'react';
-import { observer } from "mobx-react-lite"
-import styles from './styles.module.scss';
-import State from '../../storage';
-import playTrackFromBegining from '../../utils/playTrackFromBegining';
-import trackAllowed from '../../assets/music_player/track_status/allowed.png';
-import trackForbidden from '../../assets/music_player/track_status/forbidden.png';
+import { useContext } from "react";
+import { observer } from "mobx-react-lite";
+import styles from "./styles.module.scss";
+import State from "../../storage";
+import { playTrackFromBegining } from "../../utils/playTrackFromBegining";
 
-const MusicList = observer(() => {
-	const state = useContext(State);
+interface EventOnClick extends React.MouseEvent<HTMLLIElement> {
+    target: HTMLLIElement;
+}
 
-	interface EventOnClick extends React.MouseEvent<HTMLLIElement> {
-		target: HTMLLIElement;
-	}
+export const MusicList = observer(() => {
+    const state = useContext(State);
 
-	const chooseTrack = (trackId : number) => (e : EventOnClick) => { // TODO: Разобраться в этой строчке
-		if (!state.currentMusicList[trackId].allowed || e.target.tagName === "IMG") {
-			return null;
-		}
-		state.setNewTrack(trackId);
-		playTrackFromBegining();
-		state.changeMusicStatus(true);
-	}
+    const trackAllowed = "./images/track_status/allowed.png";
+    const trackForbidden = "./images/track_status/forbidden.png";
+    const trackAllowedTitle = "Запретить воспроизведение";
+    const trackForbiddenTitle = "Разрешить воспроизведение";
 
-	const forbidMusic = (trackId : number) => (e : React.MouseEvent<HTMLImageElement>) => {
-		const newMusicList = state.currentMusicList;
-		newMusicList[trackId].allowed = !newMusicList[trackId].allowed;
-		state.updateMusicList(newMusicList, state.currentScenarioName);
-	}
+    const chooseTrack = (trackId: number) => (e: EventOnClick) => {
+        // TODO: useCallback
+        if (!state.currentMusicList[trackId].allowed || e.target.tagName === "IMG") {
+            return null;
+        }
+        state.setNewTrack(trackId);
+        playTrackFromBegining();
+        state.changeMusicStatus(true);
+    };
 
-	const musicList = state.currentMusicList.map((track, index) => 
-		<li key={track.name} className={styles.option} onClick={chooseTrack(index)}>
-			<span className={styles.name} style={track.allowed ? {opacity: '1'} : {opacity: '0.2'}}>{track.name}</span>
-			<img src={track.allowed ? trackAllowed : trackForbidden} className={styles.forbidImage} onClick={forbidMusic(index)} title={track.allowed ? "Запретить воспроизведение" : "Разрешить воспроизведение"} alt={track.allowed ? "Запретить воспроизведение" : "Разрешить воспроизведение"} />
-		</li>
-	);
+    const forbidMusic = (trackId: number) => (e: React.MouseEvent<HTMLImageElement>) => {
+        const newMusicList = state.currentMusicList;
+        newMusicList[trackId].allowed = !newMusicList[trackId].allowed;
+        state.updateMusicList(newMusicList, state.currentScenarioName);
+    };
+    // TODO: uuid для key
+    const musicList = state.currentMusicList.map((track, index) => (
+        <li key={track.name} className={styles.option} onClick={chooseTrack(index)}>
+            <span className={styles.name} style={track.allowed ? { opacity: "1" } : { opacity: "0.2" }}>
+                {track.name}
+            </span>
+            {track.allowed ? (
+                <img src={trackAllowed} className={styles.forbidImage} onClick={forbidMusic(index)} title={trackAllowedTitle} alt={trackAllowedTitle} />
+            ) : (
+                <img src={trackForbidden} className={styles.forbidImage} onClick={forbidMusic(index)} title={trackForbiddenTitle} alt={trackForbiddenTitle} />
+            )}
+        </li>
+    ));
 
-	return (
-		<div className={styles.musicList} style={state.musicListStyle}>
-			<ul className={styles.list}>
-				{musicList}
-			</ul>
-		</div>
-	);
+    return (
+        <div className={styles.musicList} style={state.musicListStyle}>
+            <ul className={styles.list}>{musicList}</ul>
+        </div>
+    );
 });
-  
-export default MusicList;

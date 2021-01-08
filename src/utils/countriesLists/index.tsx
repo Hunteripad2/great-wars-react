@@ -1,11 +1,7 @@
 interface CountriesLists {
-	[countryList: string]: Array<string>;
+    [countryList: string]: Array<string>;
 }
 
-const countriesLists: CountriesLists = {
-	'countryList1934': [
-		"GBR", "GER"
-	]
-}
-
-export default countriesLists;
+export const countriesLists: CountriesLists = {
+    countryList1934: ["GBR", "GER"],
+};

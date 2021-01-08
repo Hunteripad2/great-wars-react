@@ -2,7 +2,9 @@ interface EventOnMouseDown extends React.MouseEvent<HTMLDivElement> {
 	currentTarget: HTMLDivElement;
 }
 
-function grabMap(e : EventOnMouseDown) {
+// TODO: refactoring
+
+export function grabMap(e : EventOnMouseDown) {
 	const map = e.currentTarget;
 	let pos1 : number = 0,
 		pos2 : number = 0,
@@ -45,5 +47,3 @@ function grabMap(e : EventOnMouseDown) {
 		document.onmousemove = null;
 	}
 }
-
-export default grabMap;
