@@ -7,11 +7,11 @@ import { playTrackFromBegining } from "../../utils/playTrackFromBegining";
 
 export const MusicPlayer = observer(() => {
     const state = useContext(State);
-    const nextButtonTitle = "Следующая композиция"; // TODO вынести переводы
+    const nextButtonTitle = "Следующая композиция"; // TODO вынести локализацию
     const listButtonTitle = "Список композиций";
 
     function playCurrentTrack() {
-        const audioElement = document.querySelector("audio"); // TODO: используй ref
+        const audioElement = document.querySelector("audio"); // TODO: использовать ref для плеера
 
         if (audioElement) {
             if (!audioElement.paused) {

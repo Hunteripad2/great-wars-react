@@ -6,26 +6,21 @@ import State from "../../storage";
 import { Blackening } from "../../components/Blackening";
 import { SettingsMenu } from "../../components/SettingsMenu";
 import { ResourceMenu } from "../../components/ResourceMenu";
-import { createNewSaves } from "../../utils/createNewSaves";
 
 export const MainPage = observer(() => {
     const state = useContext(State);
 
     const logo = "./images/logo.png";
 
-    const userHasSavesFirst = !!localStorage.getItem(`scenarioFirstCurrentPeriodIndex`); // TODO: перенести
-    const userHasSavesSecond = !!localStorage.getItem(`scenarioSecondCurrentPeriodIndex`);
-    const userHasSavesThird = !!localStorage.getItem(`scenarioThirdCurrentPeriodIndex`);
-
     useEffect(() => {
-        if (!userHasSavesFirst) {
-            createNewSaves("scenarioFirst");
+        if (!state.userHasSavesFirst) {
+            state.createNewSaves("scenarioFirst");
         }
-        if (!userHasSavesSecond) {
-            createNewSaves("scenarioSecond");
+        if (!state.userHasSavesSecond) {
+            state.createNewSaves("scenarioSecond");
         }
-        if (!userHasSavesThird) {
-            createNewSaves("scenarioThird");
+        if (!state.userHasSavesThird) {
+            state.createNewSaves("scenarioThird");
         }
     });
 

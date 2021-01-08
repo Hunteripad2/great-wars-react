@@ -1,49 +1,59 @@
 interface EventOnMouseDown extends React.MouseEvent<HTMLDivElement> {
-	currentTarget: HTMLDivElement;
+    currentTarget: HTMLDivElement;
 }
 
-// TODO: refactoring
+interface Positions {
+    pos1: number;
+    pos2: number;
+    pos3: number;
+    pos4: number;
+}
 
-export function grabMap(e : EventOnMouseDown) {
-	const map = e.currentTarget;
-	let pos1 : number = 0,
-		pos2 : number = 0,
-		pos3 : number = 0,
-		pos4 : number = 0;
+export function grabMap(e: EventOnMouseDown) {
+    const map = e.currentTarget;
+    const positions: Positions = {
+        pos1: 0,
+        pos2: 0,
+        pos3: 0,
+        pos4: 0,
+    };
 
-	if (map) map.style.cursor = "grabbing";
+    if (map) map.style.cursor = "grabbing";
 
-	e = e || window.event;
-	e.preventDefault();
+    e = e || window.event;
+    e.preventDefault();
 
-	pos3 = e.clientX;
-	pos4 = e.clientY;
+    positions.pos3 = e.clientX;
+    positions.pos4 = e.clientY;
 
-	document.onmouseup = stopDraggingMap;
-	document.onmousemove = dragMap;
+    //document.addEventListener('mouseup', stopDraggingMap(map));
+    //document.addEventListener('mousemove', dragMap(e, positions, map)); // TODO addeventlistener
+    document.onmouseup = () => stopDraggingMap(map);
+    document.onmousemove = (e: MouseEvent) => dragMap(e, positions, map);
+}
 
-	function dragMap(e : MouseEvent) {
-		e = e || window.event;
-		e.preventDefault();
+function dragMap(e: MouseEvent, positions: Positions, map: HTMLDivElement) {
+    e = e || window.event;
+    e.preventDefault();
 
-		pos1 = pos3 - e.clientX;
-		pos2 = pos4 - e.clientY;
-		pos3 = e.clientX;
-		pos4 = e.clientY;
-		if (map) {
-			if (map.offsetTop - pos2 > -500 && map.offsetTop - pos2 < 500) {
-				map.style.top = (map.offsetTop - pos2) + "px";
-			}
-			if (map.offsetLeft - pos1 > -500 && map.offsetLeft - pos1 < 500) {
-				map.style.left = (map.offsetLeft - pos1) + "px";
-			}
-		}
-	}
+    positions.pos1 = positions.pos3 - e.clientX;
+    positions.pos2 = positions.pos4 - e.clientY;
+    positions.pos3 = e.clientX;
+    positions.pos4 = e.clientY;
 
-	function stopDraggingMap() {
-		if (map) map.style.cursor = "grab";
+    if (map) {
+        if (map.offsetTop - positions.pos2 > -500 && map.offsetTop - positions.pos2 < 500) {
+            map.style.top = map.offsetTop - positions.pos2 + "px";
+        }
+        if (map.offsetLeft - positions.pos1 > -500 && map.offsetLeft - positions.pos1 < 500) {
+            map.style.left = map.offsetLeft - positions.pos1 + "px";
+        }
+    }
+}
 
-		document.onmouseup = null;
-		document.onmousemove = null;
-	}
+function stopDraggingMap(map: HTMLDivElement) {
+    if (map) map.style.cursor = "grab";
+
+    document.onmouseup = null;
+    document.onmousemove = null;
 }

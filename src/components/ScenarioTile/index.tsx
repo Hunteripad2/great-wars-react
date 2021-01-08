@@ -15,7 +15,7 @@ export const ScenarioTile = observer(({ scenarioName, image, title, date }: Scen
     const state = useContext(State);
 
     const onePeriodInPercent = 100 / state.scenariosData[scenarioName].length;
-    const currentPeriod = Number(localStorage.getItem(`${scenarioName}CurrentPeriodIndex`));
+    const currentPeriod = Number(localStorage.getItem(`${scenarioName}CurrentPeriodIndex`)); // TODO: перенести в storage
     const currentProgress = onePeriodInPercent * currentPeriod;
     const currentProgressString = Math.round(currentProgress * 10) / 10 + "%";
 

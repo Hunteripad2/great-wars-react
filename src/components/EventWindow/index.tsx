@@ -9,7 +9,7 @@ export const EventWindow = observer(() => {
     const currentEventData = state.currentEventData;
 
     function chooseFirstEventOption(eventData: Event) {
-        //if (eventData.type === "choice") { 	//TODO: events with plot choices
+        //if (eventData.type === "choice") { 	//TODO: доделать виды событий
         //}
         state.closeTabs();
     }

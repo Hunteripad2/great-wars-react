@@ -100,6 +100,16 @@ class State {
         return this.currentPeriod.events;
     }
 
+    get userHasSavesFirst() {
+        return !!localStorage.getItem(`scenarioFirstCurrentPeriodIndex`);
+    }
+    get userHasSavesSecond() {
+        return !!localStorage.getItem(`scenarioSecondCurrentPeriodIndex`);
+    }
+    get userHasSavesThird() {
+        return !!localStorage.getItem(`scenarioThirdCurrentPeriodIndex`);
+    }
+
     get currentResourceCategory() {
         return this.booksCategoryIsShown ? "books" : this.articlesCategoryIsShown ? "articles" : "films";
     }
@@ -164,6 +174,11 @@ class State {
         this.currentEventData = this.currentEvents[eventId];
     };
 
+    createNewSaves = (scenarioName: string) => {
+        localStorage.setItem(`${scenarioName}CurrentPeriodIndex`, "0"); // TODO: вынести localStorage в сервис
+        localStorage.setItem(`${scenarioName}CurrentStoryline`, "Historical");
+        localStorage.setItem(`${scenarioName}CurrentMusicList`, JSON.stringify(scenariosData[scenarioName][0].startingMusic));
+    };
     loadSaves = () => {
         this.currentPeriodIndex = Number(localStorage.getItem(`${this.currentScenarioName}CurrentPeriodIndex`));
         this.currentMusicList = JSON.parse(String(localStorage.getItem(`${this.currentScenarioName}CurrentMusicList`)));
@@ -172,7 +187,7 @@ class State {
     };
 
     endTurn = () => {
-        // TODO: endscreen
+        // TODO: сделать начальный и конечный экран
         for (let i = this.currentPeriodIndex + 1; i < this.currentScenario.length; i += 1) {
             if (this.currentScenario[i].storyLine.some((storyline) => storyline === this.currentStoryline)) {
                 localStorage.setItem(`${this.currentScenarioName}CurrentPeriodIndex`, i.toString());
