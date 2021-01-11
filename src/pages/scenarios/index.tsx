@@ -1,8 +1,13 @@
+import { useContext } from "react";
+import { observer } from "mobx-react-lite";
 import { Link } from "react-router-dom";
 import styles from "./styles.module.scss";
+import State from "../../storage";
 import { ScenarioTile } from "../../components/ScenarioTile";
 
-export function ScenariosPage() {
+export const ScenariosPage = observer(() => {
+	const state = useContext(State);
+
     const scenarioFirstImage = "./images/scenarios/first.jpg";
     const scenarioSecondImage = "./images/scenarios/second.jpg";
     const scenarioThirdImage = "./images/scenarios/third.jpg";
@@ -11,7 +16,7 @@ export function ScenariosPage() {
     const scenarioThirdTitle = "Вторая Мировая Война";
     const scenarioFirstDate = "1910 - 1921";
     const scenarioSecondDate = "1922 - 1933";
-    const scenarioThirdDate = "1934 - 1945";
+	const scenarioThirdDate = "1934 - 1945";
 
     return (
         <div className={styles.scenariosPage}>
@@ -30,4 +35,4 @@ export function ScenariosPage() {
             </main>
         </div>
     );
-}
+});

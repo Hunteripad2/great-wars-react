@@ -10,7 +10,8 @@ import { ResourceMenu } from "../../components/ResourceMenu";
 export const MainPage = observer(() => {
     const state = useContext(State);
 
-    const logo = "./images/logo.png";
+	const logoImage = "./images/logo.png";
+	const logoTitle = "Лого";
 
     useEffect(() => {
         if (!state.userHasSavesFirst) {
@@ -27,7 +28,7 @@ export const MainPage = observer(() => {
     return (
         <div className={styles.mainPage}>
             <main>
-                <img src={logo} className={styles.logo} alt="Лого" />
+                <img src={logoImage} className={styles.logo} alt={logoTitle} />
                 <ul className={styles.menu}>
                     <li className={styles.option}>
                         <Link to="/scenarios" className={styles.text}>

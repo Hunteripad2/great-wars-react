@@ -12,11 +12,14 @@ export const EventIcons = observer(() => {
         state.showEventWindow();
     };
 
-    const eventIcons = state.currentEvents.map((event, index) => (
-        <button key={event.name} className={styles.button} style={{ left: `${event.positionX}`, top: `${event.positionY}` }} onClick={showEvent(index)}>
-            <img src={"./event_icons/" + event.icon + ".png"} className={styles.image} style={!event.checked ? state.eventIconStyle : { opacity: "0.4" }} alt="Событие" />
-        </button>
-    ));
+    let eventIcons;
+    if (state.currentEvents) {
+        eventIcons = state.currentEvents.map((event, index) => (
+            <button key={event.name} className={styles.button} style={{ left: `${event.positionX}`, top: `${event.positionY}` }} onClick={showEvent(index)}>
+                <img src={"./event_icons/" + event.icon + ".png"} className={styles.image} style={!event.checked ? state.eventIconStyle : { opacity: "0.4" }} alt="Событие" />
+            </button>
+        ));
+    }
 
     return <div className={styles.eventIcons}>{eventIcons}</div>;
 });

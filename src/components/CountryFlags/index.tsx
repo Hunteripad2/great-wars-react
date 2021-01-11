@@ -13,11 +13,14 @@ export const CountryFlags = observer(() => {
         console.log("click");
     };
 
-    const countryFlags = state.currentCountryList.map((country, index) => (
-        <button key={country.name} className={styles.button} style={{ left: `${country.positionX}`, top: `${country.positionY}` }} onClick={showCountry(index)}>
-            <img src={"./country_icons/" + country.icon + ".png"} className={styles.image} alt="Страна" />
-        </button>
-    ));
+    let countryFlags;
+    if (state.currentCountryList) {
+        countryFlags = state.currentCountryList.map((country, index) => (
+            <button key={country.name} className={styles.button} style={{ left: `${country.positionX}`, top: `${country.positionY}` }} onClick={showCountry(index)}>
+                <img src={"./country_icons/" + country.icon + ".png"} className={styles.image} alt="Страна" />
+            </button>
+        ));
+    }
 
     return <div className={styles.countryFlags}>{countryFlags}</div>;
 });

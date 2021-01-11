@@ -1,6 +1,6 @@
 import { createContext } from "react";
-import { makeAutoObservable, computed } from "mobx";
-import { scenariosData, Track, Event } from "../utils/scenariosData";
+import { makeAutoObservable } from "mobx";
+import { ScenariosData, Track, Event } from "../utils/scenariosData";
 import { resourcesData } from "../utils/resourcesData";
 import { countriesData, Country } from "../utils/countriesData";
 import { countriesLists } from "../utils/countriesLists";
@@ -10,10 +10,10 @@ const activeCategoryStyle = { backgroundColor: "#484848", borderTopLeftRadius: "
 class State {
     // TODO: разбить на несколько частей
     constructor() {
-        makeAutoObservable(this, { musicListStyle: computed({ keepAlive: true }) });
+        makeAutoObservable(this);
     }
 
-    scenariosData = scenariosData;
+    scenariosData: ScenariosData = {};
     resourcesData = resourcesData;
     countriesData = countriesData;
     countriesLists = countriesLists;
@@ -30,6 +30,8 @@ class State {
 
     musicIsPlaying = false;
     eventsAreBlinking = false;
+
+	dataIsLoaded = false;
 
     currentPeriodIndex = 0;
     currentMusicList: Array<Track> = [];
@@ -174,10 +176,22 @@ class State {
         this.currentEventData = this.currentEvents[eventId];
     };
 
+    loadData = () => {
+        if (!this.dataIsLoaded) {
+            fetch("http://localhost:3001/")
+                .then((response) => {
+                    return response.json();
+                })
+                .then((data) => {
+					this.scenariosData = data;
+					this.dataIsLoaded = true;
+                });
+        }
+    };
     createNewSaves = (scenarioName: string) => {
         localStorage.setItem(`${scenarioName}CurrentPeriodIndex`, "0"); // TODO: вынести localStorage в сервис
         localStorage.setItem(`${scenarioName}CurrentStoryline`, "Historical");
-        localStorage.setItem(`${scenarioName}CurrentMusicList`, JSON.stringify(scenariosData[scenarioName][0].startingMusic));
+        localStorage.setItem(`${scenarioName}CurrentMusicList`, JSON.stringify(this.scenariosData[scenarioName][0].startingMusic));
     };
     loadSaves = () => {
         this.currentPeriodIndex = Number(localStorage.getItem(`${this.currentScenarioName}CurrentPeriodIndex`));
