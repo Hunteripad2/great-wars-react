@@ -31,7 +31,7 @@ class State {
     musicIsPlaying = false;
     eventsAreBlinking = false;
 
-	dataIsLoaded = false;
+    dataIsLoaded = false;
 
     currentPeriodIndex = 0;
     currentMusicList: Array<Track> = [];
@@ -39,6 +39,16 @@ class State {
     currentStoryline = "";
     currentCountryData: Country = {};
     currentEventData: Event = {};
+
+    get isLocalClient() {
+        const hostname = window.location.hostname;
+        return hostname === "localhost" || hostname === "127.0.0.1" || hostname === "0.0.0.0";
+    }
+    get serverUrl() {
+        const localServer = "http://localhost:3001/";
+        const herokuServer = "https://sleepy-waters-99292.herokuapp.com/";
+        return this.isLocalClient ? localServer : herokuServer;
+    }
 
     get settingsMenuStyle() {
         return this.settingsMenuIsShown ? { transform: "scale(1, 1)" } : { transform: "scale(0, 0)" };
@@ -178,13 +188,13 @@ class State {
 
     loadData = () => {
         if (!this.dataIsLoaded) {
-            fetch("http://localhost:3001/")
+            fetch(this.serverUrl)
                 .then((response) => {
                     return response.json();
                 })
                 .then((data) => {
-					this.scenariosData = data;
-					this.dataIsLoaded = true;
+                    this.scenariosData = data;
+                    this.dataIsLoaded = true;
                 });
         }
     };
