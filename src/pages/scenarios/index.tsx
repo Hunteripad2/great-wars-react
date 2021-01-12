@@ -1,12 +1,8 @@
-import { useContext } from "react";
-import { observer } from "mobx-react-lite";
 import { Link } from "react-router-dom";
 import styles from "./styles.module.scss";
-import State from "../../storage";
 import { ScenarioTile } from "../../components/ScenarioTile";
 
-export const ScenariosPage = observer(() => {
-	const state = useContext(State);
+export function ScenariosPage() {
 
     const scenarioFirstImage = "./images/scenarios/first.jpg";
     const scenarioSecondImage = "./images/scenarios/second.jpg";
@@ -35,4 +31,4 @@ export const ScenariosPage = observer(() => {
             </main>
         </div>
     );
-});
+}
