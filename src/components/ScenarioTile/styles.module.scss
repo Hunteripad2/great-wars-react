@@ -1,94 +1,93 @@
-.scenario { // TODO: плоская структура
-	position: relative;
-	width: 30%;
-
-	.link {
-		position: absolute;
-		height: 100%;
-		width: 100%;
-		z-index: 1;
-	}
-
-	.image {
-		position: relative;
-		left: 0%;
-		top: 0%;
-		width: 100%;
-		border-radius: 8%;
-	}
-
-	.blackoutBlock {
-		background-color: #202020;
-		position: absolute;
-		left: 0%;
-		top: -0.2%;
-		width: 100%;
-		height: 99.6%;
-		border-radius: 8%;
-		opacity: 0;
-		transition: opacity 0.3s;
-
-		%scenarioData {
-			font-size: 20px;
-			text-align: center;
-			line-height: 60%;
-			margin-left: 15%;
-			transition: margin-left 0.3s;
-			@media (max-width: 1600px) {
-				font-size: 17px;
-			}
-			@media (max-width: 1280px) {
-				font-size: 14px;
-			}
-			@media (max-width: 960px) {
-				font-size: 11px;
-			}
-			@media (max-width: 640px) {
-				font-size: 9px;
-			}
-		}
-		.progress {
-			@extend %scenarioData;
-			margin-top: 45%;
-		}
-		.name {
-			@extend %scenarioData;
-			font-size: 25px;
-			margin-left: 0%;
-			margin-right: 15%;
-			transition: margin-right 0.3s;
-			@media (max-width: 1600px) {
-				font-size: 21px;
-			}
-			@media (max-width: 1280px) {
-				font-size: 17px;
-			}
-			@media (max-width: 960px) {
-				font-size: 14px;
-			}
-			@media (max-width: 640px) {
-				font-size: 11px;
-			}
-		}
-		.date {
-			@extend %scenarioData;
-		}
-	}
+.scenario {
+    // TODO: плоская структура
+    position: relative;
+    width: 30%;
 }
 
-.scenario:hover {
+.link {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    z-index: 1;
+}
 
-	.blackoutBlock {
-		opacity: 0.8;
+.image {
+    position: relative;
+    left: 0%;
+    top: 0%;
+    width: 100%;
+    border-radius: 8%;
+}
 
-		.progress {
-			margin-left: 0;
-		}
-		.name {
-			margin-right: 0;
-		}
-		.date {
-			margin-left: 0;
-		}
-	}
+.blackoutBlock {
+    background-color: #202020;
+    position: absolute;
+    left: 0%;
+    top: -0.2%;
+    width: 100%;
+    height: 99.6%;
+    border-radius: 8%;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+.scenario:hover .blackoutBlock {
+    opacity: 0.8;
+}
+
+%scenarioData {
+    font-size: 20px;
+    text-align: center;
+    line-height: 60%;
+    margin-left: 15%;
+    transition: margin-left 0.3s;
+    @media (max-width: 1600px) {
+        font-size: 17px;
+    }
+    @media (max-width: 1280px) {
+        font-size: 14px;
+    }
+    @media (max-width: 960px) {
+        font-size: 11px;
+    }
+    @media (max-width: 640px) {
+        font-size: 9px;
+    }
+}
+
+.progress {
+    @extend %scenarioData;
+    margin-top: 45%;
+}
+.scenario:hover .progress {
+    margin-left: 0;
+}
+
+.name {
+    @extend %scenarioData;
+    font-size: 25px;
+    margin-left: 0%;
+    margin-right: 15%;
+    transition: margin-right 0.3s;
+    @media (max-width: 1600px) {
+        font-size: 21px;
+    }
+    @media (max-width: 1280px) {
+        font-size: 17px;
+    }
+    @media (max-width: 960px) {
+        font-size: 14px;
+    }
+    @media (max-width: 640px) {
+        font-size: 11px;
+    }
+}
+.scenario:hover .name {
+    margin-right: 0;
+}
+
+.date {
+    @extend %scenarioData;
+}
+.scenario:hover .date {
+    margin-left: 0;
 }

@@ -17,7 +17,7 @@ export const CountryFlags = observer(() => {
     if (state.currentCountryList) {
         countryFlags = state.currentCountryList.map((country, index) => (
             <button key={country.name} className={styles.button} style={{ left: `${country.positionX}`, top: `${country.positionY}` }} onClick={showCountry(index)}>
-                <img src={"./country_icons/" + country.icon + ".png"} className={styles.image} alt="Страна" />
+                <img src={"./images/country_icons/" + country.icon + ".png"} className={styles.image} alt="Страна" />
             </button>
         ));
     }

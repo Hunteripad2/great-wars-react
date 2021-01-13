@@ -7,8 +7,11 @@ import { playTrackFromBegining } from "../../utils/playTrackFromBegining";
 
 export const MusicPlayer = observer(() => {
     const state = useContext(State);
+
     const nextButtonTitle = "Следующая композиция"; // TODO вынести локализацию
     const listButtonTitle = "Список композиций";
+    const nextButtonImage = "./images/music_buttons/next.png";
+    const listButtonImage = "./images/music_buttons/list.png";
 
     function playCurrentTrack() {
         const audioElement = document.querySelector("audio"); // TODO: использовать ref для плеера
@@ -48,10 +51,10 @@ export const MusicPlayer = observer(() => {
                 <img className={styles.image} src={state.playButtonImage} title={state.playButtonTitle} alt={state.playButtonTitle} />
             </button>
             <button className={styles.button} onClick={playNextTrack}>
-                <img className={styles.image} src="./music_buttons/next.png" title={nextButtonTitle} alt={nextButtonTitle} />
+                <img className={styles.image} src={nextButtonImage} title={nextButtonTitle} alt={nextButtonTitle} />
             </button>
             <button className={styles.button} onClick={state.showMusicList}>
-                <img className={styles.image} src="./music_buttons/list.png" title={listButtonTitle} alt={listButtonTitle} />
+                <img className={styles.image} src={listButtonImage} title={listButtonTitle} alt={listButtonTitle} />
             </button>
             <ReactAudioPlayer onEnded={playNextTrack} src={"./tracks/" + state.currentTrack.src + ".ogg"} />
         </div>

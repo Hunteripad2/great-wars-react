@@ -1,46 +1,46 @@
 .musicList {
-	background-color: #2e2e2e;
-	padding: 0;
-	margin: 0;
-	position: absolute;
-	right: 0;
-	top: 0;
-	transition: transform 0.3s;
-	transform: translate(100%);
-	width: 25%;
-	height: 100%;
-	z-index: 5;
+    background-color: #2e2e2e;
+    padding: 0;
+    margin: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+    transition: transform 0.3s;
+    transform: translate(100%);
+    width: 25%;
+    height: 100%;
+    z-index: 5;
+}
 
-	.list {
-		list-style-type: none;
-		padding: 0;
-		margin: 0;
+.list {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
 
-		.option {
-			position: relative;
-			background-color: #484848;
-			margin: 5px;
-			border-radius: 100px;
-			display: flex;
-			align-items: center;
-			cursor: pointer;
+.option {
+    position: relative;
+    background-color: #484848;
+    margin: 5px;
+    border-radius: 100px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    &:hover {
+        background-color: #505050;
+    }
+}
 
-			.name {
-				margin: 10px;
-				font-size: 30px;
-			}
+.name {
+    margin: 10px;
+    font-size: 30px;
+}
 
-			.forbidImage {
-				position: absolute;
-				right: 5%;
-				height: 80%;
-			}
-			.forbidImage:hover {
-				opacity: 0.5;
-			}
-		}
-		.option:hover {
-			background-color: #505050;
-		}
-	}
+.forbidImage {
+    position: absolute;
+    right: 5%;
+    height: 80%;
+    &:hover {
+        opacity: 0.5;
+    }
 }

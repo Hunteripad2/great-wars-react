@@ -84,7 +84,7 @@ class State {
         return this.settingsMenuIsShown || this.resourceMenuIsShown || this.musicListIsShown || this.eventWindowIsShown ? { opacity: "0.8", transform: "translate(0%)" } : { opacity: "0", transform: "translate(100%)" };
     }
     get playButtonImage() {
-        return this.musicIsPlaying ? "./music_buttons/pause.png" : "./music_buttons/play.png";
+        return this.musicIsPlaying ? "./images/music_buttons/pause.png" : "./images/music_buttons/play.png";
     }
     get playButtonTitle() {
         return this.musicIsPlaying ? "Поставить на паузу" : "Снять с паузы";

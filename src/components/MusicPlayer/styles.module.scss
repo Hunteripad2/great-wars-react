@@ -1,17 +1,17 @@
 .musicPlayer {
-	width: 20%;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	z-index: 2;
+    width: 20%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2;
+}
 
-	.button {
-		margin-right: 10%;
-		padding: 0;
-		width: 16%;
+.button {
+    margin-right: 10%;
+    padding: 0;
+    width: 16%;
+}
 
-		.image {
-			width: 100%;
-		}
-	}
+.image {
+    width: 100%;
 }

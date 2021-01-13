@@ -15,11 +15,11 @@ import { grabMap } from "../../utils/grabMap";
 // TODO: i18n
 
 export const MapPage = observer(() => {
-	const state = useContext(State);
-	
-	const logoImage = "./images/logo.png";
-	const logoTitle = "Лого";
-	const mapTitle = "Карта";
+    const state = useContext(State);
+
+    const logoImage = "./images/logo.png";
+    const logoTitle = "Лого";
+    const mapTitle = "Карта";
 
     useEffect(() => {
         const timerID = setInterval(() => {
@@ -50,7 +50,7 @@ export const MapPage = observer(() => {
             <main>
                 <div className={styles.mapBackground}></div>
                 <div className={styles.map} onMouseDown={grabMap}>
-                    <img className={styles.image} src={"./maps/" + state.currentPeriod.map + ".png"} alt={mapTitle} />
+                    <img className={styles.image} src={"./images/maps/" + state.currentPeriod.map + ".png"} alt={mapTitle} />
                     <CountryFlags />
                     <EventIcons />
                 </div>

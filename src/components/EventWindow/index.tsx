@@ -30,7 +30,7 @@ export const EventWindow = observer(() => {
     return (
         <div className={styles.eventWindow} style={state.eventWindowStyle}>
             <h1 className={styles.name}>{currentEventData.name}</h1>
-            <img className={styles.image} src={"./event_images/" + currentEventData.image + ".jpg"} alt="Изображение события" />
+            <img className={styles.image} src={"./images/event_images/" + currentEventData.image + ".jpg"} alt="Изображение события" />
             <p className={styles.desc}>{currentEventData.desc}</p>
             <button className={styles.optionFirst} onClick={() => chooseFirstEventOption(currentEventData)} style={state.eventFirstOptionStyle}>
                 {currentEventData.option1}
