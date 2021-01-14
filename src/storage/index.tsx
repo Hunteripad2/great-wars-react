@@ -168,7 +168,7 @@ class State {
         this.eventsAreBlinking = !this.eventsAreBlinking;
     };
 
-    changeMusicStatus = (newStatus: boolean) => {
+    changeMusicPlayingStatus = (newStatus: boolean) => {
         this.musicIsPlaying = newStatus;
     };
     setNewTrack = (trackId: number) => {

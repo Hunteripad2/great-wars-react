@@ -1,0 +1,36 @@
+html,
+body,
+#root,
+#app {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    background: #2e2e2e;
+    color: white;
+    font-family: sans-serif;
+    overflow: hidden;
+}
+
+a {
+    color: white;
+    text-decoration-line: none;
+    &:hover {
+        opacity: 0.5;
+    }
+}
+
+button {
+    background: none;
+    border: none;
+    color: white;
+    padding: 0;
+    cursor: pointer;
+    &:hover {
+        opacity: 0.5;
+    }
+    &:focus {
+        outline: none;
+    }
+}

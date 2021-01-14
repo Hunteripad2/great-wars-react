@@ -2,7 +2,6 @@ import { useContext } from "react";
 import { observer } from "mobx-react-lite";
 import styles from "./styles.module.scss";
 import State from "../../storage";
-import { playTrackFromBegining } from "../../utils/playTrackFromBegining";
 
 interface EventOnClick extends React.MouseEvent<HTMLLIElement> {
     target: HTMLLIElement;
@@ -17,13 +16,11 @@ export const MusicList = observer(() => {
     const trackForbiddenTitle = "Разрешить воспроизведение";
 
     const chooseTrack = (trackId: number) => (e: EventOnClick) => {
-        // TODO: useCallback
         if (!state.currentMusicList[trackId].allowed || e.target.tagName === "IMG") {
             return null;
         }
         state.setNewTrack(trackId);
-        playTrackFromBegining();
-        state.changeMusicStatus(true);
+        state.changeMusicPlayingStatus(true);
     };
 
     const forbidMusic = (trackId: number) => (e: React.MouseEvent<HTMLImageElement>) => {
