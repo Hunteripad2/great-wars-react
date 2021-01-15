@@ -1,6 +1,6 @@
 import { createContext } from "react";
 import { makeAutoObservable } from "mobx";
-import { ScenariosData, Period, Track, Event, ResourcesData, Resource, CountriesData, Country } from "./types";
+import { ScenariosData, Track, Event, ResourcesData, CountriesData, Country } from "./types";
 import { countriesLists } from "../utils/countriesLists";
 
 const activeCategoryStyle = { backgroundColor: "#484848", borderTopLeftRadius: "25px", borderTopRightRadius: "25px" };
