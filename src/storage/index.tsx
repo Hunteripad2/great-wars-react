@@ -1,8 +1,6 @@
 import { createContext } from "react";
 import { makeAutoObservable } from "mobx";
-import { ScenariosData, Track, Event } from "../utils/scenariosData";
-import { resourcesData } from "../utils/resourcesData";
-import { countriesData, Country } from "../utils/countriesData";
+import { ScenariosData, Period, Track, Event, ResourcesData, Resource, CountriesData, Country } from "./types";
 import { countriesLists } from "../utils/countriesLists";
 
 const activeCategoryStyle = { backgroundColor: "#484848", borderTopLeftRadius: "25px", borderTopRightRadius: "25px" };
@@ -14,8 +12,8 @@ class State {
     }
 
     scenariosData: ScenariosData = {};
-    resourcesData = resourcesData;
-    countriesData = countriesData;
+    resourcesData: ResourcesData = {};
+    countriesData: CountriesData = {};
     countriesLists = countriesLists;
 
     settingsMenuIsShown = false;
@@ -188,12 +186,28 @@ class State {
 
     loadData = () => {
         if (!this.dataIsLoaded) {
-            fetch(this.serverUrl)
+            fetch(this.serverUrl + "scenariosData")
                 .then((response) => {
                     return response.json();
                 })
                 .then((data) => {
                     this.scenariosData = data;
+                });
+            fetch(this.serverUrl + "resourcesData")
+                .then((response) => {
+                    return response.json();
+                })
+                .then((data) => {
+                    this.resourcesData = data;
+                });
+            fetch(this.serverUrl + "countriesData")
+                .then((response) => {
+                    return response.json();
+                })
+                .then((data) => {
+                    this.countriesData = data;
+                })
+                .then(() => {
                     this.dataIsLoaded = true;
                 });
         }

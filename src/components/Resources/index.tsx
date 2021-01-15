@@ -7,6 +7,7 @@ export const Resources = observer(() => {
     const state = useContext(State);
 
     function showResource(resourceId: number) {
+        // TODO: доделать всплывающее окно
         return null;
     }
 

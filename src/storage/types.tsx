@@ -1,3 +1,4 @@
+// TODO: теги стран и названия сценариев как enum
 export interface ScenariosData {
     [scenarioName: string]: Array<Period>;
 }
@@ -30,4 +31,27 @@ export interface Event {
     newMusicName?: string;
     newMusicSrc?: string;
     checked?: boolean;
+}
+
+export interface ResourcesData {
+    [categoryName: string]: Array<Resource>;
+}
+
+export interface Resource {
+    name: string;
+    desc: string;
+    image: string;
+}
+
+export interface CountriesData {
+    [countryTag: string]: Country;
+}
+
+export interface Country {
+    name?: string;
+    backstory?: string;
+    flag?: string;
+    icon?: string;
+    positionX?: string;
+    positionY?: string;
 }

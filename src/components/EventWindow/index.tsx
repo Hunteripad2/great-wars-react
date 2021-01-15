@@ -2,7 +2,7 @@ import { useContext } from "react";
 import { observer } from "mobx-react-lite";
 import styles from "./styles.module.scss";
 import State from "../../storage";
-import { Event } from "../../utils/scenariosData";
+import { Event } from "../../storage/types";
 
 export const EventWindow = observer(() => {
     const state = useContext(State);

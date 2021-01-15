@@ -36,7 +36,7 @@ export const SettingsMenu = observer(() => {
             state.createNewSaves("scenarioThird");
             alert("Прогресс всех сценариев был сброшен");
         }
-    }
+    } // TODO: настройки громкости
 
     return (
         <div className={styles.settingsMenu} style={state.settingsMenuStyle}>
