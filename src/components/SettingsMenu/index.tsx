@@ -3,13 +3,13 @@ import { observer } from "mobx-react-lite";
 import State from "../../storage";
 import styles from "./styles.module.scss";
 
+const resetProgressFirstText = "Сбросить прогресс первого сценария";
+const resetProgressSecondText = "Сбросить прогресс второго сценария";
+const resetProgressThirdText = "Сбросить прогресс третьего сценария";
+const resetProgressAllText = "Сбросить прогресс всех сценариев";
+
 export const SettingsMenu = observer(() => {
     const state = useContext(State);
-
-    const resetProgressFirstText = "Сбросить прогресс первого сценария";
-    const resetProgressSecondText = "Сбросить прогресс второго сценария";
-    const resetProgressThirdText = "Сбросить прогресс третьего сценария";
-    const resetProgressAllText = "Сбросить прогресс всех сценариев";
 
     function resetProgressFirst() {
         if (window.confirm("Все связанные с первым сценарием данные будут удалены")) {

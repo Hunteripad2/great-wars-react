@@ -10,7 +10,7 @@ const listButtonImage = "./images/music_buttons/list.png";
 
 export const MusicPlayer = observer(() => {
     const { musicIsPlaying, currentMusicList, currentTrack, playButtonImage, playButtonTitle, changeMusicPlayingStatus, setNewTrack, showMusicList } = useContext(State);
-    const currentTrackSrc = currentTrack.src;
+    const currentTrackSrc = "./tracks/" + currentTrack.src + ".ogg";
 
     const audioPlayer = useRef<HTMLAudioElement>(null);
     const audioElement = audioPlayer.current;
@@ -54,7 +54,7 @@ export const MusicPlayer = observer(() => {
             <button className={styles.button} onClick={showMusicList}>
                 <img className={styles.image} src={listButtonImage} title={listButtonTitle} alt={listButtonTitle} />
             </button>
-            <audio ref={audioPlayer} onEnded={playNextTrack} src={"./tracks/" + currentTrackSrc + ".ogg"} />
+            <audio ref={audioPlayer} onEnded={playNextTrack} src={currentTrackSrc} />
         </div>
     );
 });

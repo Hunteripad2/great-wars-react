@@ -4,40 +4,52 @@ import styles from "./styles.module.scss";
 import State from "../../storage";
 import { Event } from "../../storage/types";
 
+const currentEventImageTitle = "Изображение события";
+const trackAlreadyAddedAlert = "Эта композиция уже находится в списке";
+
 export const EventWindow = observer(() => {
-    const state = useContext(State);
-    const currentEventData = state.currentEventData;
+    const { currentEventData, eventWindowStyle, currentScenarioName, currentMusicList, closeTabs, updateMusicList, eventFirstOptionStyle } = useContext(State);
+    const currentEventName = currentEventData.name;
+    const currentEventDesc = currentEventData.desc;
+    const currentEventImageSrc = "./images/event_images/" + currentEventData.image + ".jpg";
+    const currentEventOption1 = currentEventData.option1;
+    const currentEventOption2 = currentEventData.option2;
 
     function chooseFirstEventOption(eventData: Event) {
         //if (eventData.type === "choice") { 	//TODO: доделать виды событий
         //}
-        state.closeTabs();
+        closeTabs();
     }
 
     function chooseSecondEventOption(eventData: Event) {
-        if (eventData.type === "music") {
-            const newMusicList = state.currentMusicList;
-            if (!newMusicList.some((track) => track.name === eventData.newMusicName)) {
-                newMusicList.push({ name: eventData.newMusicName, src: eventData.newMusicSrc, allowed: true });
-                state.updateMusicList(newMusicList, state.currentScenarioName);
-                state.closeTabs();
+        const eventDataType = eventData.type;
+
+        if (eventDataType === "music") {
+            const newMusicName = eventData.newMusicName;
+            const newMusicSrc = eventData.newMusicSrc;
+            const newMusicList = currentMusicList;
+
+            if (!newMusicList.some((track) => track.name === newMusicName)) {
+                newMusicList.push({ name: newMusicName, src: newMusicSrc, allowed: true });
+                updateMusicList(newMusicList, currentScenarioName);
+                closeTabs();
             } else {
-                alert("Эта композиция уже находится в списке");
+                alert(trackAlreadyAddedAlert);
             }
         }
     }
 
     return (
-        <div className={styles.eventWindow} style={state.eventWindowStyle}>
-            <h1 className={styles.name}>{currentEventData.name}</h1>
-            <img className={styles.image} src={"./images/event_images/" + currentEventData.image + ".jpg"} alt="Изображение события" />
-            <p className={styles.desc}>{currentEventData.desc}</p>
-            <button className={styles.optionFirst} onClick={() => chooseFirstEventOption(currentEventData)} style={state.eventFirstOptionStyle}>
-                {currentEventData.option1}
+        <div className={styles.eventWindow} style={eventWindowStyle}>
+            <h1 className={styles.name}>{currentEventName}</h1>
+            <img className={styles.image} src={currentEventImageSrc} alt={currentEventImageTitle} />
+            <p className={styles.desc}>{currentEventDesc}</p>
+            <button className={styles.optionFirst} onClick={() => chooseFirstEventOption(currentEventData)} style={eventFirstOptionStyle}>
+                {currentEventOption1}
             </button>
-            {currentEventData.option2 ? (
+            {currentEventOption2 ? (
                 <button className={styles.optionSecond} onClick={() => chooseSecondEventOption(currentEventData)}>
-                    {currentEventData.option2}
+                    {currentEventOption2}
                 </button>
             ) : null}
         </div>

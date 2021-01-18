@@ -2,6 +2,7 @@ import { createContext } from "react";
 import { makeAutoObservable } from "mobx";
 import { ScenariosData, Track, Event, ResourcesData, CountriesData, Country } from "./types";
 import { countriesLists } from "../utils/countriesLists";
+import { getCurrentPeriodIndex, getCurrentMusicList, setPeriodIndexToZero, setStorylineToHistorical, setInitialMusicList } from "../utils/localStorageService";
 
 const activeCategoryStyle = { backgroundColor: "#484848", borderTopLeftRadius: "25px", borderTopRightRadius: "25px" };
 
@@ -87,9 +88,6 @@ class State {
     get playButtonTitle() {
         return this.musicIsPlaying ? "Поставить на паузу" : "Снять с паузы";
     }
-    get eventIconStyle() {
-        return this.eventsAreBlinking ? { opacity: "0.4" } : { opacity: "1" };
-    }
 
     get currentScenarioName() {
         return document.URL.slice(document.URL.indexOf("?") + 1);
@@ -111,13 +109,13 @@ class State {
     }
 
     get userHasSavesFirst() {
-        return !!localStorage.getItem(`scenarioFirstCurrentPeriodIndex`);
+        return !!getCurrentPeriodIndex(`scenarioFirst`);
     }
     get userHasSavesSecond() {
-        return !!localStorage.getItem(`scenarioSecondCurrentPeriodIndex`);
+        return !!getCurrentPeriodIndex(`scenarioSecond`);
     }
     get userHasSavesThird() {
-        return !!localStorage.getItem(`scenarioThirdCurrentPeriodIndex`);
+        return !!getCurrentPeriodIndex(`scenarioThird`);
     }
 
     get currentResourceCategory() {
@@ -213,13 +211,14 @@ class State {
         }
     };
     createNewSaves = (scenarioName: string) => {
-        localStorage.setItem(`${scenarioName}CurrentPeriodIndex`, "0"); // TODO: вынести localStorage в сервис
-        localStorage.setItem(`${scenarioName}CurrentStoryline`, "Historical");
-        localStorage.setItem(`${scenarioName}CurrentMusicList`, JSON.stringify(this.scenariosData[scenarioName][0].startingMusic));
+        setPeriodIndexToZero(scenarioName); // TODO: вынести localStorage в сервис
+        setStorylineToHistorical(scenarioName);
+        const initialMusicList = JSON.stringify(this.scenariosData[scenarioName][0].startingMusic);
+        setInitialMusicList(scenarioName, initialMusicList);
     };
     loadSaves = () => {
-        this.currentPeriodIndex = Number(localStorage.getItem(`${this.currentScenarioName}CurrentPeriodIndex`));
-        this.currentMusicList = JSON.parse(String(localStorage.getItem(`${this.currentScenarioName}CurrentMusicList`)));
+        this.currentPeriodIndex = Number(getCurrentPeriodIndex(this.currentScenarioName));
+        this.currentMusicList = JSON.parse(String(getCurrentMusicList(this.currentScenarioName)));
         this.currentTrack = this.currentMusicList[0];
         this.currentStoryline = String(localStorage.getItem(`${this.currentScenarioName}CurrentStoryline`));
     };

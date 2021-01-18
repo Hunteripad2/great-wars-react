@@ -14,12 +14,12 @@ import { grabMap } from "../../utils/grabMap";
 
 // TODO: i18n
 
+const logoImage = "./images/logo.png";
+const logoTitle = "Лого";
+const mapTitle = "Карта";
+
 export const MapPage = observer(() => {
     const state = useContext(State);
-
-    const logoImage = "./images/logo.png";
-    const logoTitle = "Лого";
-    const mapTitle = "Карта";
 
     useEffect(() => {
         const timerID = setInterval(() => {

@@ -7,11 +7,11 @@ import { Blackening } from "../../components/Blackening";
 import { SettingsMenu } from "../../components/SettingsMenu";
 import { ResourceMenu } from "../../components/ResourceMenu";
 
+const logoImage = "./images/logo.png";
+const logoTitle = "Лого";
+
 export const MainPage = observer(() => {
     const state = useContext(State);
-
-	const logoImage = "./images/logo.png";
-	const logoTitle = "Лого";
 
     useEffect(() => {
         if (!state.userHasSavesFirst) {
