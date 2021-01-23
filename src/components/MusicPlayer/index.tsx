@@ -1,7 +1,7 @@
 import { useContext, useRef, useEffect, useCallback } from "react";
 import { observer } from "mobx-react-lite";
 import styles from "./styles.module.scss";
-import State from "../../storage";
+import { storeContext } from "../../storage/RootStore";
 
 const nextButtonTitle = "Следующая композиция"; // TODO вынести локализацию
 const listButtonTitle = "Список композиций";
@@ -9,7 +9,10 @@ const nextButtonImage = "./images/music_buttons/next.png";
 const listButtonImage = "./images/music_buttons/list.png";
 
 export const MusicPlayer = observer(() => {
-    const { musicIsPlaying, currentMusicList, currentTrack, playButtonImage, playButtonTitle, changeMusicPlayingStatus, setNewTrack, showMusicList } = useContext(State);
+    const {
+        musicPlayerStore: { musicIsPlaying, currentMusicList, currentTrack, changeMusicPlayingStatus, setNewTrack },
+        interfaceStore: { showMusicList, playButtonImage, playButtonTitle },
+    } = useContext(storeContext);
     const currentTrackSrc = "./tracks/" + currentTrack.src + ".ogg";
 
     const audioPlayer = useRef<HTMLAudioElement>(null);

@@ -1,12 +1,15 @@
 import { useContext } from "react";
 import { observer } from "mobx-react-lite";
 import styles from "./styles.module.scss";
-import State from "../../storage";
+import { storeContext } from "../../storage/RootStore";
 
 const eventIconTitle = "Событие";
 
 export const EventIcons = observer(() => {
-    const { checkEvent, setEventData, showEventWindow, currentEvents, eventsAreBlinking } = useContext(State);
+    const {
+        scenarioStore: { checkEvent, setEventData, currentEvents },
+        interfaceStore: { showEventWindow, eventsAreBlinking },
+    } = useContext(storeContext);
 
     const showEvent = (eventId: number) => (e: React.MouseEvent<HTMLButtonElement>) => {
         checkEvent(eventId);

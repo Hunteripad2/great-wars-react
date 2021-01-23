@@ -2,7 +2,7 @@ import { useContext, useEffect } from "react";
 import { observer } from "mobx-react-lite";
 import { Link } from "react-router-dom";
 import styles from "./styles.module.scss";
-import State from "../../storage";
+import { storeContext } from "../../storage/RootStore";
 import { Blackening } from "../../components/Blackening";
 import { MusicPlayer } from "../../components/MusicPlayer";
 import { TurnCounter } from "../../components/TurnCounter";
@@ -10,6 +10,7 @@ import { MusicList } from "../../components/MusicList";
 import { CountryFlags } from "../../components/CountryFlags";
 import { EventIcons } from "../../components/EventIcons";
 import { EventWindow } from "../../components/EventWindow";
+import { loadSaves } from "../../utils/localStorageService";
 import { grabMap } from "../../utils/grabMap";
 
 // TODO: i18n
@@ -19,17 +20,24 @@ const logoTitle = "Лого";
 const mapTitle = "Карта";
 
 export const MapPage = observer(() => {
-    const state = useContext(State);
+    const {
+        interfaceStore: { blinkEventIcons },
+        scenarioStore: {
+            currentPeriod: { map },
+            currentScenarioName,
+            setInitialData,
+        },
+    } = useContext(storeContext);
 
     useEffect(() => {
         const timerID = setInterval(() => {
-            state.blinkEventIcons();
+            blinkEventIcons();
         }, 1000);
-        state.loadSaves();
+        loadSaves(currentScenarioName, setInitialData);
         return () => {
             clearInterval(timerID);
         };
-    });
+    }, [blinkEventIcons, currentScenarioName, setInitialData]);
 
     return (
         <div className={styles.mapPage}>
@@ -50,7 +58,7 @@ export const MapPage = observer(() => {
             <main>
                 <div className={styles.mapBackground}></div>
                 <div className={styles.map} onMouseDown={grabMap}>
-                    <img className={styles.image} src={"./images/maps/" + state.currentPeriod.map + ".png"} alt={mapTitle} />
+                    <img className={styles.image} src={"./images/maps/" + map + ".png"} alt={mapTitle} />
                     <CountryFlags />
                     <EventIcons />
                 </div>

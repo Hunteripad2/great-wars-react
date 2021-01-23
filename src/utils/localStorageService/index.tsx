@@ -1,16 +1,22 @@
 export function getCurrentPeriodIndex(scenarioName: string) {
     return localStorage.getItem(`${scenarioName}CurrentPeriodIndex`);
 }
-export function getCurrentMusicList(scenarioName: string) {
-    return localStorage.getItem(`${scenarioName}CurrentMusicList`);
+
+export function getSavesStatus(scenarioName: string) {
+    return !!getCurrentPeriodIndex(scenarioName);
 }
 
-export function setPeriodIndexToZero(scenarioName: string) {
+export function createNewSaves(scenarioName: string, startingMusic: string) {
     localStorage.setItem(`${scenarioName}CurrentPeriodIndex`, "0");
-}
-export function setStorylineToHistorical(scenarioName: string) {
     localStorage.setItem(`${scenarioName}CurrentStoryline`, "Historical");
+    localStorage.setItem(`${scenarioName}CurrentMusicList`, startingMusic);
 }
-export function setInitialMusicList(scenarioName: string, initialMusicList: string) {
-    localStorage.setItem(`${scenarioName}CurrentMusicList`, initialMusicList);
+
+export function loadSaves(currentScenarioName: string, setInitialData: Function) {
+    const currentPeriodIndex = Number(getCurrentPeriodIndex(currentScenarioName));
+    const currentMusicList = JSON.parse(String(localStorage.getItem(`${currentScenarioName}CurrentMusicList`)));
+    const currentTrack = currentMusicList[0];
+    const currentStoryline = String(localStorage.getItem(`${currentScenarioName}CurrentStoryline`));
+
+    setInitialData(currentPeriodIndex, currentMusicList, currentTrack, currentStoryline);
 }

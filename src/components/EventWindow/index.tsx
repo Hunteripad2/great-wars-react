@@ -1,14 +1,19 @@
 import { useContext } from "react";
 import { observer } from "mobx-react-lite";
 import styles from "./styles.module.scss";
-import State from "../../storage";
+import { storeContext } from "../../storage/RootStore";
 import { Event } from "../../storage/types";
 
 const currentEventImageTitle = "Изображение события";
 const trackAlreadyAddedAlert = "Эта композиция уже находится в списке";
 
 export const EventWindow = observer(() => {
-    const { currentEventData, eventWindowStyle, currentScenarioName, currentMusicList, closeTabs, updateMusicList, eventFirstOptionStyle } = useContext(State);
+    const {
+        scenarioStore: { currentEventData, currentScenarioName },
+        interfaceStore: { eventWindowDisplay, eventFirstOptionStyle, closeTabs },
+        musicPlayerStore: { currentMusicList, updateMusicList },
+    } = useContext(storeContext);
+
     const currentEventName = currentEventData.name;
     const currentEventDesc = currentEventData.desc;
     const currentEventImageSrc = "./images/event_images/" + currentEventData.image + ".jpg";
@@ -40,7 +45,7 @@ export const EventWindow = observer(() => {
     }
 
     return (
-        <div className={styles.eventWindow} style={eventWindowStyle}>
+        <div className={styles.eventWindow} style={eventWindowDisplay}>
             <h1 className={styles.name}>{currentEventName}</h1>
             <img className={styles.image} src={currentEventImageSrc} alt={currentEventImageTitle} />
             <p className={styles.desc}>{currentEventDesc}</p>

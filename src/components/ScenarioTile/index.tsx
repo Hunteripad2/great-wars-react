@@ -2,7 +2,7 @@ import { useContext } from "react";
 import { observer } from "mobx-react-lite";
 import { Link } from "react-router-dom";
 import styles from "./styles.module.scss";
-import State from "../../storage";
+import { storeContext } from "../../storage/RootStore";
 import { getCurrentPeriodIndex } from "../../utils/localStorageService";
 
 interface ScenarioTileProps {
@@ -15,7 +15,9 @@ interface ScenarioTileProps {
 const scenarioImageTitle = "Изображение сценария";
 
 export const ScenarioTile = observer(({ scenarioName, image, title, date }: ScenarioTileProps) => {
-    const { scenariosData } = useContext(State);
+    const {
+        scenarioStore: { scenariosData },
+    } = useContext(storeContext);
 
     const amountOfPeriods = scenariosData[scenarioName].length;
     const onePeriodInPercent = 100 / amountOfPeriods;

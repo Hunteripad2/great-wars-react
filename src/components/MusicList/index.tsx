@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import { observer } from "mobx-react-lite";
 import styles from "./styles.module.scss";
-import State from "../../storage";
+import { storeContext } from "../../storage/RootStore";
 
 interface EventOnClick extends React.MouseEvent<HTMLLIElement> {
     target: HTMLLIElement;
@@ -13,7 +13,11 @@ const trackAllowedTitle = "Запретить воспроизведение";
 const trackForbiddenTitle = "Разрешить воспроизведение";
 
 export const MusicList = observer(() => {
-    const { currentMusicList, musicListStyle, currentScenarioName, setNewTrack, changeMusicPlayingStatus, updateMusicList } = useContext(State);
+    const {
+        scenarioStore: { currentScenarioName },
+        musicPlayerStore: { currentMusicList, setNewTrack, changeMusicPlayingStatus, updateMusicList },
+        interfaceStore: { musicListDisplay },
+    } = useContext(storeContext);
 
     const chooseTrack = (trackId: number) => (e: EventOnClick) => {
         if (!currentMusicList[trackId].allowed || e.target.tagName === "IMG") {
@@ -43,7 +47,7 @@ export const MusicList = observer(() => {
     ));
 
     return (
-        <div className={styles.musicList} style={musicListStyle}>
+        <div className={styles.musicList} style={musicListDisplay}>
             <ul className={styles.list}>{musicList}</ul>
         </div>
     );

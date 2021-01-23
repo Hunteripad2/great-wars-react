@@ -1,10 +1,14 @@
 import { useContext } from "react";
 import { observer } from "mobx-react-lite";
 import styles from "./styles.module.scss";
-import State from "../../storage";
+import { storeContext } from "../../storage/RootStore";
+
+const countryIconTitle = "Страна";
 
 export const CountryFlags = observer(() => {
-    const state = useContext(State);
+    const {
+        scenarioStore: { currentCountryList },
+    } = useContext(storeContext);
 
     const showCountry = (countryId: number) => (e: React.MouseEvent<HTMLButtonElement>) => {
         //state.checkEvent(eventId);
@@ -14,13 +18,17 @@ export const CountryFlags = observer(() => {
     };
 
     let countryFlags;
-    if (state.currentCountryList) {
-        countryFlags = state.currentCountryList.map((country, index) => (
-            <button key={country.name} className={styles.button} style={{ left: `${country.positionX}`, top: `${country.positionY}` }} onClick={showCountry(index)}>
-                <img src={"./images/country_icons/" + country.icon + ".png"} className={styles.image} alt="Страна" />
+    countryFlags = currentCountryList.map((country, index) => {
+        const countryName = country.name;
+        const countryIconSrc = "./images/country_icons/" + country.icon + ".png";
+        const countryIconPosition = { left: `${country.positionX}`, top: `${country.positionY}` };
+
+        return (
+            <button key={countryName} className={styles.button} style={countryIconPosition} onClick={showCountry(index)}>
+                <img src={countryIconSrc} className={styles.image} alt={countryIconTitle} />
             </button>
-        ));
-    }
+        );
+    });
 
     return <div className={styles.countryFlags}>{countryFlags}</div>;
 });

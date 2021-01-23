@@ -1,10 +1,12 @@
 import { useContext } from "react";
 import { observer } from "mobx-react-lite";
 import styles from "./styles.module.scss";
-import State from "../../storage";
+import { storeContext } from "../../storage/RootStore";
 
 export const Blackening = observer(() => {
-    const state = useContext(State);
+    const {
+        interfaceStore: { closeTabs, blackeningDisplay },
+    } = useContext(storeContext);
 
-    return <div className={styles.blackening} onClick={state.closeTabs} style={state.blackeningStyle} />;
+    return <div className={styles.blackening} onClick={closeTabs} style={blackeningDisplay} />;
 });

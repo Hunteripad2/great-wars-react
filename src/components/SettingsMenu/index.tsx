@@ -1,7 +1,8 @@
-import { useContext } from "react";
+import { useContext, useCallback } from "react";
 import { observer } from "mobx-react-lite";
-import State from "../../storage";
+import { storeContext } from "../../storage/RootStore";
 import styles from "./styles.module.scss";
+import { createNewSaves } from "../../utils/localStorageService";
 
 const resetProgressFirstText = "Сбросить прогресс первого сценария";
 const resetProgressSecondText = "Сбросить прогресс второго сценария";
@@ -9,37 +10,46 @@ const resetProgressThirdText = "Сбросить прогресс третьег
 const resetProgressAllText = "Сбросить прогресс всех сценариев";
 
 export const SettingsMenu = observer(() => {
-    const state = useContext(State);
+    const {
+        interfaceStore: { settingsMenuDisplay },
+        scenarioStore: { scenariosData },
+    } = useContext(storeContext);
+    const startingMusicFirst = JSON.stringify(scenariosData["scenarioFirst"][0].startingMusic);
+    const startingMusicSecond = JSON.stringify(scenariosData["scenarioSecond"][0].startingMusic);
+    const startingMusicThird = JSON.stringify(scenariosData["scenarioThird"][0].startingMusic);
 
-    function resetProgressFirst() {
+    const resetProgressFirst = useCallback(() => {
         if (window.confirm("Все связанные с первым сценарием данные будут удалены")) {
-            state.createNewSaves("scenarioFirst");
+            createNewSaves("scenarioFirst", startingMusicFirst);
             alert("Прогресс первого сценария был сброшен");
         }
-    }
-    function resetProgressSecond() {
+    }, [startingMusicFirst]);
+
+    const resetProgressSecond = useCallback(() => {
         if (window.confirm("Все связанные со вторым сценарием данные будут удалены")) {
-            state.createNewSaves("scenarioSecond");
+            createNewSaves("scenarioSecond", startingMusicSecond);
             alert("Прогресс второго сценария был сброшен");
         }
-    }
-    function resetProgressThird() {
+    }, [startingMusicSecond]);
+
+    const resetProgressThird = useCallback(() => {
         if (window.confirm("Все связанные с третьим сценарием данные будут удалены")) {
-            state.createNewSaves("scenarioThird");
+            createNewSaves("scenarioThird", startingMusicThird);
             alert("Прогресс третьего сценария был сброшен");
         }
-    }
-    function resetProgressAll() {
+    }, [startingMusicThird]);
+
+    const resetProgressAll = useCallback(() => {
         if (window.confirm("Все данные будут удалены")) {
-            state.createNewSaves("scenarioFirst");
-            state.createNewSaves("scenarioSecond");
-            state.createNewSaves("scenarioThird");
+            createNewSaves("scenarioFirst", startingMusicFirst);
+            createNewSaves("scenarioSecond", startingMusicSecond);
+            createNewSaves("scenarioThird", startingMusicThird);
             alert("Прогресс всех сценариев был сброшен");
         }
-    } // TODO: настройки громкости
+    }, [startingMusicFirst, startingMusicSecond, startingMusicThird]); // TODO: настройки громкости
 
     return (
-        <div className={styles.settingsMenu} style={state.settingsMenuStyle}>
+        <div className={styles.settingsMenu} style={settingsMenuDisplay}>
             <ul className={styles.progressList}>
                 <li className={styles.option}>
                     <button className={styles.button} onClick={resetProgressFirst}>

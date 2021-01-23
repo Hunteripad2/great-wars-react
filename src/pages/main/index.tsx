@@ -2,7 +2,8 @@ import { useContext, useEffect } from "react";
 import { observer } from "mobx-react-lite";
 import { Link } from "react-router-dom";
 import styles from "./styles.module.scss";
-import State from "../../storage";
+import { storeContext } from "../../storage/RootStore";
+import { createNewSaves, getSavesStatus } from "../../utils/localStorageService";
 import { Blackening } from "../../components/Blackening";
 import { SettingsMenu } from "../../components/SettingsMenu";
 import { ResourceMenu } from "../../components/ResourceMenu";
@@ -11,19 +12,29 @@ const logoImage = "./images/logo.png";
 const logoTitle = "Лого";
 
 export const MainPage = observer(() => {
-    const state = useContext(State);
+    const {
+        interfaceStore: { showResourceMenu, showSettingsMenu },
+        scenarioStore: { scenariosData },
+    } = useContext(storeContext);
 
     useEffect(() => {
-        if (!state.userHasSavesFirst) {
-            state.createNewSaves("scenarioFirst");
+        const userHasSavesFirst = getSavesStatus("scenarioFirst");
+        const userHasSavesSecond = getSavesStatus("scenarioSecond");
+        const userHasSavesThird = getSavesStatus("scenarioThird");
+        const startingMusicFirst = JSON.stringify(scenariosData["scenarioFirst"][0].startingMusic);
+        const startingMusicSecond = JSON.stringify(scenariosData["scenarioSecond"][0].startingMusic);
+        const startingMusicThird = JSON.stringify(scenariosData["scenarioThird"][0].startingMusic);
+
+        if (!userHasSavesFirst) {
+            createNewSaves("scenarioFirst", startingMusicFirst);
         }
-        if (!state.userHasSavesSecond) {
-            state.createNewSaves("scenarioSecond");
+        if (!userHasSavesSecond) {
+            createNewSaves("scenarioSecond", startingMusicSecond);
         }
-        if (!state.userHasSavesThird) {
-            state.createNewSaves("scenarioThird");
+        if (!userHasSavesThird) {
+            createNewSaves("scenarioThird", startingMusicThird);
         }
-    });
+    }, [scenariosData]);
 
     return (
         <div className={styles.mainPage}>
@@ -36,12 +47,12 @@ export const MainPage = observer(() => {
                         </Link>
                     </li>
                     <li className={styles.option}>
-                        <button className={styles.text} onClick={state.showResourceMenu}>
+                        <button className={styles.text} onClick={showResourceMenu}>
                             Ресурсы
                         </button>
                     </li>
                     <li className={styles.option}>
-                        <button className={styles.text} onClick={state.showSettingsMenu}>
+                        <button className={styles.text} onClick={showSettingsMenu}>
                             Настройки
                         </button>
                     </li>

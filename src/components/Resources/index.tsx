@@ -1,10 +1,12 @@
 import { useContext } from "react";
 import { observer } from "mobx-react-lite";
-import State from "../../storage";
+import { storeContext } from "../../storage/RootStore";
 import styles from "./styles.module.scss";
 
 export const Resources = observer(() => {
-    const { resourcesStyle, currentResourceList } = useContext(State);
+    const {
+        resourceMenuStore: { resourcesDisplay, currentResourceList },
+    } = useContext(storeContext);
 
     function showResource(resourceId: number) {
         // TODO: доделать всплывающее окно
@@ -36,7 +38,7 @@ export const Resources = observer(() => {
     });
 
     return (
-        <table className={styles.resources} style={resourcesStyle}>
+        <table className={styles.resources} style={resourcesDisplay}>
             <tr className={styles.row}>{resourceListFirstRow}</tr>
             <tr className={styles.row}>{resourceListSecondRow}</tr>
         </table>

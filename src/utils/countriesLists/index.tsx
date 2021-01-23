@@ -1,4 +1,4 @@
-interface CountriesLists {
+export interface CountriesLists {
     [countryList: string]: Array<string>;
 }
 

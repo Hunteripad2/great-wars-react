@@ -1,14 +1,17 @@
 import { useContext } from "react";
 import { observer } from "mobx-react-lite";
-import State from "../../storage";
+import { storeContext } from "../../storage/RootStore";
 import styles from "./styles.module.scss";
 import { Resources } from "../Resources";
 
 export const ResourceMenu = observer(() => {
-    const { resourceMenuStyle, booksCategoryStyle, chooseBooksCategory, articlesCategoryStyle, chooseArticlesCategory, filmsCategoryStyle, chooseFilmsCategory, headerStyle } = useContext(State);
+    const {
+        interfaceStore: { resourceMenuDisplay },
+        resourceMenuStore: { booksCategoryStyle, chooseBooksCategory, articlesCategoryStyle, chooseArticlesCategory, filmsCategoryStyle, chooseFilmsCategory, headerDisplay },
+    } = useContext(storeContext);
 
     return (
-        <div className={styles.resourceMenu} style={resourceMenuStyle}>
+        <div className={styles.resourceMenu} style={resourceMenuDisplay}>
             <ul className={styles.categories}>
                 <li className={styles.option}>
                     <button className={styles.button} style={booksCategoryStyle} onClick={chooseBooksCategory}>
@@ -27,7 +30,7 @@ export const ResourceMenu = observer(() => {
                 </li>
             </ul>
             <Resources />
-            <h1 className={styles.chooseCategoryHeader} style={headerStyle}>
+            <h1 className={styles.chooseCategoryHeader} style={headerDisplay}>
                 Выберите раздел
             </h1>
         </div>
