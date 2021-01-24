@@ -19,12 +19,12 @@ export const MusicPlayer = observer(() => {
     const audioElement = audioPlayer.current;
 
     useEffect(() => {
-        if (musicIsPlaying && audioElement?.paused) {
+        if (musicIsPlaying && audioElement?.paused && currentTrack) {
             audioElement?.play();
-        } else if (!musicIsPlaying && !audioElement?.paused) {
+        } else if (!musicIsPlaying && !audioElement?.paused && currentTrack) {
             audioElement?.pause();
         }
-    }, [musicIsPlaying, audioElement]);
+    }, [musicIsPlaying, audioElement, currentTrack]);
 
     const playCurrentTrack = useCallback(() => {
         changeMusicPlayingStatus(!musicIsPlaying);

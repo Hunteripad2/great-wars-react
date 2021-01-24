@@ -9,9 +9,9 @@ const trackAlreadyAddedAlert = "Эта композиция уже находи�
 
 export const EventWindow = observer(() => {
     const {
-        scenarioStore: { currentEventData, currentScenarioName },
+        scenarioStore: { currentEventData },
         interfaceStore: { eventWindowDisplay, eventFirstOptionStyle, closeTabs },
-        musicPlayerStore: { currentMusicList, updateMusicList },
+        musicPlayerStore: { currentMusicList, addNewTrack },
     } = useContext(storeContext);
 
     const currentEventName = currentEventData.name;
@@ -27,16 +27,14 @@ export const EventWindow = observer(() => {
     }
 
     function chooseSecondEventOption(eventData: Event) {
-        const eventDataType = eventData.type;
+        const eventType = eventData.type;
 
-        if (eventDataType === "music") {
+        if (eventType === "music") {
             const newMusicName = eventData.newMusicName;
             const newMusicSrc = eventData.newMusicSrc;
-            const newMusicList = currentMusicList;
 
-            if (!newMusicList.some((track) => track.name === newMusicName)) {
-                newMusicList.push({ name: newMusicName, src: newMusicSrc, allowed: true });
-                updateMusicList(newMusicList, currentScenarioName);
+            if (!currentMusicList.some((track) => track.name === newMusicName)) {
+                addNewTrack(newMusicName, newMusicSrc);
                 closeTabs();
             } else {
                 alert(trackAlreadyAddedAlert);

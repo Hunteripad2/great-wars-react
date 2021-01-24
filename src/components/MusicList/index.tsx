@@ -7,15 +7,14 @@ interface EventOnClick extends React.MouseEvent<HTMLLIElement> {
     target: HTMLLIElement;
 }
 
-const trackAllowed = "./images/track_status/allowed.png";
-const trackForbidden = "./images/track_status/forbidden.png";
+const trackAllowedImage = "./images/track_status/allowed.png";
+const trackForbiddenImage = "./images/track_status/forbidden.png";
 const trackAllowedTitle = "Запретить воспроизведение";
 const trackForbiddenTitle = "Разрешить воспроизведение";
 
 export const MusicList = observer(() => {
     const {
-        scenarioStore: { currentScenarioName },
-        musicPlayerStore: { currentMusicList, setNewTrack, changeMusicPlayingStatus, updateMusicList },
+        musicPlayerStore: { currentMusicList, setNewTrack, changeMusicPlayingStatus, forbidChoosenTrack },
         interfaceStore: { musicListDisplay },
     } = useContext(storeContext);
 
@@ -27,24 +26,23 @@ export const MusicList = observer(() => {
         changeMusicPlayingStatus(true);
     };
 
-    function forbidMusic(trackId: number) {
-        const newMusicList = currentMusicList;
-        newMusicList[trackId].allowed = !newMusicList[trackId].allowed;
-        updateMusicList(newMusicList, currentScenarioName);
-    }
     // TODO: uuid для key
-    const musicList = currentMusicList.map((track, index) => (
-        <li key={track.name} className={styles.option} onClick={chooseTrack(index)}>
-            <span className={styles.name} style={track.allowed ? { opacity: "1" } : { opacity: "0.2" }}>
-                {track.name}
-            </span>
-            {track.allowed ? (
-                <img src={trackAllowed} className={styles.forbidImage} onClick={() => forbidMusic(index)} title={trackAllowedTitle} alt={trackAllowedTitle} />
-            ) : (
-                <img src={trackForbidden} className={styles.forbidImage} onClick={() => forbidMusic(index)} title={trackForbiddenTitle} alt={trackForbiddenTitle} />
-            )}
-        </li>
-    ));
+    const musicList = currentMusicList.map((track, index) => {
+        const trackName = track.name;
+        const trackAllowed = track.allowed;
+        const trackNameOpacity = trackAllowed ? { opacity: "1" } : { opacity: "0.2" };
+        const forbidImageSrc = trackAllowed ? trackAllowedImage : trackForbiddenImage;
+        const forbidImageTitle = trackAllowed ? trackAllowedTitle : trackForbiddenTitle;
+
+        return (
+            <li key={trackName} className={styles.option} onClick={chooseTrack(index)}>
+                <span className={styles.name} style={trackNameOpacity}>
+                    {trackName}
+                </span>
+                <img src={forbidImageSrc} className={styles.forbidImage} onClick={() => forbidChoosenTrack(trackName)} title={forbidImageTitle} alt={forbidImageTitle} />
+            </li>
+        );
+    });
 
     return (
         <div className={styles.musicList} style={musicListDisplay}>
