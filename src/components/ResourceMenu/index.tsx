@@ -6,6 +6,7 @@ import { Resources } from "../Resources";
 
 export const ResourceMenu = observer(() => {
     const {
+        serverStore: { resourcesDataIsLoaded },
         interfaceStore: { resourceMenuDisplay },
         resourceMenuStore: { booksCategoryStyle, chooseBooksCategory, articlesCategoryStyle, chooseArticlesCategory, filmsCategoryStyle, chooseFilmsCategory, headerDisplay },
     } = useContext(storeContext);
@@ -29,7 +30,7 @@ export const ResourceMenu = observer(() => {
                     </button>
                 </li>
             </ul>
-            <Resources />
+            {resourcesDataIsLoaded ? <Resources /> : null}
             <h1 className={styles.chooseCategoryHeader} style={headerDisplay}>
                 Выберите раздел
             </h1>

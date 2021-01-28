@@ -1,5 +1,6 @@
 import { useContext } from "react";
 import { observer } from "mobx-react-lite";
+//import { v4 as uuidv4 } from "uuid"; // TODO: с uuid каждый рендер создаётся новый элемент, разобраться
 import styles from "./styles.module.scss";
 import { storeContext } from "../../storage/RootStore";
 

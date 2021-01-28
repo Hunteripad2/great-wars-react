@@ -1,7 +1,8 @@
 import { useContext } from "react";
 import { observer } from "mobx-react-lite";
-import { storeContext } from "../../storage/RootStore";
+import { v4 as uuidv4 } from "uuid";
 import styles from "./styles.module.scss";
+import { storeContext } from "../../storage/RootStore";
 
 export const Resources = observer(() => {
     const {
@@ -16,7 +17,7 @@ export const Resources = observer(() => {
     const resourceListFirstRow = currentResourceList.map((resource, index) => {
         if (index % 2 === 0) {
             return (
-                <td key={resource.name} className={styles.option}>
+                <td key={uuidv4()} className={styles.option}>
                     <button className={styles.button} onClick={() => showResource(index)}>
                         {resource.name}
                     </button>
@@ -28,7 +29,7 @@ export const Resources = observer(() => {
     const resourceListSecondRow = currentResourceList.map((resource, index) => {
         if (index % 2 !== 0) {
             return (
-                <td key={resource.name} className={styles.option}>
+                <td key={uuidv4()} className={styles.option}>
                     <button className={styles.button} onClick={() => showResource(index)}>
                         {resource.name}
                     </button>

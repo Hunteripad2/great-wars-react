@@ -13,28 +13,31 @@ const logoTitle = "Лого";
 
 export const MainPage = observer(() => {
     const {
+        serverStore: { scenariosDataIsLoaded },
         interfaceStore: { showResourceMenu, showSettingsMenu },
         scenarioStore: { scenariosData },
     } = useContext(storeContext);
 
     useEffect(() => {
-        const userHasSavesFirst = !!getCurrentPeriodIndex("scenarioFirst");
-        const userHasSavesSecond = !!getCurrentPeriodIndex("scenarioSecond");
-        const userHasSavesThird = !!getCurrentPeriodIndex("scenarioThird");
-        const startingMusicFirst = JSON.stringify(scenariosData["scenarioFirst"][0].startingMusic);
-        const startingMusicSecond = JSON.stringify(scenariosData["scenarioSecond"][0].startingMusic);
-        const startingMusicThird = JSON.stringify(scenariosData["scenarioThird"][0].startingMusic);
+        if (scenariosDataIsLoaded) {
+            const userHasSavesFirst = !!getCurrentPeriodIndex("scenarioFirst");
+            const userHasSavesSecond = !!getCurrentPeriodIndex("scenarioSecond");
+            const userHasSavesThird = !!getCurrentPeriodIndex("scenarioThird");
+            const startingMusicFirst = JSON.stringify(scenariosData["scenarioFirst"][0].startingMusic);
+            const startingMusicSecond = JSON.stringify(scenariosData["scenarioSecond"][0].startingMusic);
+            const startingMusicThird = JSON.stringify(scenariosData["scenarioThird"][0].startingMusic);
 
-        if (!userHasSavesFirst) {
-            createNewSaves("scenarioFirst", startingMusicFirst);
+            if (!userHasSavesFirst) {
+                createNewSaves("scenarioFirst", startingMusicFirst);
+            }
+            if (!userHasSavesSecond) {
+                createNewSaves("scenarioSecond", startingMusicSecond);
+            }
+            if (!userHasSavesThird) {
+                createNewSaves("scenarioThird", startingMusicThird);
+            }
         }
-        if (!userHasSavesSecond) {
-            createNewSaves("scenarioSecond", startingMusicSecond);
-        }
-        if (!userHasSavesThird) {
-            createNewSaves("scenarioThird", startingMusicThird);
-        }
-    }, [scenariosData]);
+    }, [scenariosData, scenariosDataIsLoaded]);
 
     return (
         <div className={styles.mainPage}>
@@ -60,7 +63,7 @@ export const MainPage = observer(() => {
             </main>
             <Blackening />
             <ResourceMenu />
-            <SettingsMenu />
+            {scenariosDataIsLoaded ? <SettingsMenu /> : null}
         </div>
     );
 });

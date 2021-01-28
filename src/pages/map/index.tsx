@@ -21,6 +21,7 @@ const mapTitle = "Карта";
 
 export const MapPage = observer(() => {
     const {
+        serverStore: { countriesDataIsLoaded },
         interfaceStore: { blinkEventIcons },
         scenarioStore: {
             currentPeriod: { map },
@@ -59,7 +60,7 @@ export const MapPage = observer(() => {
                 <div className={styles.mapBackground}></div>
                 <div className={styles.map} onMouseDown={grabMap}>
                     <img className={styles.image} src={"./images/maps/" + map + ".png"} alt={mapTitle} />
-                    <CountryFlags />
+                    {countriesDataIsLoaded ? <CountryFlags /> : null}
                     <EventIcons />
                 </div>
             </main>

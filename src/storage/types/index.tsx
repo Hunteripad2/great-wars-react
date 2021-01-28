@@ -55,3 +55,5 @@ export interface Country {
     positionX?: string;
     positionY?: string;
 }
+
+export type DataName = "resources" | "scenarios" | "countries";

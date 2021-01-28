@@ -1,5 +1,6 @@
 import { useContext } from "react";
 import { observer } from "mobx-react-lite";
+import { v4 as uuidv4 } from "uuid";
 import styles from "./styles.module.scss";
 import { storeContext } from "../../storage/RootStore";
 
@@ -19,12 +20,11 @@ export const CountryFlags = observer(() => {
 
     let countryFlags;
     countryFlags = currentCountryList.map((country, index) => {
-        const countryName = country.name;
         const countryIconSrc = "./images/country_icons/" + country.icon + ".png";
         const countryIconPosition = { left: `${country.positionX}`, top: `${country.positionY}` };
 
         return (
-            <button key={countryName} className={styles.button} style={countryIconPosition} onClick={showCountry(index)}>
+            <button key={uuidv4()} className={styles.button} style={countryIconPosition} onClick={showCountry(index)}>
                 <img src={countryIconSrc} className={styles.image} alt={countryIconTitle} />
             </button>
         );

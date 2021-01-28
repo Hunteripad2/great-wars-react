@@ -8,33 +8,37 @@ function getServerUrl() {
     return isLocalClient ? localServer : herokuServer;
 }
 
-export function loadDataFromServer(dataIsLoaded: boolean, changeDataLoadStatus: Function, setScenariosData: Function, setResourcesData: Function, setCountriesData: Function) {
+export function loadDataFromServer(changeDataLoadStatus: Function, setScenariosData: Function, setResourcesData: Function, setCountriesData: Function) {
     const serverUrl = getServerUrl();
 
-    if (!dataIsLoaded) {
-        fetch(serverUrl + "scenariosData")
-            .then((response) => {
-                return response.json();
-            })
-            .then((data) => {
-                setScenariosData(data);
-            });
-        fetch(serverUrl + "resourcesData")
-            .then((response) => {
-                return response.json();
-            })
-            .then((data) => {
-                setResourcesData(data);
-            });
-        fetch(serverUrl + "countriesData")
-            .then((response) => {
-                return response.json();
-            })
-            .then((data) => {
-                setCountriesData(data);
-            })
-            .then(() => {
-                changeDataLoadStatus(true);
-            });
-    }
+    fetch(serverUrl + "resourcesData")
+        .then((response) => {
+            return response.json();
+        })
+        .then((data) => {
+            setResourcesData(data);
+        })
+        .then(() => {
+            changeDataLoadStatus("resources", true);
+        });
+    fetch(serverUrl + "scenariosData")
+        .then((response) => {
+            return response.json();
+        })
+        .then((data) => {
+            setScenariosData(data);
+        })
+        .then(() => {
+            changeDataLoadStatus("scenarios", true);
+        });
+    fetch(serverUrl + "countriesData")
+        .then((response) => {
+            return response.json();
+        })
+        .then((data) => {
+            setCountriesData(data);
+        })
+        .then(() => {
+            changeDataLoadStatus("countries", true);
+        });
 }

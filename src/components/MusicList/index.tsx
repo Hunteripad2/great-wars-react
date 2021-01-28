@@ -1,5 +1,6 @@
 import { useContext } from "react";
 import { observer } from "mobx-react-lite";
+import { v4 as uuidv4 } from "uuid";
 import styles from "./styles.module.scss";
 import { storeContext } from "../../storage/RootStore";
 
@@ -26,7 +27,6 @@ export const MusicList = observer(() => {
         changeMusicPlayingStatus(true);
     };
 
-    // TODO: uuid для key
     const musicList = currentMusicList.map((track, index) => {
         const trackName = track.name;
         const trackAllowed = track.allowed;
@@ -35,7 +35,7 @@ export const MusicList = observer(() => {
         const forbidImageTitle = trackAllowed ? trackAllowedTitle : trackForbiddenTitle;
 
         return (
-            <li key={trackName} className={styles.option} onClick={chooseTrack(index)}>
+            <li key={uuidv4()} className={styles.option} onClick={chooseTrack(index)}>
                 <span className={styles.name} style={trackNameOpacity}>
                     {trackName}
                 </span>

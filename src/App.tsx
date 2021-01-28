@@ -12,24 +12,22 @@ import { loadDataFromServer } from "./utils/serverService";
 
 export const App = observer(() => {
     const {
-        serverStore: { dataIsLoaded, changeDataLoadStatus },
+        serverStore: { changeDataLoadStatus, scenariosDataIsLoaded },
         scenarioStore: { setScenariosData, setCountriesData },
         resourceMenuStore: { setResourcesData },
     } = useContext(storeContext);
 
     useEffect(() => {
-        loadDataFromServer(dataIsLoaded, changeDataLoadStatus, setScenariosData, setResourcesData, setCountriesData);
-    }, [dataIsLoaded, changeDataLoadStatus, setScenariosData, setResourcesData, setCountriesData]);
+        loadDataFromServer(changeDataLoadStatus, setScenariosData, setResourcesData, setCountriesData);
+    }, [changeDataLoadStatus, setScenariosData, setResourcesData, setCountriesData]);
 
     return (
         <div id="app">
-            {dataIsLoaded ? (
-                <Switch>
-                    <Route path="/map" component={MapPage} />
-                    <Route path="/scenarios" component={ScenariosPage} />
-                    <Route exact path="/" component={MainPage} />
-                </Switch>
-            ) : null}
+            <Switch>
+                <Route exact path="/" component={MainPage} />
+                <Route path="/scenarios" component={ScenariosPage} />
+                <Route path="/map" component={scenariosDataIsLoaded ? MapPage : undefined} />
+            </Switch>
         </div>
     );
 });
