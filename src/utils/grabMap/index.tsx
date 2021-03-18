@@ -1,7 +1,3 @@
-interface EventOnMouseDown extends React.MouseEvent<HTMLDivElement> {
-    currentTarget: HTMLDivElement;
-}
-
 interface Positions {
     pos1: number;
     pos2: number;
@@ -9,31 +5,27 @@ interface Positions {
     pos4: number;
 }
 
-export function grabMap(e: EventOnMouseDown) {
-    const map = e.currentTarget;
-    const positions: Positions = {
-        pos1: 0,
-        pos2: 0,
-        pos3: 0,
-        pos4: 0,
-    };
+let map: HTMLDivElement;
+const positions: Positions = {
+    pos1: 0,
+    pos2: 0,
+    pos3: 0,
+    pos4: 0,
+};
 
-    if (map) map.style.cursor = "grabbing";
-
-    e = e || window.event;
+export function grabMap(e: React.MouseEvent<HTMLDivElement>) {
     e.preventDefault();
+    map = e.currentTarget;
 
+    map.style.cursor = "grabbing";
     positions.pos3 = e.clientX;
     positions.pos4 = e.clientY;
 
-    //document.addEventListener('mouseup', stopDraggingMap(map));
-    //document.addEventListener('mousemove', dragMap(e, positions, map)); // TODO addeventlistener
-    document.onmouseup = () => stopDraggingMap(map);
-    document.onmousemove = (e: MouseEvent) => dragMap(e, positions, map);
+    document.addEventListener("mouseup", stopDraggingMap);
+    document.addEventListener("mousemove", dragMap);
 }
 
-function dragMap(e: MouseEvent, positions: Positions, map: HTMLDivElement) {
-    e = e || window.event;
+function dragMap(e: MouseEvent) {
     e.preventDefault();
 
     positions.pos1 = positions.pos3 - e.clientX;
@@ -41,19 +33,17 @@ function dragMap(e: MouseEvent, positions: Positions, map: HTMLDivElement) {
     positions.pos3 = e.clientX;
     positions.pos4 = e.clientY;
 
-    if (map) {
-        if (map.offsetTop - positions.pos2 > -500 && map.offsetTop - positions.pos2 < 500) {
-            map.style.top = map.offsetTop - positions.pos2 + "px";
-        }
-        if (map.offsetLeft - positions.pos1 > -500 && map.offsetLeft - positions.pos1 < 500) {
-            map.style.left = map.offsetLeft - positions.pos1 + "px";
-        }
+    if (map.offsetTop - positions.pos2 > -500 && map.offsetTop - positions.pos2 < 500) {
+        map.style.top = map.offsetTop - positions.pos2 + "px";
+    }
+    if (map.offsetLeft - positions.pos1 > -500 && map.offsetLeft - positions.pos1 < 500) {
+        map.style.left = map.offsetLeft - positions.pos1 + "px";
     }
 }
 
-function stopDraggingMap(map: HTMLDivElement) {
-    if (map) map.style.cursor = "grab";
+function stopDraggingMap() {
+    map.style.cursor = "grab";
 
-    document.onmouseup = null;
-    document.onmousemove = null;
+    document.removeEventListener("mouseup", stopDraggingMap);
+    document.removeEventListener("mousemove", dragMap);
 }

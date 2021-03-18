@@ -3,7 +3,7 @@ import { observer } from "mobx-react-lite";
 import styles from "./styles.module.scss";
 import { storeContext } from "../../storage/RootStore";
 
-const nextButtonTitle = "Следующая композиция"; // TODO вынести локализацию
+const nextButtonTitle = "Следующая композиция";
 const listButtonTitle = "Список композиций";
 const nextButtonImage = "./images/music_buttons/next.png";
 const listButtonImage = "./images/music_buttons/list.png";

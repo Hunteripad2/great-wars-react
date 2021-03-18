@@ -13,7 +13,7 @@ import { EventWindow } from "../../components/EventWindow";
 import { loadSaves } from "../../utils/localStorageService";
 import { grabMap } from "../../utils/grabMap";
 
-// TODO: i18n
+// TODO: i18n локализация
 
 const logoImage = "./images/logo.png";
 const logoTitle = "Лого";
