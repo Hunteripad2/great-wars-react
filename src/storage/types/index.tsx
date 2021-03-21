@@ -56,4 +56,14 @@ export interface Country {
     positionY?: string;
 }
 
+export interface StartScreenData {
+    [scenarioName: string]: Array<StartScreen>;
+}
+
+export interface StartScreen {
+    title?: string;
+    desc?: string;
+    option?: string;
+}
+
 export type DataName = "resources" | "scenarios" | "countries";

@@ -11,6 +11,7 @@ export class InterfaceStore {
     settingsMenuIsShown = false;
     resourceMenuIsShown = false;
     resourceWindowIsShown = false;
+    startScreenIsShown = false;
     musicListIsShown = false;
     countryWindowIsShown = false;
     eventWindowIsShown = false;
@@ -25,6 +26,9 @@ export class InterfaceStore {
     }
     get resourceWindowDisplay() {
         return this.resourceWindowIsShown ? { transform: "scale(1, 1)" } : { transform: "scale(0, 0)" };
+    }
+    get startScreenDisplay() {
+        return this.startScreenIsShown ? { opacity: "0.9", transform: "translate(0%)" } : { opacity: "0", transform: "translate(100%)" };
     }
     get musicListDisplay() {
         return this.musicListIsShown ? { transform: "translate(0%)" } : { transform: "translate(100%)" };
@@ -79,6 +83,14 @@ export class InterfaceStore {
         this.resourceWindowIsShown = false;
         this.musicListIsShown = false;
         this.eventWindowIsShown = false;
+    };
+    closeStartScreen = () => {
+        //if () {
+        //
+        //} else {
+        //
+        //}
+        this.startScreenIsShown = false;
     };
 
     blinkEventIcons = () => {

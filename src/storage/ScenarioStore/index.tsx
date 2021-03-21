@@ -1,6 +1,6 @@
 import { makeAutoObservable } from "mobx";
 import { RootStore } from "../RootStore";
-import { ScenariosData, Event, CountriesData, Country, Track } from "../types";
+import { ScenariosData, Event, CountriesData, Country, Track, StartScreenData } from "../types";
 import { countriesLists } from "../../utils/countriesLists";
 
 export class ScenarioStore {
@@ -17,6 +17,7 @@ export class ScenarioStore {
     currentStoryline = "";
     currentCountryData: Country = {};
     currentEventData: Event = {};
+    startScreenData: StartScreenData = {};
 
     get currentScenarioName() {
         return document.URL.slice(document.URL.indexOf("?") + 1);
@@ -36,6 +37,9 @@ export class ScenarioStore {
     get currentEvents() {
         return this.currentPeriod.events;
     }
+	get currentStartScreenData() {
+        return this.startScreenData[this.currentScenarioName];
+    }
 
     setScenariosData = (newScenariosData: ScenariosData) => {
         this.scenariosData = newScenariosData;
@@ -43,12 +47,19 @@ export class ScenarioStore {
     setCountriesData = (newCountriesData: CountriesData) => {
         this.countriesData = newCountriesData;
     };
+    setStartScreenData = (newStartScreenData: StartScreenData) => {
+        this.startScreenData = newStartScreenData;
+    };
 
     setInitialData = (currentPeriodIndex: number, currentMusicList: Array<Track>, currentTrack: Track, currentStoryline: string) => {
         this.currentPeriodIndex = currentPeriodIndex;
         this.rootStore.musicPlayerStore.currentMusicList = currentMusicList;
         this.rootStore.musicPlayerStore.currentTrack = currentTrack;
         this.currentStoryline = currentStoryline;
+
+        if (currentPeriodIndex === 0) {
+            this.rootStore.interfaceStore.startScreenIsShown = true;
+        }
     };
 
     checkEvent = (eventId: number) => {

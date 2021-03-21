@@ -12,14 +12,17 @@ export class ServerStore {
     resourcesDataIsLoaded = false;
     scenariosDataIsLoaded = false;
     countriesDataIsLoaded = false;
+    startScreenDataIsLoaded = false;
 
     changeDataLoadStatus = (dataName: DataName, newStatus: boolean) => {
         if (dataName === "resources") {
             this.resourcesDataIsLoaded = newStatus;
         } else if (dataName === "scenarios") {
             this.scenariosDataIsLoaded = newStatus;
-        } else {
+        } else if (dataName === "countries") {
             this.countriesDataIsLoaded = newStatus;
+        } else if (dataName === "startScreens") {
+            this.startScreenDataIsLoaded = newStatus;
         }
     };
 }

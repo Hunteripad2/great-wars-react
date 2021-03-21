@@ -8,7 +8,7 @@ function getServerUrl() {
     return isLocalClient ? localServer : herokuServer;
 }
 
-export function loadDataFromServer(changeDataLoadStatus: Function, setScenariosData: Function, setResourcesData: Function, setCountriesData: Function) {
+export function loadDataFromServer(changeDataLoadStatus: Function, setScenariosData: Function, setResourcesData: Function, setCountriesData: Function, setStartScreenData: Function) {
     const serverUrl = getServerUrl();
 
     fetch(serverUrl + "resourcesData")
@@ -40,5 +40,15 @@ export function loadDataFromServer(changeDataLoadStatus: Function, setScenariosD
         })
         .then(() => {
             changeDataLoadStatus("countries", true);
+        });
+    fetch(serverUrl + "startScreenData")
+        .then((response) => {
+            return response.json();
+        })
+        .then((data) => {
+            setStartScreenData(data);
+        })
+        .then(() => {
+            changeDataLoadStatus("startScreens", true);
         });
 }

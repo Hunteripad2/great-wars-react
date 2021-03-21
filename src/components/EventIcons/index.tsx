@@ -12,14 +12,11 @@ export const EventIcons = observer(() => {
         interfaceStore: { showEventWindow, eventsAreBlinking },
     } = useContext(storeContext);
 
-    const showEvent = useCallback(
-        (eventId: number) => {
-            checkEvent(eventId);
-            setEventData(eventId);
-            showEventWindow();
-        },
-        [checkEvent, setEventData, showEventWindow]
-    );
+    function showEvent(eventId: number) {
+        checkEvent(eventId);
+        setEventData(eventId);
+        showEventWindow();
+    }
 
     const eventIcons = currentEvents.map((event, index) => {
         const eventName = event.name;

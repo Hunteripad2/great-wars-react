@@ -12,6 +12,7 @@ import { EventIcons } from "../../components/EventIcons";
 import { EventWindow } from "../../components/EventWindow";
 import { loadSaves } from "../../utils/localStorageService";
 import { grabMap } from "../../utils/grabMap";
+import { ScenarioStartScreen } from "../../components/ScenarioStartScreen";
 
 // TODO: i18n локализация
 
@@ -21,7 +22,7 @@ const mapTitle = "Карта";
 
 export const MapPage = observer(() => {
     const {
-        serverStore: { countriesDataIsLoaded },
+        serverStore: { countriesDataIsLoaded, startScreenDataIsLoaded },
         interfaceStore: { blinkEventIcons },
         scenarioStore: {
             currentPeriod: { map },
@@ -63,6 +64,7 @@ export const MapPage = observer(() => {
                     {countriesDataIsLoaded ? <CountryFlags /> : null}
                     <EventIcons />
                 </div>
+                {startScreenDataIsLoaded ? <ScenarioStartScreen /> : null}
             </main>
             <Blackening />
             <MusicList />

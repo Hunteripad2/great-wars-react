@@ -13,12 +13,12 @@ import { loadDataFromServer } from "./utils/serverService";
 export const App = observer(() => {
     const {
         serverStore: { changeDataLoadStatus, scenariosDataIsLoaded },
-        scenarioStore: { setScenariosData, setCountriesData },
+        scenarioStore: { setScenariosData, setCountriesData, setStartScreenData },
         resourceMenuStore: { setResourcesData },
     } = useContext(storeContext);
 
     useEffect(() => {
-        loadDataFromServer(changeDataLoadStatus, setScenariosData, setResourcesData, setCountriesData);
+        loadDataFromServer(changeDataLoadStatus, setScenariosData, setResourcesData, setCountriesData, setStartScreenData);
     }, [changeDataLoadStatus, setScenariosData, setResourcesData, setCountriesData]);
 
     return (
