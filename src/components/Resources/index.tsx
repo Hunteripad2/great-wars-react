@@ -6,12 +6,13 @@ import { storeContext } from "../../storage/RootStore";
 
 export const Resources = observer(() => {
     const {
-        resourceMenuStore: { resourcesDisplay, currentResourceList },
+        resourceMenuStore: { resourcesDisplay, currentResourceList, setCurrentResourceData },
+        interfaceStore: { showResourceWindow },
     } = useContext(storeContext);
 
     function showResource(resourceId: number) {
-        // TODO: доделать всплывающее окно
-        return null;
+        setCurrentResourceData(resourceId);
+        showResourceWindow();
     }
 
     const resourceListFirstRow = currentResourceList.map((resource, index) => {

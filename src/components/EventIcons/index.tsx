@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useCallback } from "react";
 import { observer } from "mobx-react-lite";
 //import { v4 as uuidv4 } from "uuid"; // TODO: с uuid каждый рендер создаётся новый элемент, разобраться
 import styles from "./styles.module.scss";
@@ -12,11 +12,14 @@ export const EventIcons = observer(() => {
         interfaceStore: { showEventWindow, eventsAreBlinking },
     } = useContext(storeContext);
 
-    const showEvent = (eventId: number) => (e: React.MouseEvent<HTMLButtonElement>) => {
-        checkEvent(eventId);
-        setEventData(eventId);
-        showEventWindow();
-    };
+    const showEvent = useCallback(
+        (eventId: number) => {
+            checkEvent(eventId);
+            setEventData(eventId);
+            showEventWindow();
+        },
+        [checkEvent, setEventData, showEventWindow]
+    );
 
     const eventIcons = currentEvents.map((event, index) => {
         const eventName = event.name;
@@ -25,7 +28,7 @@ export const EventIcons = observer(() => {
         const eventIconOpacity = event.checked || eventsAreBlinking ? { opacity: "0.4" } : { opacity: "1" };
 
         return (
-            <button key={eventName} className={styles.button} style={eventIconPosition} onClick={showEvent(index)}>
+            <button key={eventName} className={styles.button} style={eventIconPosition} onClick={() => showEvent(index)}>
                 <img src={eventIconSrc} className={styles.image} style={eventIconOpacity} alt={eventIconTitle} />
             </button>
         );

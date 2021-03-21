@@ -38,9 +38,9 @@ export interface ResourcesData {
 }
 
 export interface Resource {
-    name: string;
-    desc: string;
-    image: string;
+    name?: string;
+    desc?: string;
+    image?: string;
 }
 
 export interface CountriesData {

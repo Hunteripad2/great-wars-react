@@ -1,6 +1,6 @@
 import { makeAutoObservable } from "mobx";
 import { RootStore } from "../RootStore";
-import { ResourcesData } from "../types";
+import { ResourcesData, Resource } from "../types";
 
 const activeCategoryStyle = { backgroundColor: "#484848", borderTopLeftRadius: "25px", borderTopRightRadius: "25px" };
 
@@ -12,6 +12,7 @@ export class ResourceMenuStore {
     rootStore;
 
     resourcesData: ResourcesData = {};
+    currentResourceData: Resource = {};
 
     booksCategoryIsShown = false;
     articlesCategoryIsShown = false;
@@ -61,5 +62,9 @@ export class ResourceMenuStore {
         this.booksCategoryIsShown = false;
         this.articlesCategoryIsShown = false;
         this.filmsCategoryIsShown = true;
+    };
+
+    setCurrentResourceData = (resourceId: number) => {
+        this.currentResourceData = this.currentResourceList[resourceId];
     };
 }

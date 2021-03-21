@@ -7,6 +7,7 @@ import { createNewSaves, getCurrentPeriodIndex } from "../../utils/localStorageS
 import { Blackening } from "../../components/Blackening";
 import { SettingsMenu } from "../../components/SettingsMenu";
 import { ResourceMenu } from "../../components/ResourceMenu";
+import { ResourceWindow } from "../../components/ResourceWindow";
 
 const logoImage = "./images/logo.png";
 const logoTitle = "Лого";
@@ -63,6 +64,7 @@ export const MainPage = observer(() => {
             </main>
             <Blackening />
             <ResourceMenu />
+			<ResourceWindow />
             {scenariosDataIsLoaded ? <SettingsMenu /> : null}
         </div>
     );

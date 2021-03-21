@@ -10,6 +10,7 @@ export class InterfaceStore {
 
     settingsMenuIsShown = false;
     resourceMenuIsShown = false;
+    resourceWindowIsShown = false;
     musicListIsShown = false;
     countryWindowIsShown = false;
     eventWindowIsShown = false;
@@ -22,6 +23,9 @@ export class InterfaceStore {
     get resourceMenuDisplay() {
         return this.resourceMenuIsShown ? { transform: "translateY(0%)" } : { transform: "translateY(100%)" };
     }
+    get resourceWindowDisplay() {
+        return this.resourceWindowIsShown ? { transform: "scale(1, 1)" } : { transform: "scale(0, 0)" };
+    }
     get musicListDisplay() {
         return this.musicListIsShown ? { transform: "translate(0%)" } : { transform: "translate(100%)" };
     }
@@ -32,7 +36,7 @@ export class InterfaceStore {
         return this.rootStore.scenarioStore.currentEventData.option2 ? {} : { borderTopLeftRadius: "15px", borderTopRightRadius: "15px" };
     }
     get anyMenuIsShown() {
-        return this.settingsMenuIsShown || this.resourceMenuIsShown || this.musicListIsShown || this.eventWindowIsShown;
+        return this.settingsMenuIsShown || this.resourceMenuIsShown || this.resourceWindowIsShown || this.musicListIsShown || this.eventWindowIsShown;
     }
     get blackeningDisplay() {
         return this.anyMenuIsShown ? { opacity: "0.8", transform: "translate(0%)" } : { opacity: "0", transform: "translate(100%)" };
@@ -51,15 +55,28 @@ export class InterfaceStore {
     showResourceMenu = () => {
         this.resourceMenuIsShown = true;
     };
+    showResourceWindow = () => {
+        this.resourceWindowIsShown = true;
+        this.resourceMenuIsShown = false;
+    };
     showMusicList = () => {
         this.musicListIsShown = true;
     };
     showEventWindow = () => {
         this.eventWindowIsShown = true;
     };
+    returnToResourceMenu = () => {
+        this.resourceMenuIsShown = true;
+        this.resourceWindowIsShown = false;
+    };
     closeTabs = () => {
+        if (this.resourceWindowIsShown === true) {
+            this.resourceMenuIsShown = true;
+        } else {
+            this.resourceMenuIsShown = false;
+        }
         this.settingsMenuIsShown = false;
-        this.resourceMenuIsShown = false;
+        this.resourceWindowIsShown = false;
         this.musicListIsShown = false;
         this.eventWindowIsShown = false;
     };
