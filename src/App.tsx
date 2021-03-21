@@ -19,7 +19,7 @@ export const App = observer(() => {
 
     useEffect(() => {
         loadDataFromServer(changeDataLoadStatus, setScenariosData, setResourcesData, setCountriesData, setStartScreenData);
-    }, [changeDataLoadStatus, setScenariosData, setResourcesData, setCountriesData]);
+    }, [changeDataLoadStatus, setScenariosData, setResourcesData, setCountriesData, setStartScreenData]);
 
     return (
         <div id="app">

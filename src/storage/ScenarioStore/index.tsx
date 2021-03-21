@@ -37,7 +37,7 @@ export class ScenarioStore {
     get currentEvents() {
         return this.currentPeriod.events;
     }
-	get currentStartScreenData() {
+    get currentStartScreenData() {
         return this.startScreenData[this.currentScenarioName];
     }
 
