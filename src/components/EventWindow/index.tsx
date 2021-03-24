@@ -30,8 +30,8 @@ export const EventWindow = observer(() => {
         const eventType = eventData.type;
 
         if (eventType === "music") {
-            const newMusicName = eventData.newMusicName;
-            const newMusicSrc = eventData.newMusicSrc;
+            const newMusicName = eventData.newMusicName as string;
+            const newMusicSrc = eventData.newMusicSrc as string;
 
             if (!currentMusicList.some((track) => track.name === newMusicName)) {
                 addNewTrack(newMusicName, newMusicSrc);

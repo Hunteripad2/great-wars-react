@@ -2,7 +2,11 @@ export function getCurrentPeriodIndex(scenarioName: string) {
     return localStorage.getItem(`${scenarioName}CurrentPeriodIndex`);
 }
 
-export function updateMusicList(currentScenarioName: string, currentMusicList: string) {
+export function updatePeriodIndexSave(currentScenarioName: string, currentPeriodIndex: string) {
+    localStorage.setItem(`${currentScenarioName}CurrentPeriodIndex`, currentPeriodIndex);
+}
+
+export function updateMusicListSave(currentScenarioName: string, currentMusicList: string) {
     return localStorage.setItem(`${currentScenarioName}CurrentMusicList`, currentMusicList);
 }
 

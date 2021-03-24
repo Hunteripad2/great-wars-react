@@ -1,7 +1,7 @@
 import { makeAutoObservable } from "mobx";
 import { RootStore } from "../RootStore";
 import { Track } from "../types";
-import { updateMusicList } from "../../utils/localStorageService";
+import { updateMusicListSave } from "../../utils/localStorageService";
 
 export class MusicPlayerStore {
     constructor(rootStore: RootStore) {
@@ -18,22 +18,21 @@ export class MusicPlayerStore {
         this.musicIsPlaying = newStatus;
     };
 
-    setNewTrack = (trackId: number) => {
+    setCurrentTrack = (trackId: number) => {
         this.currentTrack = this.currentMusicList[trackId];
     };
 
-    forbidChoosenTrack = (trackName: string | undefined) => {
-        const trackId = this.currentMusicList.findIndex((track) => track.name === trackName);
-        this.currentMusicList[trackId].allowed = !this.currentMusicList[trackId].allowed;
-
-        const currentScenarioName = this.rootStore.scenarioStore.currentScenarioName;
-        updateMusicList(currentScenarioName, JSON.stringify(this.currentMusicList));
+    findTrackByName = (trackName: string) => {
+        return this.currentMusicList.findIndex((track) => track.name === trackName);
     };
 
-    addNewTrack = (newMusicName: string | undefined, newMusicSrc: string | undefined) => {
-        this.currentMusicList.push({ name: newMusicName, src: newMusicSrc, allowed: true });
+    forbidTrack = (trackId: number) => {
+        this.currentMusicList[trackId].allowed = !this.currentMusicList[trackId].allowed;
+        updateMusicListSave(this.rootStore.scenarioStore.currentScenarioName, JSON.stringify(this.currentMusicList));
+    };
 
-        const currentScenarioName = this.rootStore.scenarioStore.currentScenarioName;
-        updateMusicList(currentScenarioName, JSON.stringify(this.currentMusicList));
+    addNewTrack = (newMusicName: string, newMusicSrc: string) => {
+        this.currentMusicList.push({ name: newMusicName, src: newMusicSrc, allowed: true });
+        updateMusicListSave(this.rootStore.scenarioStore.currentScenarioName, JSON.stringify(this.currentMusicList));
     };
 }

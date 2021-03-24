@@ -15,7 +15,7 @@ const trackForbiddenTitle = "Разрешить воспроизведение";
 
 export const MusicList = observer(() => {
     const {
-        musicPlayerStore: { currentMusicList, setNewTrack, changeMusicPlayingStatus, forbidChoosenTrack },
+        musicPlayerStore: { currentMusicList, setCurrentTrack, changeMusicPlayingStatus, findTrackByName, forbidTrack },
         interfaceStore: { musicListDisplay },
     } = useContext(storeContext);
 
@@ -23,12 +23,12 @@ export const MusicList = observer(() => {
         if (!currentMusicList[trackId].allowed || e.target.tagName === "IMG") {
             return null;
         }
-        setNewTrack(trackId);
+        setCurrentTrack(trackId);
         changeMusicPlayingStatus(true);
     };
 
     const musicList = currentMusicList.map((track, index) => {
-        const trackName = track.name;
+        const trackName = track.name as string;
         const trackAllowed = track.allowed;
         const trackNameOpacity = trackAllowed ? { opacity: "1" } : { opacity: "0.2" };
         const forbidImageSrc = trackAllowed ? trackAllowedImage : trackForbiddenImage;
@@ -39,7 +39,7 @@ export const MusicList = observer(() => {
                 <span className={styles.name} style={trackNameOpacity}>
                     {trackName}
                 </span>
-                <img src={forbidImageSrc} className={styles.forbidImage} onClick={() => forbidChoosenTrack(trackName)} title={forbidImageTitle} alt={forbidImageTitle} />
+                <img src={forbidImageSrc} className={styles.forbidImage} onClick={() => forbidTrack(findTrackByName(trackName))} title={forbidImageTitle} alt={forbidImageTitle} />
             </li>
         );
     });

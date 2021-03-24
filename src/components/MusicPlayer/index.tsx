@@ -10,7 +10,7 @@ const listButtonImage = "./images/music_buttons/list.png";
 
 export const MusicPlayer = observer(() => {
     const {
-        musicPlayerStore: { musicIsPlaying, currentMusicList, currentTrack, changeMusicPlayingStatus, setNewTrack },
+        musicPlayerStore: { musicIsPlaying, currentMusicList, currentTrack, changeMusicPlayingStatus, setCurrentTrack },
         interfaceStore: { showMusicList, playButtonImage, playButtonTitle },
     } = useContext(storeContext);
     const currentTrackSrc = "./tracks/" + currentTrack.src + ".ogg";
@@ -38,13 +38,13 @@ export const MusicPlayer = observer(() => {
                 do {
                     randomIndex = Math.floor(Math.random() * currentMusicList.length);
                 } while (!currentMusicList[randomIndex].allowed || currentMusicList[randomIndex] === currentTrack);
-                setNewTrack(randomIndex);
+                setCurrentTrack(randomIndex);
                 break;
             }
         }
 
         changeMusicPlayingStatus(true);
-    }, [currentMusicList, currentTrack, setNewTrack, changeMusicPlayingStatus]);
+    }, [currentMusicList, currentTrack, setCurrentTrack, changeMusicPlayingStatus]);
 
     return (
         <div className={styles.musicPlayer}>

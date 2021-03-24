@@ -2,6 +2,7 @@ import { makeAutoObservable } from "mobx";
 import { RootStore } from "../RootStore";
 import { ScenariosData, Event, CountriesData, Country, Track, StartScreenData } from "../types";
 import { countriesLists } from "../../utils/countriesLists";
+import { updatePeriodIndexSave } from "../../utils/localStorageService";
 
 export class ScenarioStore {
     constructor(rootStore: RootStore) {
@@ -70,11 +71,11 @@ export class ScenarioStore {
     };
 
     endTurn = () => {
-        // TODO: сделать начальный и конечный экран
+        // TODO: сделать конечный экран
         for (let i = this.currentPeriodIndex + 1; i < this.currentScenario.length; i += 1) {
             if (this.currentScenario[i].storyLine.some((storyline) => storyline === this.currentStoryline)) {
-                localStorage.setItem(`${this.currentScenarioName}CurrentPeriodIndex`, i.toString());
                 this.currentPeriodIndex = i;
+                updatePeriodIndexSave(this.currentScenarioName, i.toString());
                 break;
             }
         }

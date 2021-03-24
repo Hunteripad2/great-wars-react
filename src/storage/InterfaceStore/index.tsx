@@ -85,11 +85,6 @@ export class InterfaceStore {
         this.eventWindowIsShown = false;
     };
     closeStartScreen = () => {
-        //if () {
-        //
-        //} else {
-        //
-        //}
         this.startScreenIsShown = false;
     };
 
