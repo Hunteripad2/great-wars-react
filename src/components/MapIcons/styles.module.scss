@@ -1,14 +1,23 @@
-.eventIcons {
+.mapIcons {
     position: absolute;
     height: 100%;
     width: 100%;
 }
 
-.button {
+.flagButton {
+    position: absolute;
+    width: 30px;
+}
+
+.flagImage {
+    width: 100%;
+}
+
+.eventButton {
     position: absolute;
 }
 
-.image {
+.eventImage {
     width: 100%;
     transition: opacity 0.9s;
 }

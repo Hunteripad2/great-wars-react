@@ -63,7 +63,6 @@ export interface StartScreenData {
 export interface StartScreen {
     title?: string;
     desc?: string;
-    option?: string;
 }
 
 export type DataName = "resources" | "scenarios" | "countries";

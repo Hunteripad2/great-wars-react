@@ -3,5 +3,6 @@ export interface CountriesLists {
 }
 
 export const countriesLists: CountriesLists = {
-    countryList1934: ["GBR", "GER"],
+    countryList1910: ["FRA_republic", "GBR", "GER_empire", "POR_kingdom", "SPA_kingdom"],
+    countryList1934: ["FRA_republic", "GBR", "GER_nazi", "IRE_republic", "POR_kingdom", "SPA_republic"],
 };

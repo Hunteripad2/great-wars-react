@@ -7,8 +7,7 @@ import { Blackening } from "../../components/Blackening";
 import { MusicPlayer } from "../../components/MusicPlayer";
 import { TurnCounter } from "../../components/TurnCounter";
 import { MusicList } from "../../components/MusicList";
-import { CountryFlags } from "../../components/CountryFlags";
-import { EventIcons } from "../../components/EventIcons";
+import { MapIcons } from "../../components/MapIcons";
 import { EventWindow } from "../../components/EventWindow";
 import { loadSaves } from "../../utils/localStorageService";
 import { grabMap } from "../../utils/grabMap";
@@ -61,8 +60,7 @@ export const MapPage = observer(() => {
                 <div className={styles.mapBackground}></div>
                 <div className={styles.map} onMouseDown={grabMap}>
                     <img className={styles.image} src={"./images/maps/" + map + ".png"} alt={mapTitle} />
-                    {countriesDataIsLoaded ? <CountryFlags /> : null}
-                    <EventIcons />
+                    {countriesDataIsLoaded ? <MapIcons /> : null}
                 </div>
                 {startScreenDataIsLoaded ? <ScenarioStartScreen /> : null}
             </main>
