@@ -5,7 +5,8 @@ import { storeContext } from "../../storage/RootStore";
 import { Event } from "../../storage/types";
 
 const currentEventImageTitle = "Изображение события";
-const trackAlreadyAddedAlert = "Эта композиция уже находится в списке";
+const trackAlreadyAddedAlert = "Эта композиция уже находится в списке воспроизведения";
+const trackAddedAlert = "Композиция добавлена в список воспроизведения";
 
 export const EventWindow = observer(() => {
     const {
@@ -36,6 +37,7 @@ export const EventWindow = observer(() => {
             if (!currentMusicList.some((track) => track.name === newMusicName)) {
                 addNewTrack(newMusicName, newMusicSrc);
                 closeTabs();
+                alert(trackAddedAlert);
             } else {
                 alert(trackAlreadyAddedAlert);
             }

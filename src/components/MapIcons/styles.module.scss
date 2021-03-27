@@ -7,6 +7,10 @@
 .flagButton {
     position: absolute;
     width: 30px;
+    opacity: 0.5;
+    &:hover {
+        opacity: 1;
+    }
 }
 
 .flagImage {
