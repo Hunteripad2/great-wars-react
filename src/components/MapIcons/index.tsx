@@ -8,13 +8,13 @@ const eventIconTitle = "Событие";
 
 export const MapIcons = observer(() => {
     const {
-        scenarioStore: { currentCountryList, checkEvent, setEventData, currentEvents },
-        interfaceStore: { showEventWindow, eventsAreBlinking },
+        scenarioStore: { currentCountryList, setCountryData, checkEvent, setEventData, currentEvents },
+        interfaceStore: { showCountryWindow, showEventWindow, eventsAreBlinking },
     } = useContext(storeContext);
 
     const showCountry = (countryId: number) => (e: React.MouseEvent<HTMLButtonElement>) => {
-        //TODO: сделать окно страны
-        console.log("click");
+        setCountryData(countryId);
+        showCountryWindow();
     };
 
     const countryFlags = currentCountryList.map((country, index) => {

@@ -8,6 +8,7 @@ import { MusicPlayer } from "../../components/MusicPlayer";
 import { TurnCounter } from "../../components/TurnCounter";
 import { MusicList } from "../../components/MusicList";
 import { MapIcons } from "../../components/MapIcons";
+import { CountryWindow } from "../../components/CountryWindow";
 import { EventWindow } from "../../components/EventWindow";
 import { loadSaves } from "../../utils/localStorageService";
 import { grabMap } from "../../utils/grabMap";
@@ -66,6 +67,7 @@ export const MapPage = observer(() => {
             </main>
             <Blackening />
             <MusicList />
+            <CountryWindow />
             <EventWindow />
         </div>
     );

@@ -33,6 +33,9 @@ export class InterfaceStore {
     get musicListDisplay() {
         return this.musicListIsShown ? { transform: "translate(0%)" } : { transform: "translate(100%)" };
     }
+    get countryWindowDisplay() {
+        return this.countryWindowIsShown ? { transform: "scale(1, 1)" } : { transform: "scale(0, 0)" };
+    }
     get eventWindowDisplay() {
         return this.eventWindowIsShown ? { transform: "scale(1, 1)" } : { transform: "scale(0, 0)" };
     }
@@ -40,7 +43,7 @@ export class InterfaceStore {
         return this.rootStore.scenarioStore.currentEventData.option2 ? {} : { borderTopLeftRadius: "15px", borderTopRightRadius: "15px" };
     }
     get anyMenuIsShown() {
-        return this.settingsMenuIsShown || this.resourceMenuIsShown || this.resourceWindowIsShown || this.musicListIsShown || this.eventWindowIsShown;
+        return this.settingsMenuIsShown || this.resourceMenuIsShown || this.resourceWindowIsShown || this.musicListIsShown || this.countryWindowIsShown || this.eventWindowIsShown;
     }
     get blackeningDisplay() {
         return this.anyMenuIsShown ? { opacity: "0.8", transform: "translate(0%)" } : { opacity: "0", transform: "translate(100%)" };
@@ -66,6 +69,9 @@ export class InterfaceStore {
     showMusicList = () => {
         this.musicListIsShown = true;
     };
+    showCountryWindow = () => {
+        this.countryWindowIsShown = true;
+    };
     showEventWindow = () => {
         this.eventWindowIsShown = true;
     };
@@ -82,6 +88,7 @@ export class InterfaceStore {
         this.settingsMenuIsShown = false;
         this.resourceWindowIsShown = false;
         this.musicListIsShown = false;
+        this.countryWindowIsShown = false;
         this.eventWindowIsShown = false;
     };
     closeStartScreen = () => {

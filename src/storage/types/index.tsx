@@ -50,6 +50,8 @@ export interface CountriesData {
 export interface Country {
     name?: string;
     backstory?: string;
+    leaderName?: string;
+    leaderSrc?: string;
     flag?: string;
     icon?: string;
     positionX?: string;

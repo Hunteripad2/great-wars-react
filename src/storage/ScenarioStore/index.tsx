@@ -63,6 +63,10 @@ export class ScenarioStore {
         }
     };
 
+    setCountryData = (countryId: number) => {
+        this.currentCountryData = this.currentCountryList[countryId];
+    };
+
     checkEvent = (eventId: number) => {
         this.currentEvents[eventId].checked = true;
     };
