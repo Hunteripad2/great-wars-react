@@ -10,7 +10,7 @@ const listButtonImage = "./images/music_buttons/list.png";
 
 export const MusicPlayer = observer(() => {
     const {
-        musicPlayerStore: { musicIsPlaying, currentMusicList, currentTrack, changeMusicPlayingStatus, setCurrentTrack },
+        musicPlayerStore: { musicIsPlaying, currentMusicList, currentTrack, currentVolume, changeMusicPlayingStatus, setCurrentTrack },
         interfaceStore: { showMusicList, playButtonImage, playButtonTitle },
     } = useContext(storeContext);
     const currentTrackSrc = "./tracks/" + currentTrack.src + ".ogg";
@@ -24,7 +24,15 @@ export const MusicPlayer = observer(() => {
         } else if (!musicIsPlaying && !audioElement?.paused && currentTrack) {
             audioElement?.pause();
         }
-    }, [musicIsPlaying, audioElement, currentTrack]);
+        setVolume(currentVolume / 100);
+    }, [musicIsPlaying, audioElement, currentTrack, currentVolume]);
+
+    const setVolume = useCallback(
+        (volume) => {
+            if (audioElement) audioElement.volume = volume;
+        },
+        [audioElement]
+    );
 
     const playCurrentTrack = useCallback(() => {
         changeMusicPlayingStatus(!musicIsPlaying);

@@ -6,8 +6,16 @@ export function updatePeriodIndexSave(currentScenarioName: string, currentPeriod
     localStorage.setItem(`${currentScenarioName}CurrentPeriodIndex`, currentPeriodIndex);
 }
 
+export function updateMusicVolumeSave(currentVolume: string) {
+    localStorage.setItem(`savedMusicVolume`, currentVolume);
+}
+
+export function getMusicVolumeSave() {
+    return Number(localStorage.getItem(`savedMusicVolume`));
+}
+
 export function updateMusicListSave(currentScenarioName: string, currentMusicList: string) {
-    return localStorage.setItem(`${currentScenarioName}CurrentMusicList`, currentMusicList);
+    localStorage.setItem(`${currentScenarioName}CurrentMusicList`, currentMusicList);
 }
 
 export function createNewSaves(scenarioName: string, startingMusic: string) {

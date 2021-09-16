@@ -1,7 +1,7 @@
 import { makeAutoObservable } from "mobx";
 import { RootStore } from "../RootStore";
 import { Track } from "../types";
-import { updateMusicListSave } from "../../utils/localStorageService";
+import { updateMusicListSave, updateMusicVolumeSave, getMusicVolumeSave } from "../../utils/localStorageService";
 
 export class MusicPlayerStore {
     constructor(rootStore: RootStore) {
@@ -13,9 +13,15 @@ export class MusicPlayerStore {
     musicIsPlaying = false;
     currentTrack: Track = {};
     currentMusicList: Array<Track> = [];
+    currentVolume: number = getMusicVolumeSave();
 
     changeMusicPlayingStatus = (newStatus: boolean) => {
         this.musicIsPlaying = newStatus;
+    };
+
+    changeVolume = (newVolume: number) => {
+        this.currentVolume = newVolume;
+        updateMusicVolumeSave(String(newVolume));
     };
 
     setCurrentTrack = (trackId: number) => {
