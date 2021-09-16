@@ -18,6 +18,13 @@ export const MusicPlayer = observer(() => {
     const audioPlayer = useRef<HTMLAudioElement>(null);
     const audioElement = audioPlayer.current;
 
+    const setVolume = useCallback(
+        (volume) => {
+            if (audioElement) audioElement.volume = volume;
+        },
+        [audioElement]
+    );
+
     useEffect(() => {
         if (musicIsPlaying && audioElement?.paused && currentTrack) {
             audioElement?.play();
@@ -25,14 +32,7 @@ export const MusicPlayer = observer(() => {
             audioElement?.pause();
         }
         setVolume(currentVolume / 100);
-    }, [musicIsPlaying, audioElement, currentTrack, currentVolume]);
-
-    const setVolume = useCallback(
-        (volume) => {
-            if (audioElement) audioElement.volume = volume;
-        },
-        [audioElement]
-    );
+    }, [musicIsPlaying, audioElement, currentTrack, currentVolume, setVolume]);
 
     const playCurrentTrack = useCallback(() => {
         changeMusicPlayingStatus(!musicIsPlaying);
